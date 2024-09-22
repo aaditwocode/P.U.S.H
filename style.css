@@ -145,24 +145,52 @@ footer p {
     max-width: 1200 px;
     margin: 0 auto;
   }
+
+  .reasonintro {
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
+}
+
+.reasonintro h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+}
+
   
   .reason-box {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4);     padding: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    linear-gradient(to right, #333333, #555555, #222222); 
+    padding: 20px;
     border-radius: 18px;
-    box-shadow: 0 12px 14px rgba(105, 40, 40, 0.687);
+    box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
     width: calc(25% - 30px); 
     margin-bottom: 20px;
     margin-right: 10px;
-  }
-  
-  .reason-box h2 {
-    font-size: 1.5rem;
+    color: #ffffff; 
+}
+
+.reason-box h2 {
+    font-size: 1.5rem; 
+    margin-bottom: 12px;
+    color: #ffd700; 
+}
+
+.reason-box ul {
+    font-size: 1.1rem;
+    color: #d1d1d1; 
     margin-bottom: 10px;
-  }
-  
-  .reason-box p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
+}
+
+.reason-box ul li {
+    margin-bottom: 8px;
+}
+
+
+.reason-box:hover {
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.6);
+    transform: scale(1.02);
+}
