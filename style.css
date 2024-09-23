@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 /* Reset some default styles */
 body, h1, h2, h3, p, ul, li {
     margin: 0;
@@ -5,44 +8,55 @@ body, h1, h2, h3, p, ul, li {
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #fff;
     background-color: #1a1a1a;
-}
+} */
 
 header {
     background: #000;
     color: #fff;
     padding: 10px 0;
+    height: 70px;
 }
 
 header .container {
-    width: 99%;
-    margin: 0 auto;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.container .leftHeader{
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+.container .rightHeader{
+    width: 60%;
+}
+.container .rightHeader ul{
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
 }
 .container img{
     height: 70px;
     object-fit: cover;
 }
-header h1 {
+ h2 {
     margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 35px;
 }
-
-header nav ul {
-    list-style: none;
-    display: flex;
+.rightHeader ul li{
+    margin-left: 30px ;
 }
-
-header nav ul li {
-    margin-left: 20px ;
-}
-
-header nav ul li a {
+.rightHeader ul li a{
     color: #fff;
     text-decoration: none;
 }
