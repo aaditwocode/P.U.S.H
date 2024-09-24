@@ -161,28 +161,42 @@ body {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 1200 px;
+    max-width: 1500px;
     margin: 0 auto;
+<<<<<<< HEAD
 }
 
 .reasonintro {
+=======
+  }
+  
+  .reasonintro {
+>>>>>>> bb79d41a92763c4959e616de60ec1f29b964427f
     text-align: center;
     margin-bottom: 40px;
     box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
-}
-
-.reasonintro h1 {
+  }
+  
+  .reasonintro h1 {
     font-size: 2.5rem;
-    color: #007bff;
+    color: #d5c110;
     text-transform: uppercase;
     font-weight: bold;
     margin: 0;
+<<<<<<< HEAD
 }
 
 
 .reason-box {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         linear-gradient(to right, #333333, #555555, #222222);
+=======
+  }
+  
+  .reason-box {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    linear-gradient(to right, #333333, #555555, #222222);
+>>>>>>> bb79d41a92763c4959e616de60ec1f29b964427f
     padding: 20px;
     border-radius: 18px;
     box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
@@ -190,6 +204,7 @@ body {
     margin-bottom: 20px;
     margin-right: 10px;
     color: #ffffff;
+<<<<<<< HEAD
 }
 
 .reason-box h2 {
@@ -199,19 +214,31 @@ body {
 }
 
 .reason-box ul {
+=======
+    position: relative;
+  }
+  
+  .reason-box h2 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #ffd700;
+  }
+  
+  .reason-box ul {
+>>>>>>> bb79d41a92763c4959e616de60ec1f29b964427f
     font-size: 1.1rem;
     color: #d1d1d1;
     margin-bottom: 10px;
-}
-
-.reason-box ul li {
+  }
+  
+  .reason-box ul li {
     margin-bottom: 8px;
-}
-
-
-.reason-box:hover {
+  }
+  
+  .reason-box:hover {
     box-shadow: 0 14px 18px rgba(0, 0, 0, 0.6);
     transform: scale(1.02);
+<<<<<<< HEAD
 }
 
 /* subscription */
@@ -401,3 +428,22 @@ button:hover {
         gap: 30px;
     }
 }
+=======
+  }
+  
+  .reason-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+  
+  .reason-image img {
+    width: auto;
+    height: 80px;
+    max-width: 100px;
+    max-height: 60px;
+    border-radius: 13px;
+    object-fit:contain;
+  }
+>>>>>>> bb79d41a92763c4959e616de60ec1f29b964427f
