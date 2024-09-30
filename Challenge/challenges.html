@@ -1,0 +1,165 @@
+<html></html>
+<head>
+    <title>Challenge Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="challenges.css">
+</head>
+<body>
+<source src="challenges.js">
+<header>
+    <div class="container0">
+        <div class="leftHeader">
+            <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
+            <h2>P . U . S . H</h2>
+        </div>
+        <div class="rightHeader">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+    <div class="header">
+        Challenge Tracker
+    </div>
+    <div class="navbar">
+        Total Coins Earned: <span id="total-coins">0</span> <i class="fas fa-coins"></i>
+    </div>
+    <div class="progress-container">
+        <p>Overall Progress</p>
+        <table>
+            <tr>
+                <th>Challenge</th>
+                <th>Progress</th>
+            </tr>
+            <tr>
+                <td>7-Day Fitness Challenge</td>
+                <td>
+                    <div class="progress-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Healthy Meal Plan Challenge</td>
+                <td>
+                    <div class="progress-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Mindfulness & Meditation Challenge</td>
+                <td>
+                    <div class="progress-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Hydration Challenge</td>
+                <td>
+                    <div class="progress-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Sleep Improvement Challenge</td>
+                <td>
+                    <div class="progress-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <div class="card fitness-theme">
+            <h3>7-Day Fitness Challenge</h3>
+            <p>Complete 7 consecutive days of workouts</p>
+            <div class="checkbox-container">
+                <p>Day 1: 20 minutes of cardio</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 2: 30-minute strength training</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 3: Yoga or stretching routine</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 4-7: Repeat different workouts (arms, legs, abs, etc.)</p>
+                <input type="checkbox">
+            </div>
+            <p class="rewards">Coin rewards: 10 coins per day, 50 bonus coins for completing all 7 days <i class="fas fa-coins"></i></p>
+            <p>Coin tracker: 0 coins</p>
+        </div>
+        <div class="card meal-theme">
+            <h3>Healthy Meal Plan Challenge</h3>
+            <p>Stick to a healthy meal plan for 7 days</p>
+            <div class="checkbox-container">
+                <p>Day 1-7: Follow specific diet plans (e.g., balanced macros, keto, plant-based)</p>
+                <input type="checkbox">
+            </div>
+            <p class="rewards">Coin rewards: 5 coins per meal, 10 bonus coins for a full day of healthy eating, extra coins for preparing meals in advance or incorporating nutrient-rich ingredients <i class="fas fa-coins"></i></p>
+            <p>Coin tracker: 0 coins</p>
+        </div>
+        <div class="card mindfulness-theme">
+            <h3>Mindfulness & Meditation Challenge</h3>
+            <p>Practice mindfulness or meditation for at least 10 minutes a day for 5 consecutive days</p>
+            <div class="checkbox-container">
+                <p>Day 1: 10 minutes of guided breathing exercises</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 2: Practice gratitude meditation</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 3: Body scan meditation</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 4: Silent meditation for relaxation</p>
+                <input type="checkbox">
+            </div>
+            <div class="checkbox-container">
+                <p>Day 5: Guided imagery meditation</p>
+                <input type="checkbox">
+            </div>
+            <p class="rewards">Coin rewards: 15 coins per day, 25 bonus coins for completing the entire 5-day challenge <i class="fas fa-coins"></i></p>
+            <p>Coin tracker: 0 coins</p>
+        </div>
+        <div class="card hydration-theme">
+            <h3>Hydration Challenge</h3>
+            <p>Drink the recommended amount of water (e.g., 8 glasses or 2 liters) for 7 days</p>
+            <div class="checkbox-container">
+                <p>Log water intake throughout the day using a tracking system</p>
+                <input type="checkbox">
+            </div>
+            <p class="rewards">Coin rewards: 2 coins per glass of water, 10 bonus coins for completing the daily water goal, share tips or reminders to drink water throughout the day <i class="fas fa-coins"></i></p>
+            <p>Coin tracker: 0 coins</p>
+        </div>
+        <div class="card sleep-theme">
+            <h3>Sleep Improvement Challenge</h3>
+            <p>Improve sleep quality by maintaining a consistent sleep schedule and practicing good sleep hygiene for 7 nights</p>
+            <div class="checkbox-container">
+                <p>Day 1-5: Go to bed and wake up at the same time</p>
+                <input type="checkbox">
+            </div>
+            <p class="rewards">Coin rewards: 10 coins per night, 30 bonus coins for completing all 5 days <i class="fas fa-coins"></i></p>
+            <p>Coin tracker: 0 coins</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Push Fitness. All rights reserved.</p>
+        <p>Email: contact@pushfitness.com</p>
+        <p>Phone: (123) 456-7890 </p>    </footer>
+</body>
+</html>
