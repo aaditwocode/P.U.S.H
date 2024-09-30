@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Diet Plans</title>
+
+    <style>
+        button {
+            display: block;
+            width: 80%;
+            max-width: 200px;
+            padding: 10px;
+            margin: 5px auto;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            background: linear-gradient(to right, #2980b9, #6dd5ed);
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container0 {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .leftHeader {
+            display: flex;
+            align-items: center;
+        }
+
+        .leftHeader img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .leftHeader h2 {
+            margin: 0;
+            font-family: "Protest Guerrilla", sans-serif;
+            font-size: 32px;
+        }
+
+        .rightHeader ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rightHeader ul li {
+            margin-left: 25px;
+        }
+
+        .rightHeader ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .rightHeader ul li a:hover {
+            color: #ffeb3b;
+        }
+
+        #hero {
+            background-color: #4CAF50;
+            text-align: center;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #hero h2 {
+            font-size: 45px;
+            margin: 10px;
+        }
+
+        #hero p {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #hero button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #333;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #hero button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #333;
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container0 {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .rightHeader ul {
+                flex-direction: column;
+            }
+
+            .rightHeader ul li {
+                margin: 10px 0;
+            }
+
+            #hero h2 {
+                font-size: 36px;
+            }
+
+            #hero p {
+                font-size: 18px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .body-type-selector,
+        .progress-container,
+        .meal-plan-section,
+        .user-details-section {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .body-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .body-selector {
+            width: 200px;
+            text-align: center;
+        }
+
+        .progress-container {
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 30px;
+            background-color: #76c7c0;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            padding: 10px;
+            width: 50%;
+            margin: 10px 0;
+        }
+
+        select {
+            padding: 10px;
+            width: 55%;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .meal-plan-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .meal-plan-column {
+            width: 45%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal-plan-column h4 {
+            text-align: center;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin: 5px;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .physique-box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            height: 37vh;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .physique-box:hover {
+            transform: scale(1.05);
+        }
+
+        .physique-box h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+
+        .physique-box ol[type="I"] {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .physique-box li {
+            margin-bottom: 10px;
+        }
+
+        .physique-box:nth-child(1) {
+            background-color: rgb(130, 255, 47);
+        }
+
+        .physique-box:nth-child(2) {
+            background-color: bisque;
+        }
+
+        .physique-box:nth-child(3) {
+            background-color: rgb(255, 120, 143);
+        }
+
+        @media (max-width: 768px) {
+            .container1 {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .physique-box {
+                width: 90%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+        let weight, height, gender;
+
+        function submitUserDetails() {
+            weight = parseFloat(document.getElementById('user-weight').value);
+            height = parseFloat(document.getElementById('user-height').value);
+            gender = document.querySelector('input[name="gender"]:checked').value;
+
+            if (isNaN(weight) || isNaN(height) || (!gender)) {
+                alert("Please enter valid weight, height, and select a gender.");
+                return;
+            }
+
+            alert("Details submitted successfully! You can now calculate your BMI.");
+        }
+
+        function calculateBMI() {
+            if (weight > 0 && height > 0) {
+                const bmi = (weight / (height * height)).toFixed(2);
+                let category = '';
+                let analysis = '';
+
+                if (gender === 'male') {
+                    if (bmi < 20) {
+                        category = 'Underweight';
+                        analysis = 'You are considered underweight. It may be beneficial to follow our bulk plan followed by the toned plan.';
+                    } else if (bmi < 25) {
+                        category = 'Normal weight';
+                        analysis = 'Congratulations! You have a normal weight. Maintain the balanced diet that you are currently taking. We recommend you try all the plans.';
+                    } else if (bmi < 30) {
+                        category = 'Overweight';
+                        analysis = 'You are classified as overweight. Consider adopting our slim weight plan.';
+                    } else {
+                        category = 'Obesity';
+                        analysis = 'You are considered obese. It is highly recommended to seek advice from a healthcare provider and to strictly follow the slim diet plan.';
+                    }
+                } else if (gender === 'female') {
+                    if (bmi < 18.5) {
+                        category = 'Underweight';
+                        analysis = 'You are considered underweight. It may be beneficial to follow our bulk plan followed by the toned plan.';
+                    } else if (bmi < 24.9) {
+                        category = 'Normal weight';
+                        analysis = 'Congratulations! You have a normal weight. Maintain a balanced diet that you are currently taking. We recommend you try all the plans.';
+                    } else if (bmi < 29.9) {
+                        category = 'Overweight';
+                        analysis = 'You are classified as overweight. Consider adopting our slim weight plan.';
+                    } else {
+                        category = 'Obesity';
+                        analysis = 'You are considered obese. It is highly recommended to seek guidance from a healthcare provider and to strictly follow the slim diet plan.';
+                    }
+                }
+
+                document.getElementById('result').innerText = `Your BMI is ${bmi} - ${category}`;
+                document.getElementById('analysis').innerText = analysis;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid weight and height.';
+                document.getElementById('analysis').innerText = '';
+            }
+        }
+
+        function selectBodyType(bodyType) {
+            bodyTypeSelected = bodyType;
+            alert('You selected the ' + bodyType + ' body type.');
+            document.getElementById('meal-plan-section').style.display = 'block';
+        }
+
+        let totalCalories = 0;
+        let consumedCalories = 0;
+        let dailyCalorieGoal = 0;
+        let startDate = null;
+
+        function setStartDate() {
+            const startDateInput = document.getElementById('start-date').value;
+            if (!startDateInput) {
+                alert('Please select a start date.');
+                return;
+            }
+
+            startDate = new Date(startDateInput); 
+            totalCalories = dailyCalorieGoal * 30; 
+            document.getElementById('total-calories-display').innerText = totalCalories + ' kcal'; 
+            alert(`Tracking started from ${startDateInput}. Total monthly calorie goal set to ${totalCalories} kcal.`);
+            document.getElementById('progress-section').style.display = 'block'; 
+        }
+
+        function setDailyCalorieGoal() {
+            const newDailyGoal = parseInt(document.getElementById('daily-calorie-input').value);
+            if (isNaN(newDailyGoal) || newDailyGoal <= 0) {
+                alert('Please enter a valid daily calorie goal.');
+                return;
+            }
+
+            dailyCalorieGoal = newDailyGoal;
+
+            const oldTotalCalories = totalCalories; 
+            totalCalories = dailyCalorieGoal * 30; 
+            document.getElementById('total-calories-display').innerText = totalCalories + ' kcal'; 
+
+            const progressPercent = (consumedCalories / totalCalories) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + '%';
+            document.getElementById('progress-text').innerText = 'Progress: ' + Math.floor(progressPercent) + '%';
+
+            alert(`Daily calorie goal set to ${dailyCalorieGoal} kcal. Monthly calorie goal updated to ${totalCalories} kcal. Progress has been recalculated.`);
+        }
+
+        function calculateNextMonthDate(currentDate) {
+            const nextMonthDate = new Date(currentDate);
+            nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
+            return nextMonthDate;
+        }
+
+        function checkAndResetProgress() {
+            const currentDate = new Date();
+            const monthDiff = currentDate.getMonth() - startDate.getMonth() +
+                (12 * (currentDate.getFullYear() - startDate.getFullYear()));
+
+            if (monthDiff >= 1) { 
+                const progressPercent = (consumedCalories / totalCalories) * 100;
+                alert(`A month has passed. Final tracking results before reset:\n
+               - Start Date: ${startDate.toDateString()}\n
+               - Current Date: ${currentDate.toDateString()}\n
+               - Total Consumed: ${consumedCalories} kcal\n
+               - Total Calorie Goal: ${totalCalories} kcal\n
+               - Progress Achieved: ${Math.floor(progressPercent)}%\n
+               The calorie tracker has been reset for the new month.`);
+
+                resetProgress();
+                startDate = calculateNextMonthDate(startDate);
+                alert(`New tracking period started from ${startDate.toDateString()}.`);
+            }
+        }
+
+        function addCalories() {
+            checkAndResetProgress(); 
+            const caloriesInput = document.getElementById('calories-consumed').value;
+
+            if (caloriesInput === '' || isNaN(caloriesInput)) {
+                alert('Please enter a valid number of calories.');
+                return;
+            }
+
+            const calories = parseInt(caloriesInput);
+            consumedCalories += calories;
+
+            const progressPercent = (consumedCalories / totalCalories) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + '%';
+            document.getElementById('progress-text').innerText = 'Progress: ' + Math.floor(progressPercent) + '%';
+
+            const remainingCalories = totalCalories - consumedCalories;
+            alert(`You have consumed ${calories} calories. \n
+           Progress: ${Math.floor(progressPercent)}% \n
+           Remaining Calories for the Month: ${remainingCalories} kcal`);
+        }
+
+        function resetProgress() {
+            consumedCalories = 0;
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('progress-text').innerText = 'Progress: 0%';
+            alert('Calorie progress has been reset.');
+        }
+
+        class MealPlan {
+            constructor(type) {
+                this.type = type;
+            }
+
+            getVegetarianPlan() {
+                return `
+                <h4>Vegetarian</h4>
+                <ol>
+                    <li>Breakfast: Oatmeal with fruits</li>
+                    <li>Lunch: Grilled vegetable sandwich</li>
+                    <li>Dinner: Stir-fried veggies with quinoa</li>
+                </ol>
+            `;
+            }
+
+            getNonVegetarianPlan() {
+                return `
+                <h4>Non-Vegetarian</h4>
+                <ol>
+                    <li>Breakfast: Eggs with toast</li>
+                    <li>Lunch: Grilled chicken salad</li>
+                    <li>Dinner: Salmon with steamed vegetables</li>
+                </ol>
+            `;
+            }
+        }
+
+        class SlimMealPlan extends MealPlan {
+            constructor() {
+                super("Slim");
+            }
+
+            getVegetarianPlan() {
+                return `
+                <h4>Vegetarian - Slim Plan</h4>
+                <ol>
+                    <li>Breakfast: Smoothie with spinach and banana (300 kcal)</li>
+                    <li>Lunch: Quinoa salad with mixed veggies (400 kcal)</li>
+                    <li>Dinner: Grilled vegetable skewers (400 kcal)</li>
+                </ol>
+            `;
+            }
+
+            getNonVegetarianPlan() {
+                return `
+                <h4>Non-Vegetarian - Slim Plan</h4>
+                <ol>
+                    <li>Breakfast: Scrambled eggs with avocado (350 kcal)</li>
+                    <li>Lunch: Chicken Caesar salad (450 kcal)</li>
+                    <li>Dinner: Grilled fish with broccoli (400 kcal)</li>
+                </ol>
+            `;
+            }
+        }
+
+        class BulkMealPlan extends MealPlan {
+            constructor() {
+                super("Bulk");
+            }
+
+            getVegetarianPlan() {
+                return `
+                <h4>Vegetarian - Bulk Plan</h4>
+                <ol>
+                    <li>Breakfast: Oatmeal with peanut butter (500 kcal)</li>
+                    <li>Lunch: Chickpea curry with rice (700 kcal)</li>
+                    <li>Dinner: Pasta with pesto and roasted vegetables (600 kcal)</li>
+                </ol>
+            `;
+            }
+
+            getNonVegetarianPlan() {
+                return `
+                <h4>Non-Vegetarian - Bulk Plan</h4>
+                <ol>
+                    <li>Breakfast: Omelette with cheese and toast (600 kcal)</li>
+                    <li>Lunch: Beef steak with mashed potatoes (750 kcal)</li>
+                    <li>Dinner: Grilled chicken with rice (700 kcal)</li>
+                </ol>
+            `;
+            }
+        }
+
+        class ToneMealPlan extends MealPlan {
+            constructor() {
+                super("Tone");
+            }
+
+            getVegetarianPlan() {
+                return `
+                <h4>Vegetarian - Tone Plan</h4>
+                <ol>
+                    <li>Breakfast: Chia pudding with fruits (300 kcal)</li>
+                    <li>Lunch: Lentil salad with feta (400 kcal)</li>
+                    <li>Dinner: Zucchini noodles with marinara sauce (400 kcal)</li>
+                </ol>
+            `;
+            }
+
+            getNonVegetarianPlan() {
+                return `
+                <h4>Non-Vegetarian - Tone Plan</h4>
+                <ol>
+                    <li>Breakfast: Boiled eggs with toast (350 kcal)</li>
+                    <li>Lunch: Grilled turkey sandwich (450 kcal)</li>
+                    <li>Dinner: Grilled shrimp with veggies (400 kcal)</li>
+                </ol>
+            `;
+            }
+        }
+
+        function generateMealPlan() {
+            const mealPlanDiv = document.getElementById('meal-plan');
+            let mealPlan = '';
+            const isVegetarian = document.querySelector('input[name="diet"]:checked').value === 'vegetarian';
+
+            let selectedPlan;
+            if (bodyTypeSelected === 'slim') {
+                selectedPlan = new SlimMealPlan();
+            } else if (bodyTypeSelected === 'bulk') {
+                selectedPlan = new BulkMealPlan();
+            } else if (bodyTypeSelected === 'tone') {
+                selectedPlan = new ToneMealPlan();
+            }
+
+            if (isVegetarian) {
+                mealPlan = selectedPlan.getVegetarianPlan();
+            } else {
+                mealPlan = selectedPlan.getNonVegetarianPlan();
+            }
+
+            mealPlanDiv.innerHTML = mealPlan;
+        }
+    </script>
+
+    <header>
+        <div class="container0">
+            <div class="leftHeader">
+                <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
+                <h2>P . U . S . H</h2>
+            </div>
+            <div class="rightHeader">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <h2>Eat Healthy, Live Better</h2>
+        <h2>Welcome to Your Diet Plan</h2>
+        <p>Track your calories and discover personalized diet plans and tips to improve your health.</p>
+        <h3>WORLD HEALTH ORGANIZATION</h3>
+        <button onclick="window.location.href='https://www.who.int/news-room/fact-sheets/detail/healthy-diet'">Learn
+            More</button>
+    </section>
+
+    <section>
+        <h1>Types of Physique</h1>
+        <div class="container1">
+            <div class="physique-box">
+                <h2>SLIM </h2>
+                <ol>
+                    <li>A slim physique typically has a low body fat percentage and muscle mass.</li>
+                    <li>People with this physique tend to have a lean body structure with little visible muscle
+                        definition.</li>
+                </ol>
+                <ol type="I">
+                    <li>Muscle Mass: 35% - 45%</li>
+                    <li>Body Fat: 10% - 15%</li>
+                    <li>Body Mass Index (BMI): 18 - 22</li>
+                </ol>
+            </div>
+
+            <div class="physique-box">
+                <h2>BULK</h2>
+                <ol>
+                    <li>A bulk physique is characterized by high muscle mass with a moderate to high body fat
+                        percentage.</li>
+                    <li>This physique often emphasizes strength and size over leanness.</li>
+                </ol>
+                <ol type="I">
+                    <li>Muscle Mass: 50% - 60%</li>
+                    <li>Body Fat: 15% - 25%</li>
+                    <li>BMI: 25 - 30</li>
+                </ol>
+            </div>
+
+            <div class="physique-box">
+                <h2>TONED</h2>
+                <ol>
+                    <li>A toned physique combines a balanced amount of muscle mass with a low body fat percentage.</li>
+                    <li>This leads to visible muscle definition without excessive bulk.</li>
+                </ol>
+                <ol type="I">
+                    <li>Muscle Mass: 40% - 50%</li>
+                    <li>Body Fat: 8% - 12%</li>
+                    <li>BMI: 20 - 24</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="user-details-section" id="user-details-section">
+            <h2>Enter Your Details</h2>
+            <label for="user-weight">Weight (kg):</label>
+            <input type="number" id="user-weight" placeholder="Enter your weight" required><br>
+
+            <label for="user-height">Height (m):</label>
+            <input type="number" id="user-height" placeholder="Enter your height" required><br>
+
+            <label>Gender:</label>
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label><br>
+
+            <button onclick="submitUserDetails()">Submit Details</button>
+        </section>
+
+        <section class="user-details-section">
+            <h1>BMI Calculator</h1>
+            <div class="container2">
+                <button onclick="calculateBMI()">Calculate BMI</button>
+                <div id="result"></div>
+                <div id="analysis"></div>
+            </div>
+        </section>
+
+        <section class="body-type-selector" id="body-type-section">
+            <h2>Select Your Body Type</h2>
+            <div class="body-container">
+                <div class="body-selector">
+                    <h3>Bulk</h3>
+                    <button onclick="selectBodyType('bulk')">Select Bulk Plan</button>
+                </div>
+                <div class="body-selector">
+                    <h3>Slim</h3>
+                    <button onclick="selectBodyType('slim')">Select Slim Plan</button>
+                </div>
+                <div class="body-selector">
+                    <h3>Tone</h3>
+                    <button onclick="selectBodyType('tone')">Select Tone Plan</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="meal-plan-section" id="meal-plan-section" style="display:none;">
+            <h2>Your Custom Meal Plan</h2>
+            <section class="progress-container">
+                <h3>Set Start Date for Calorie Tracking</h3>
+                <div>
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" />
+                    <button onclick="setStartDate()">Set Start Date</button>
+                </div>
+            </section>
+
+            <section class="progress-container" id="progress-section" style="display:none;">
+                <h2>Calorie Progress Tracker</h2>
+                <div>
+                    <label for="daily-calorie-input">Daily Calorie Goal:</label>
+                    <input type="number" id="daily-calorie-input" placeholder="Enter daily calorie goal" />
+                    <button onclick="setDailyCalorieGoal()">Set Daily Calorie Goal</button>
+                </div>
+                <p>Total Calories for the Month: <strong id="total-calories-display">0 kcal</strong></p>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                <div>
+                    <label for="calories-consumed">Calories Consumed:</label>
+                    <input type="number" id="calories-consumed" placeholder="Enter calories" />
+                    <button onclick="addCalories()">Add Calories</button>
+                    <button onclick="resetProgress()">Reset Calories</button>
+                </div>
+                <div>
+                    <p id="progress-text">Progress: 0%</p>
+                </div>
+            </section>
+            <label>Select Diet Type:</label><br>
+            <input type="radio" id="vegetarian" name="diet" value="vegetarian" checked>
+            <label for="vegetarian">Vegetarian</label><br>
+            <input type="radio" id="non-vegetarian" name="diet" value="non-vegetarian">
+            <label for="non-vegetarian">Non-Vegetarian</label><br>
+            <button onclick="generateMealPlan()">Generate Meal Plan</button>
+            <div id="meal-plan"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Healthy Diet Plans</p>
+    </footer>
+</body>
+
+</html>
