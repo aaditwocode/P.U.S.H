@@ -58,25 +58,26 @@ header {
 }
 
 #push {
-	font-size: 36px;
+	font-size: 75px;
 	font-weight: bold;
-	color: rgba(237, 173, 24, 0.785);
+	color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 10px;
 }
 
 #pursue {
-	font-size: 24px;
+	font-size: 40px;
 	font-weight: bold;
-  color: rgb(96, 57, 57);
+    color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 20px;
 }
 
+
 #quote-text {
-	font-size: 24px;
+	font-size: 30px;
 	font-weight: bold;
-  color: rgb(96, 57, 57);
+    color: rgb(175, 198, 28);
 	text-shadow: 2px 2px 4px #000000;
 }
 
