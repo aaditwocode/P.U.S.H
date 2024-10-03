@@ -1,0 +1,282 @@
+/* navbar.css */
+body {
+    margin: 0;
+    font-family: 'Alegreya', serif;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .logo {
+    width: 48px;
+    height: 48px;
+    margin: 0 20px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #3A1212;
+    font-size: 24px;
+  }
+  
+  .nav-link.active {
+    border-bottom: 3px solid #FF2625;
+  }
+  .hero-banner {
+    position: relative;
+    margin-top: 70px;
+    padding: 20px;
+    margin-left: 50px;
+  }
+  
+  .hero-title {
+    color: #FF2625;
+    font-weight: 600;
+    font-size: 26px;
+  }
+  
+  .hero-subtitle {
+    font-weight: 700;
+    font-size: 44px;
+    margin-bottom: 23px;
+    margin-top: 30px;
+  }
+  
+  .hero-description {
+    font-size: 22px;
+    font-family: 'Alegreya', serif;
+    line-height: 35px;
+  }
+  
+  .explore-btn {
+    margin-top: 45px;
+    text-decoration: none;
+    width: 200px;
+    text-align: center;
+    background: #FF2625;
+    padding: 14px;
+    font-size: 22px;
+    text-transform: none;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .hero-watermark {
+    font-weight: 600;
+    color: #FF2625;
+    opacity: 0.1;
+    display: block;
+    font-size: 200px;
+  }
+  
+  .hero-banner-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: auto;
+  }
+  .search-exercises {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 37px;
+    padding: 20px;
+  }
+  
+  .search-title {
+    font-weight: 700;
+    font-size: 44px;
+    margin-bottom: 49px;
+    text-align: center;
+  }
+  
+  .search-box {
+    position: relative;
+    margin-bottom: 72px;
+    width: 100%; 
+    max-width: 1000px; 
+    display: flex; /* Flexbox for layout */
+  }
+  
+  .search-input {
+    height: 56px; 
+    font-weight: 700;
+    border: 1px solid #ccc; /* Light grey border for professionalism */
+    border-radius: 4px 0 0 4px; /* Rounded corners on the left */
+    width: 100%; 
+    padding: 0 16px; 
+    font-size: 16px; 
+    transition: border-color 0.3s; /* Transition for border color on focus */
+  }
+  
+  .search-input:hover {
+    border-color: #000;
+    outline: none; /* Remove default outline */
+  }
+  
+  .search-btn {
+    background-color: #FE2525; /* Change button color to dark */
+    color: #F6FAFD; 
+    text-transform: none;
+    height: 58px; 
+    border: none; 
+    border-radius: 0 4px 4px 0; /* Rounded corners on the right */
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    width: 200px;
+  }
+  
+  .search-btn:hover {
+    background-color: #F6FAFD; 
+    color: #FE2525;
+    border: 1px solid #FE2525;
+  }
+  
+  /* Horizontal Scrollbar Container */
+.horizontal-scrollbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+  }
+  
+  /* Scroll Menu */
+  .scroll-menu {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding: 10px;
+  }
+  
+  /* Hide scrollbar in Scroll Menu */
+  .scroll-menu::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Scroll Button Style */
+  .scroll-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Scroll Button Image Style */
+  .scroll-btn img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Left and Right Arrow Positioning */
+  .left-arrow, .right-arrow {
+    display: inline-block;
+    margin-top: 0; /* Adjust based on positioning */
+    position: relative;
+  }
+  
+  /* Individual Exercise or Body Part Card */
+  .bodyPart-card {
+    min-width: 270px;
+    height: 282px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Hover Effect for Cards */
+  .bodyPart-card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Card Image Style */
+  .bodyPart-card img {
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+  }
+  
+  /* Active Card Style */
+  .bodyPart-card.active {
+    border-top: 4px solid #FF2625;
+  }
+  
+  /* Card Title Style */
+  .bodyPart-card h3 {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Alegreya', serif;
+    color: #3A1212;
+    text-transform: capitalize;
+    margin: 20px 0;
+  }
+  .exercises {
+    margin-top: 50px;
+    padding: 20px;
+  }
+  
+  .results-title {
+    font-weight: bold;
+    font-size: 30px; /* Adjust for responsiveness as needed */
+    margin-bottom: 46px;
+  }
+  
+  .exercise-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px; /* Adjust for responsiveness as needed */
+  }
+  
+  .exercise-card {
+    width: 250px; /* Adjust the width as needed */
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .exercise-card img {
+    width: 100%;
+  }
+  
+  .pagination-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-btn {
+    background-color: #FFA9A9;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 10px;
+  }
+  
+  .pagination-btn:disabled {
+    background-color: #ccc;
+  }
+  

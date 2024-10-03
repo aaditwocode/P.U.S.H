@@ -1,0 +1,65 @@
+<!-- navbar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar</title>
+  <link rel="stylesheet" href="new.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="index.html">
+      <img src="assets/Logo.png" alt="logo" class="logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="#exercises" class="nav-link">Exercises</a>
+    </div>
+  </div>
+  <div class="hero-banner">
+    <h1 class="hero-title">Fitness Club</h1>
+    <h2 class="hero-subtitle">Sweat, Smile <br> And Repeat</h2>
+    <p class="hero-description">Check out the most effective exercises personalized to you</p>
+    <a href="#exercises" class="explore-btn">Explore Exercises</a>
+    <h1 class="hero-watermark">Exercise</h1>
+    <img src="assets/banner.png" alt="hero-banner" class="hero-banner-img">
+  </div>
+  <div class="search-exercises">
+    <h2 class="search-title">Awesome Exercises You <br> Should Know</h2>
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="Search Exercises" />
+      <button class="search-btn">Search</button>
+    </div>
+ </div>
+ <div class="horizontal-scrollbar">
+    <!-- Left Arrow Button -->
+    <button class="scroll-btn left-arrow">
+      <img src="assets/left-arrow.png" alt="Left Arrow">
+    </button>
+  
+    <!-- Dynamic Content Area -->
+    <div class="scroll-menu" id="scroll-menu">
+      <!-- Dynamic Content for Body Parts or Exercise Cards will be injected here -->
+    </div>
+  
+    <!-- Right Arrow Button -->
+    <button class="scroll-btn right-arrow">
+      <img src="assets/right-arrow.png" alt="Right Arrow">
+    </button>
+  </div>
+  <div id="exercises" class="exercises">
+    <h4 class="results-title">Showing Results</h4>
+    <div class="exercise-cards">
+      <!-- Dynamic Exercise Cards will be injected here -->
+    </div>
+    <div class="pagination-container">
+      <button id="prev-page" class="pagination-btn">Previous</button>
+      <span id="page-number">1</span>
+      <button id="next-page" class="pagination-btn">Next</button>
+    </div>
+  </div>
+  
+  <script type="module" src="new.js"></script>
+</body>
+</html>

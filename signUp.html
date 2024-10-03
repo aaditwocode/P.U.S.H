@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signUp.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
+        </div>
+        <div class="website-name">
+            <h1>P.U.S.H<br>
+                Pursue Ultimate Strength and Fitness
+            </h1>
+        </div>
+        <div class="login-form">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <span id="name-error" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <span id="username-error" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span id="email-error" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <span id="dob-error" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <span id="phone-error" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <span id="password-error" class="error"></span>
+                    <span id="password-strength" class="password-strength"></span>
+                </div>
+               <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="signUp.js"></script>
+</body>
+</html>

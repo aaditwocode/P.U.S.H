@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reach Out for Support</title>
+    <link rel="stylesheet" href="contact.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Reach Out for Support</h1>
+        <p>"Strength comes from seeking help. We are here to listen and guide you."</p>
+    </header>
+
+    <main>
+        <!-- Added a new section for additional content between header and quotes -->
+        <section class="additional-content">
+            <p><i class="fas fa-user-shield"></i> We provide a safe, confidential space for you to express your feelings and get support. Whether you're facing a tough challenge or just need to talk, we're here for you.</p>
+        </section>
+
+        <!-- Quotes Section -->
+        <section class="quotes">
+            <blockquote><i class="fas fa-quote-left"></i> “The greatest glory in living lies not in never falling, but in rising every time we fall.” – Nelson Mandela <i class="fas fa-quote-right"></i></blockquote>
+            <blockquote><i class="fas fa-quote-left"></i> “Your mental health is a priority. Your happiness is essential.” <i class="fas fa-quote-right"></i></blockquote>
+        </section>
+
+        <!-- Contact Info Section -->
+        <section class="contact-info">
+            <h2>Connect with Us</h2>
+            <div class="contact-methods">
+                <div class="method">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Phone</h3>
+                    <p><a href="tel:+15555551212">+91-0000000000</a></p>
+                </div>
+                <div class="method">
+                    <i class="far fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p><a href="mailto:support@example.com">support@mail.com</a></p>
+                </div>
+            </div>
+            <div class="operating-hours">
+                <h3>Operating Hours:</h3>
+                <p>Monday - Friday: 9:00 AM - 5:00 PM </p>
+            </div>
+        </section>
+
+        <!-- Form and Image Section -->
+        <section class="form-and-footer">
+            <div class="footer-images">
+                <img src="./assets/contactHeroImg.jpg" alt="Support and Care" class="main-image">
+            </div>
+
+            <section class="form-section">
+                <h2>Send a Message</h2>
+                <p>We are here to listen. Feel free to share your thoughts and concerns with us.</p>
+                <form id="contact-form" action="#" method="post">
+                    <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="cta-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </section>
+        </section>
+
+        <!-- FAQ Section (moved to the end) -->
+        <section class="accordion-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="accordion">
+                <button class="accordion-btn">What services do you provide?</button>
+                <div class="panel">
+                    <p><i class="fas fa-check-circle"></i> We offer confidential mental health support, counseling, and a safe space to talk.</p>
+                </div>
+
+                <button class="accordion-btn">How can I get in touch with you?</button>
+                <div class="panel">
+                    <p><i class="fas fa-phone-alt"></i> You can contact us via phone or email. See our contact details above.</p>
+                </div>
+
+                <button class="accordion-btn">Is my information kept confidential?</button>
+                <div class="panel">
+                    <p><i class="fas fa-lock"></i> Yes, your privacy is important to us. All communication is kept confidential.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 P.U.S.H. All rights reserved.</p>
+    </footer>
+
+    <script src="contact.js"></script>
+</body>
+
+</html>

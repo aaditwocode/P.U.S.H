@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Website</title>
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="navbar-logo">
+       
+          <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="logo" />
+    
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="exercises-container.html">Exercises</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Welcome to Your Fitness Journey</h1>
+      <p>Find the best exercises to achieve your goals</p>
+      <a href="exercises-container.html" class="banner-btn">Start Now</a>
+    </div>
+  </div>
+
+<!-- Search and Exercises Section -->
+<div class="search-section">
+    <h2 class="search-title">Awesome Exercises You Should Know</h2>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search Exercises">
+      <button id="search-btn">Search</button>
+    </div>
+    <div id="body-parts-scroll" class="scroll-container"></div>
+  </div>
+  <div id="search-results"></div>
+  
+  
+
+  <div id="exercises-container" class="exercises-container">
+    <!-- Exercises will be dynamically added here -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="logo" class="footer-logo" />
+      <p>Made by P.U.S.H</p>
+    </div>
+  </footer>
+
+  <script src="exercise.js"></script>
+</body>
+</html>
