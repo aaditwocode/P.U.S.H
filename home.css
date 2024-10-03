@@ -1,51 +1,109 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+h2 {
+    margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 35px;
+    font-weight: lighter;
+}
+h1{
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #f0a500;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-li {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
     color: #fff;
-    background-color: #1a1a1a;
-} */
+    text-align: center;
+}
+
+
 header {
     background: #000;
-    color: #fff;
-    padding: 10px 0;
-    height: 70px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+color: white;
+padding: 1rem;
+position: relative;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+position: sticky;
+top: 0;
+z-index: 1000;
+}
+
+header .container0 {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.leftHeader {
+display: flex;
+align-items: center;
+}
+
+.leftHeader img {
+height: 50px;
+margin-right: 10px;
+}
+
+.leftHeader h2 {
+margin: 0;
+font-family: "Protest Guerrilla", sans-serif;
+font-size: 32px;
+}
+
+.rightHeader ul {
+display: flex;
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.rightHeader ul li {
+margin-left: 25px;
+}
+
+.rightHeader ul li a {
+color: white;
+text-decoration: none;
+font-size: 18px;
+transition: color 0.3s;
+}
+
+.rightHeader ul li a:hover {
+color: #ffeb3b;
 }
 
 .video-wrapper {
-    height: calc(100vh - 70px);
-    position: relative;
+position: relative;
+width: 100%;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #000;
 }
 
 .vdo {
-    position: absolute;
-    z-index: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.vdo video {
-    height: 100%;
-    z-index: 0;
-    width: 100%;
-    object-fit: contain;
-    background-color: #000;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 #quote {
@@ -55,11 +113,11 @@ header {
 	transform: translate(-50%, -50%);
 	z-index: 3;
 	text-align: center;
+    font-family: "Protest Guerrilla", sans-serif;
 }
 
 #push {
 	font-size: 75px;
-	font-weight: bold;
 	color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 10px;
@@ -67,7 +125,6 @@ header {
 
 #pursue {
 	font-size: 40px;
-	font-weight: bold;
     color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 20px;
@@ -76,134 +133,24 @@ header {
 
 #quote-text {
 	font-size: 30px;
-	font-weight: bold;
     color: rgb(175, 198, 28);
 	text-shadow: 2px 2px 4px #000000;
 }
 
-header .container {
-    height: 70px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    z-index: 100;
-}
-
-
-.container .leftHeader {
-
-    display: flex;
-    align-items: center;
-    width: 40%;
-  height: 100%;
-}
-
-.container .rightHeader {
-    width: 60%;
-    height: 100%;
-}
-
-.container .rightHeader ul {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-}
-
-.container img {
-    height: 100%;
-    object-fit: cover;
-}
-
-h2 {
-    margin: 0;
-    font-family: "Protest Guerrilla", sans-serif;
-    font-size: 35px;
-}
-
-.rightHeader ul li {
-    margin-left: 30px;
-}
-
-.rightHeader ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-
-
-#features {
-    padding: 60px 0;
-    background: #1c1c1c;
-}
-
-#features .container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-}
-.emoji{
-    font-size: 30px !important;
-    
-}
-#features .feature {
-    margin-bottom: 30px;
-}
-
-
-#subscription {
-    padding: 60px 0;
-    background: #1c1c1c;
-}
-
-#subscription .container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-}
-
-
-#subscription h3 {
-    margin-bottom: 10px;
-}
-
 footer {
-    background: #1c1c1c;
-    color: #fff;
-    padding: 20px 0;
     text-align: center;
-}
-
-footer .container {
-    width: 80%;
-    margin: 0 auto;
+    padding: 15px 0;
+    background: #000;
+    color: white;
 }
 
 footer p {
-    margin-bottom: 10px;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: hsl(0, 0%, 100%);
     margin: 0;
-    padding: 20px;
 }
 
-.reasons-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px;
+#features {
+    padding: 20px 0;
+    background: #333;
 }
 
 .reason-box {
@@ -243,39 +190,36 @@ body {
     transform: scale(1.1);
 }
 
-
-/* subscription */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.reasons-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #1c1c1c;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+.reason-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+  }
+  
+  .reason-image img {
+    width: auto;
+    height: auto;
+    max-width: 100px;
+    max-height: 120px;
+    border-radius: 13px;
+    object-fit:contain;
+  }
 
 .container {
-    max-width: 1200px;
     margin: auto;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 42px;
-    font-weight: 700;
-    color: #f0a500;
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 18px;
-    color: #bbb;
-    margin-bottom: 40px;
+    padding-top: 20px;
+    padding-right: 160px;
+    background-color: #333;
 }
 
 .plans {
@@ -320,7 +264,6 @@ p {
     color: #fff;
 }
 
-
 .plan-features {
     display: flex;
     justify-content: space-between;
@@ -336,7 +279,6 @@ p {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    margin-bottom: 15px;
 }
 
 .feature span {
@@ -363,7 +305,6 @@ p {
 .plan-pricing {
     display: flex;
     justify-content: right;
-    margin-top: 20px;
 }
 
 .pricing-item {
@@ -373,18 +314,19 @@ p {
     border-radius: 10px;
     color: #fff;
     width: 15%;
-    margin-left: 35px;
+    margin-left: 18px;
     align-content: center;
 }
 
 .plan-buttons {
     display: flex;
     justify-content: right;
-    margin-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 40px;
 }
 
 button {
-    padding: 15px 25px;
+    padding: 10px;
     background-color: #ff4747;
     color: white;
     border: none;
@@ -393,8 +335,9 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s ease;
-    width: 15%;
-    margin-left: 35px;
+    width: 140px;
+    margin-left: 42px;
+    margin-right: 35px;
 }
 
 button:hover {
@@ -432,22 +375,6 @@ button:hover {
     }
 }
   
-  
-  .reason-image {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 1;
-  }
-  
-  .reason-image img {
-    width: auto;
-    height: auto;
-    max-width: 100px;
-    max-height: 120px;
-    border-radius: 13px;
-    object-fit:contain;
-  }
-
-  
-
+hr{
+margin: 5px;
+}

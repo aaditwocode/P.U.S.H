@@ -12,30 +12,28 @@
 </head>
 
 <body>
-    
-        <header>
-            <div class="container">
-                <div class="leftHeader">
-                    <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="">
-                    <h2>P . U . S . H</h2>
-                </div>
-                <div class="rightHeader">
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="wellness.html">wellness</a></li>
-                    </ul>
-                </div>
-    
-            </div>
-        </header>
+<script src="home.js"></script>
+    <header>
+    <div class="container0">
+        <div class="leftHeader">
+            <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
+            <h2>P . U . S . H</h2>
+        </div>
+        <div class="rightHeader">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html">Login/SignUp</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
     
         <div class="video-wrapper">
-            <div class="vdo">
-                <video autoplay loop muted src="./assets/rickroll.mp4"></video>
-            </div>
+                <video class="vdo" autoplay loop muted src="./assets/PUSH.mp4"></video>
             <div id="quote">
                 <p id="push">P.U.S.H.</p>
                 <p id="pursue">Pursue Ultimate Strength and Health</p>
@@ -44,11 +42,9 @@
         </div>
     
         <section id="features">
-            <div class="reasonintro"> 
                 <h1>WHY YOU SHOULD CHOOSE P.U.S.H</h1>
-            </div>
             <div class="reasons-container">
-                <div class="reason-box">
+                <div class="reason-box" onclick="window.location.href='diet.html';" style="cursor: pointer;">
                     <h2>DIET</h2>
                     <ul>
                         <li>Custom diet plans for you</li>
@@ -60,7 +56,7 @@
                         <img src="./assets/diet.jpg" alt="Diet image">
                     </div>
                 </div>
-                <div class="reason-box">
+                <div class="reason-box" onclick="window.location.href='';" style="cursor: pointer;">
                     <h2>WORKOUT</h2>
                     <ul>
                         <li>Wide variety of workout routines</li>
@@ -72,7 +68,7 @@
                         <img src="./assets/workout.jpg" alt="Workout image">
                     </div>
                 </div>
-                <div class="reason-box">
+                <div class="reason-box" onclick="window.location.href='wellness.html';" style="cursor: pointer;">
                     <h2>WELLNESS</h2>
                     <ul>
                         <li>Mindfulness and meditation techniques</li>
@@ -84,7 +80,7 @@
                         <img src="./assets/wellness.jpg" alt="Wellness image">
                     </div>
                 </div>
-                <div class="reason-box">
+                <div class="reason-box" onclick="window.location.href='challenges.html';" style="cursor: pointer;">
                     <h2>CHALLENGES</h2>
                     <ul>
                         <li>Challenges sorted by difficulty</li>
@@ -99,12 +95,10 @@
             </div>
         </section>
         
-
+<hr>
     <section>
         <div class="container">
-            <div class="reasonintro">
                 <h1>WHAT TO CHOOSE</h1>
-            </div>
             <div class="plans">
                 <div class="plan-header">
                     <div class="plan-type platinum">PLATINUM</div>
@@ -168,11 +162,9 @@
         </div>
     </section>
     <footer id="contact">
-        <div class="container">
             <p>&copy; 2024 Push Fitness. All rights reserved.</p>
             <p>Email: contact@pushfitness.com</p>
             <p>Phone: (123) 456-7890 </p>
-        </div>
     </footer>
 </body>
 </html>
