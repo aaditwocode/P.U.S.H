@@ -10,7 +10,6 @@ const bodyPartImages = {
   shoulders: './assets/shoulders.jpg',
   arms: './assets/arms.jpg',
   abs: './assets/abs.jpg',
-  // Add other body parts and their respective images as needed
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,15 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const populateScrollMenu = (data) => {
-    scrollMenu.innerHTML = ''; // Clear previous content
+    scrollMenu.innerHTML = ''; 
     data.forEach((item) => {
       const cardDiv = document.createElement('div');
       cardDiv.classList.add('bodyPart-card');
       if (item === selectedBodyPart) {
-        cardDiv.classList.add('active'); // Highlight active body part
+        cardDiv.classList.add('active');
       }
 
-      // Add content to the body part card
       const icon = document.createElement('img');
       icon.src = bodyPartImages[item] || './assets/default.jpg';;
       icon.alt = item;
@@ -59,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
       cardDiv.appendChild(icon);
       cardDiv.appendChild(text);
 
-      // Handle card click event
       cardDiv.addEventListener('click', () => handleBodyPartClick(item, cardDiv));
 
       scrollMenu.appendChild(cardDiv);
@@ -67,26 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelector('.left-arrow').addEventListener('click', () => {
-    scrollMenu.scrollLeft -= 300; // Adjust scroll distance as needed
+    scrollMenu.scrollLeft -= 300; 
   });
 
   document.querySelector('.right-arrow').addEventListener('click', () => {
     scrollMenu.scrollLeft += 300;
   });
 
-  // Handle body part click event
   const handleBodyPartClick = (bodyPart, cardDiv) => {
     selectedBodyPart = bodyPart;
 
-    // Remove active class from previously selected card
     document.querySelectorAll('.bodyPart-card').forEach(card => card.classList.remove('active'));
-    // Highlight the clicked card
     cardDiv.classList.add('active');
 
-    loadExercisesData(selectedBodyPart); // Fetch exercises for the selected body part
+    loadExercisesData(selectedBodyPart); 
   };
 
-  // Fetch exercises data based on selected body part or search term
   const loadExercisesData = async (bodyPart, searchTerm = '') => {
     let exercisesData = [];
 
@@ -96,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions);
     }
 
-    exercises = exercisesData; // Store all exercises
+    exercises = exercisesData; 
     filteredExercises = exercises.filter(exercise => {
       return (
         exercise.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -106,13 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
 
-    currentPage = 1; // Reset to first page
+    currentPage = 1;
     renderExercises();
   };
 
-  // Render exercises based on the current page
   const renderExercises = () => {
-    exerciseCardsContainer.innerHTML = ''; // Clear previous content
+    exerciseCardsContainer.innerHTML = ''; 
 
     const indexOfLastExercise = currentPage * exercisesPerPage;
     const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
@@ -137,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('page-number').innerText = currentPage;
   };
 
-  // Pagination control
   document.getElementById('prev-page').addEventListener('click', () => {
     if (currentPage > 1) {
       currentPage--;
@@ -152,14 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initialize and fetch data
   fetchExercisesData();
   
   searchButton.addEventListener('click', () => {
     const search = searchInput.value.trim();
     if (search) {
-      loadExercisesData(selectedBodyPart, search); // Load filtered exercises based on search
-      searchInput.value = ''; // Clear input
+      loadExercisesData(selectedBodyPart, search);
+      searchInput.value = ''; 
     }
   });
 });

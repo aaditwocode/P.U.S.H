@@ -3,7 +3,7 @@ document.getElementById("signup-form").addEventListener("submit", function(event
     const email = document.querySelector('#signup-form input').value;
     if (email) {
         alert("Thank you for subscribing! We'll keep you updated.");
-        document.querySelector('#signup-form input').value = "";  // Clear input
+        document.querySelector('#signup-form input').value = ""; 
     } else {
         alert("Please enter a valid email.");
     }

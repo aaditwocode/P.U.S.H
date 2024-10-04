@@ -121,6 +121,7 @@ object-fit: cover;
 	color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 10px;
+    font-family: "Protest Guerrilla", sans-serif;
 }
 
 #pursue {
@@ -128,6 +129,7 @@ object-fit: cover;
     color: rgba(39, 71, 177, 0.833);
 	text-shadow: 2px 2px 4px #000000;
 	margin-bottom: 20px;
+    font-family: "Protest Guerrilla", sans-serif;
 }
 
 
@@ -135,6 +137,7 @@ object-fit: cover;
 	font-size: 30px;
     color: rgb(175, 198, 28);
 	text-shadow: 2px 2px 4px #000000;
+    font-family: "Protest Guerrilla", sans-serif;
 }
 
 footer {
@@ -150,12 +153,11 @@ footer p {
 
 #features {
     padding: 20px 0;
-    background: #333;
+    background-color: #1c1c1c;
 }
 
 .reason-box {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    linear-gradient(to right, #333333, #555555, #222222);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),linear-gradient(to right, #333333, #555555, #222222);
     padding: 20px;
     border-radius: 18px;
     box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
@@ -219,7 +221,7 @@ footer p {
     margin: auto;
     padding-top: 20px;
     padding-right: 160px;
-    background-color: #333;
+    background-color: #1c1c1c;
 }
 
 .plans {
@@ -245,24 +247,26 @@ footer p {
 }
 
 .plan-type.platinum {
-    background-color: #666;
+    background: linear-gradient(135deg, #2c2c2c, #8e8e8e);
     color: #fff;
 }
 
 .plan-type.diamond {
-    background-color: #800080;
+    background: linear-gradient(135deg, #330033, #b300b3);
     color: #fff;
 }
 
 .plan-type.gold {
-    background-color: #f0a500;
+    background: linear-gradient(135deg, #4d3900, #d4af37);
     color: #fff;
 }
 
 .plan-type.trial {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #1b3b1b, #5fa55f);
     color: #fff;
 }
+
+
 
 .plan-features {
     display: flex;
@@ -377,4 +381,8 @@ button:hover {
   
 hr{
 margin: 5px;
+}
+
+.h{
+    padding-left: 200px;
 }

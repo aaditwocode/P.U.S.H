@@ -22,10 +22,12 @@ minusButton.addEventListener('click', decreaseTime);
 plusButton.addEventListener('click', increaseTime);
 
 function startTimer() {
-    if (timerInput.value <= 0) return;
+
+    if (timerInput.value <= 0) return; 
     timer = setInterval(updateTimer, 1000);
     audio.play();
-    disableInputs();
+    disableInputs(); 
+
 }
 
 function pauseTimer() {
@@ -38,13 +40,16 @@ function resetTimer() {
     seconds = 0;
     minutes = 0;
     hours = 0;
+
     
     updateDisplay();
     timerProgress.style.width = '0%';
     audio.pause();
     audio.currentTime = 0;
     
-    enableInputs();
+
+    enableInputs(); 
+
 }
 
 function decreaseTime() {

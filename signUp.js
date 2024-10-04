@@ -107,7 +107,6 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     } else if (nameError.textContent || usernameError.textContent || emailError.textContent || dobError.textContent || phoneError.textContent || passwordError.textContent) {
         alert('Please fix the errors');
     } else {
-        // Here you can add your login logic
         alert('Sign UP successful');
         window.location.href = "home.html";
     }

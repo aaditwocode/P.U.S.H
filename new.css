@@ -1,4 +1,3 @@
-/* navbar.css */
 body {
     margin: 0;
     font-family: 'Alegreya', serif;
@@ -106,32 +105,32 @@ body {
     margin-bottom: 72px;
     width: 100%; 
     max-width: 1000px; 
-    display: flex; /* Flexbox for layout */
+    display: flex; 
   }
   
   .search-input {
     height: 56px; 
     font-weight: 700;
-    border: 1px solid #ccc; /* Light grey border for professionalism */
-    border-radius: 4px 0 0 4px; /* Rounded corners on the left */
+    border: 1px solid #ccc; 
+    border-radius: 4px 0 0 4px; 
     width: 100%; 
     padding: 0 16px; 
     font-size: 16px; 
-    transition: border-color 0.3s; /* Transition for border color on focus */
+    transition: border-color 0.3s; 
   }
   
   .search-input:hover {
     border-color: #000;
-    outline: none; /* Remove default outline */
+    outline: none; 
   }
   
   .search-btn {
-    background-color: #FE2525; /* Change button color to dark */
+    background-color: #FE2525; 
     color: #F6FAFD; 
     text-transform: none;
     height: 58px; 
     border: none; 
-    border-radius: 0 4px 4px 0; /* Rounded corners on the right */
+    border-radius: 0 4px 4px 0; 
     font-size: 16px; 
     cursor: pointer; 
     transition: background-color 0.3s; 
@@ -144,16 +143,14 @@ body {
     border: 1px solid #FE2525;
   }
   
-  /* Horizontal Scrollbar Container */
 .horizontal-scrollbar {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px 0;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow-x: hidden;
   }
   
-  /* Scroll Menu */
   .scroll-menu {
     display: flex;
     overflow-x: auto;
@@ -164,32 +161,27 @@ body {
     padding: 10px;
   }
   
-  /* Hide scrollbar in Scroll Menu */
   .scroll-menu::-webkit-scrollbar {
     display: none;
   }
   
-  /* Scroll Button Style */
   .scroll-btn {
     background: none;
     border: none;
     cursor: pointer;
   }
   
-  /* Scroll Button Image Style */
   .scroll-btn img {
     width: 24px;
     height: 24px;
   }
   
-  /* Left and Right Arrow Positioning */
   .left-arrow, .right-arrow {
     display: inline-block;
-    margin-top: 0; /* Adjust based on positioning */
+    margin-top: 0; 
     position: relative;
   }
   
-  /* Individual Exercise or Body Part Card */
   .bodyPart-card {
     min-width: 270px;
     height: 282px;
@@ -202,24 +194,20 @@ body {
     transition: transform 0.3s ease;
   }
   
-  /* Hover Effect for Cards */
   .bodyPart-card:hover {
     transform: scale(1.05);
   }
   
-  /* Card Image Style */
   .bodyPart-card img {
     width: 40px;
     height: 40px;
     margin-top: 20px;
   }
   
-  /* Active Card Style */
   .bodyPart-card.active {
     border-top: 4px solid #FF2625;
   }
   
-  /* Card Title Style */
   .bodyPart-card h3 {
     font-size: 24px;
     font-weight: bold;
@@ -235,7 +223,7 @@ body {
   
   .results-title {
     font-weight: bold;
-    font-size: 30px; /* Adjust for responsiveness as needed */
+    font-size: 30px; 
     margin-bottom: 46px;
   }
   
@@ -243,11 +231,11 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 50px; /* Adjust for responsiveness as needed */
+    gap: 50px;
   }
   
   .exercise-card {
-    width: 250px; /* Adjust the width as needed */
+    width: 250px; 
     border: 1px solid #ddd;
     border-radius: 20px;
     text-align: center;
