@@ -109,6 +109,6 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     } else {
         // Here you can add your login logic
         alert('Sign UP successful');
-        window.location.href = "login.html";
+        window.location.href = "home.html";
     }
 });
