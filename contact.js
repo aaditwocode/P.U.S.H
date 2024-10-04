@@ -43,18 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (!isValid) {
-            alert(errorMessage); // Show validation messages
-            e.preventDefault(); // Prevent form submission if invalid
+            alert(errorMessage);
+            e.preventDefault(); 
         }
     });
 
-    // Email validation function
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
 
-    // Add focus and blur event listeners to inputs
     [nameInput, emailInput, subjectInput, messageInput].forEach(input => {
         input.addEventListener('focus', function () {
             input.classList.add('input-focused');
@@ -65,21 +63,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-// JavaScript for Accordion FAQ functionality
 document.addEventListener("DOMContentLoaded", function () {
-    // Get all accordion buttons
     const accordionBtns = document.querySelectorAll('.accordion-btn');
 
-    // Loop through each button and add click event
     accordionBtns.forEach(btn => {
         btn.addEventListener('click', function () {
-            // Toggle the active class on the clicked button
             this.classList.toggle('active');
 
-            // Get the panel (answer) associated with the clicked button
             const panel = this.nextElementSibling;
 
-            // Toggle the visibility of the panel (answer)
             if (panel.style.display === 'block') {
                 panel.style.display = 'none';
             } else {

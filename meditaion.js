@@ -13,7 +13,6 @@ let plusButton = document.querySelector('#plus-button');
 let timerInput = document.querySelector('#timer-input');
 let audio = new Audio('./assets/autumn-sky-meditaion-7618.mp3');
 
-// Store the initial time entered by the user
 let initialTime = 0;
 
 startButton.addEventListener('click', startTimer);
@@ -23,10 +22,10 @@ minusButton.addEventListener('click', decreaseTime);
 plusButton.addEventListener('click', increaseTime);
 
 function startTimer() {
-    if (timerInput.value <= 0) return; // If timer input is 0 or negative, do nothing
+    if (timerInput.value <= 0) return; 
     timer = setInterval(updateTimer, 1000);
     audio.play();
-    disableInputs(); // Disable inputs after starting the timer
+    disableInputs(); 
 }
 
 function pauseTimer() {
@@ -36,11 +35,10 @@ function pauseTimer() {
 
 function resetTimer() {
     clearInterval(timer);
-    // Reset time to the last entered time (if any)
     seconds = 0;
     minutes = 0;
     hours = 0;
-    let lastTime = parseInt(timerInput.value) * 60; // Convert entered minutes to seconds
+    let lastTime = parseInt(timerInput.value) * 60; 
     seconds = lastTime % 60;
     minutes = Math.floor(lastTime / 60);
     
@@ -49,7 +47,7 @@ function resetTimer() {
     audio.pause();
     audio.currentTime = 0;
     
-    enableInputs(); // Re-enable inputs after resetting
+    enableInputs(); 
 }
 
 function decreaseTime() {

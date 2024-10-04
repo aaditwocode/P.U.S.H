@@ -1,4 +1,3 @@
-/* General Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -32,18 +31,16 @@ h2, h3 {
 blockquote {
     font-style: italic;
     font-size: 1.2em;
-    color: #607D8B; /* Slate Gray */
+    color: #607D8B;
     margin: 20px auto;
     max-width: 800px;
 }
 
-/* New section added */
 .additional-content {
     margin: 20px 0;
     font-size: 1.1em;
 }
 
-/* Contact Information Styling */
 .contact-methods {
     display: flex;
     justify-content: space-around;
@@ -64,7 +61,6 @@ blockquote {
     padding-top: 20px;
 }
 
-/* Form and Footer Images Flexbox Layout */
 .form-and-footer {
     display: flex;
     justify-content: space-between;
@@ -82,7 +78,6 @@ blockquote {
     border-radius: 12px;
 }
 
-/* Form Styling */
 .form-section {
     flex-grow: 1;
     text-align: left;
@@ -124,7 +119,6 @@ blockquote {
     transform: scale(1);
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 20px;
@@ -133,7 +127,6 @@ footer {
     margin-top: 40px;
 }
 
-/* Error state styling */
 input.error,
 textarea.error {
     border-color: red;
@@ -143,10 +136,9 @@ textarea.error {
 input.input-focused,
 textarea.input-focused {
     border-color: #2196F3;
-    background-color: #f0fff0; /* Light green background on focus */
+    background-color: #f0fff0; 
 }
 
-/* FAQ Accordion */
 .accordion-btn {
     background-color: #2196F3;
     color: white;
@@ -178,7 +170,6 @@ textarea.input-focused {
     margin-top: 10px;
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 768px) {
     .form-and-footer {
         flex-direction: column;

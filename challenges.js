@@ -59,17 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = challenge.checkboxes.length;
         const progressPercentage = (completed / total) * 100;
         
-        // Update progress bar
         challenge.progressBar.style.width = `${progressPercentage}%`;
         
-        // Update coins
         let coins = completed * challenge.coinsPerDay;
         if (completed === total) {
             coins += challenge.bonusCoins;
         }
         challenge.coinTracker.textContent = `Coin tracker: ${coins} coins`;
 
-        // Update total coins
         updateTotalCoins();
     }
 

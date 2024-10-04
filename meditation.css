@@ -2,11 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* Light background for better contrast */
+  background-color: #f0f0f0; 
 }
 
 nav {
-  background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background */
+  background-color: rgba(0, 0, 0, 0.8); 
   color: #fff;
   padding: 1em 2em;
   position: fixed;
@@ -14,14 +14,14 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
-  font-size: 24px; /* Increased font size for navbar */
+  font-size: 24px; 
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 nav .logo img {
-  width: 50px; /* Logo size */
+  width: 50px; 
   height: auto;
 }
 
@@ -44,13 +44,13 @@ nav ul li {
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 18px; /* Adjusted font size */
+  font-size: 18px; 
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #4CAF50; /* Hover color for links */
+  color: #4CAF50;
 }
 
 @media (max-width: 768px) {
@@ -89,25 +89,25 @@ nav ul li a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 60px; /* Adjust to avoid overlap with the navbar */
+  padding-top: 60px; 
   position: relative;
 }
 
 .timer-container {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
-  padding: 60px; /* Increased padding */
+  background-color: rgba(255, 255, 255, 0.9); 
+  padding: 60px;
   border-radius: 15px;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  max-width: 500px; /* Increased max width */
-  width: 90%; /* Allowing more responsive behavior */
+  max-width: 500px; 
+  width: 90%; 
 }
 
 .timer {
   display: block;
-  font-size: 48px; /* Increased font size */
+  font-size: 48px; 
   font-weight: bold;
-  color: #4CAF50; /* Green color for timer */
+  color: #4CAF50;
 }
 
 .timer-controls {
@@ -115,59 +115,59 @@ nav ul li a:hover {
 }
 
 #timer-input {
-  width: 100px; /* Increased width */
-  height: 50px; /* Increased height */
+  width: 100px; 
+  height: 50px; 
   padding: 10px;
-  border: 2px solid #4CAF50; /* Border color matches timer */
+  border: 2px solid #4CAF50; 
   border-radius: 10px;
-  font-size: 24px; /* Increased font size */
+  font-size: 24px;
   text-align: center;
 }
 
 #minus-button, #plus-button {
-  width: 60px; /* Increased button size */
-  height: 60px; /* Increased button size */
+  width: 60px; 
+  height: 60px; 
   padding: 10px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 30px; /* Increased font size */
+  font-size: 30px;
 }
 
 #minus-button {
-  background-color: #e57373; /* Red color for minus */
+  background-color: #e57373;
 }
 
 #plus-button {
-  background-color: #4CAF50; /* Green color for plus */
+  background-color: #4CAF50; 
   color: #fff;
 }
 
 .timer-buttons {
-  margin-top: 40px; /* Increased spacing */
+  margin-top: 40px;
 }
 
 #start-button, #pause-button, #reset-button {
-  width: 150px; /* Increased button size */
-  height: 50px; /* Increased button size */
+  width: 150px; 
+  height: 50px; 
   padding: 10px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 20px; /* Increased font size */
+  font-size: 20px; 
   margin: 10px 0;
 }
 
 #start-button {
-  background-color: #4CAF50; /* Green color for start */
+  background-color: #4CAF50; 
   color: #fff;
 }
 
 #pause-button {
-  background-color: #ccc; /* Grey color for pause */
+  background-color: #ccc;
 }
 
 #reset-button {
-  background-color: #f44336; /* Red color for reset */
+  background-color: #f44336; 
   color: #fff;
 }
