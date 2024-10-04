@@ -8,7 +8,7 @@ export const fetchData = async (url, options) => {
       return data;
     } catch (error) {
       console.error('Error fetching data:', error);
-      throw error; // Re-throw the error for handling in the caller
+      throw error; 
     }
   };
   

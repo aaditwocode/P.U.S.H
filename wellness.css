@@ -42,15 +42,16 @@ nav ul li a {
 }
 
 .background-image-section {
-    background-image: url('/mental-health-wellness-during-covid-19.jpg');
+    background-image: url('./assets/wellnesshero.png');
     background-size: cover;
     background-position: center;
     height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #34495E;
+    color: #000;
     text-align: center;
+    object-fit: contain;
 }
 
 .background-image-section .overlay-text h2 {
@@ -78,15 +79,19 @@ nav ul li a {
     background-color: #C0392B;
 }
 
+/* Key Services Section */
+
 .features {
-    padding: 50px 20px;
+    padding: 10px 20px;
     text-align: center;
 }
 
 .features h2 {
     font-size: 2.5em;
     color: #34495E;
-    margin-bottom: 20px;
+
+    margin-bottom: 0px;
+
 }
 
 .feature-cards {
@@ -98,10 +103,13 @@ nav ul li a {
 
 .card {
     width: 320px;
-    height: 450px; 
-    background-color: #ECF0F1; 
+
+    height: 700px;
+    background-color: #fff;
+color: #ECF0F1; 
+
     border-radius: 10px;
-    padding: 30px;
+    padding: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -114,39 +122,55 @@ nav ul li a {
 
 .card h3 {
     font-size: 1.8em;
-    color: #2C3E50; 
-    margin-bottom: 15px;
+
+    color: #2C3E50;
+    margin-bottom: 0;
+
 }
 
 .card p {
     font-size: 1.1em;
-    color: #7F8C8D; 
-}
-
-.testimonials {
-    background-color: #F9F9F9; 
-    padding: 50px 20px;
-    text-align: center;
-}
-
-.testimonials h2 {
-    font-size: 2.5em;
-    color: #34495E;
+    color: #7F8C8D;
     margin-bottom: 20px;
 }
 
-.testimonial {
-    font-size: 1.3em;
-    color: #7F8C8D;
-    margin-bottom: 30px;
+.card-image {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+    color: #7F8C8D; 
 }
 
-.testimonial span {
-    display: block;
+.card-button {
+    display: inline-block;
+    background-color: #3498DB;
+    color: white;
+    padding: 10px 20px;
     font-size: 1.2em;
-    font-style: italic;
-    color: #2C3E50;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
+
+.card-button:hover {
+    background-color: #2980B9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .feature-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+
 
 .signup {
     padding: 50px 20px;
@@ -234,7 +258,8 @@ footer {
   
   .issue-card img {
     max-width: 100%;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
     margin-bottom: 10px;
   }
   .support-section {
