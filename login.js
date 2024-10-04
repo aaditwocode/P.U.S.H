@@ -1,27 +1,16 @@
-const nameInput = document.getElementById('name');
+
 const usernameInput = document.getElementById('username');
 const emailInput = document.getElementById('email');
-const dobInput = document.getElementById('dob');
-const phoneInput = document.getElementById('phone');
+
 const passwordInput = document.getElementById('password');
-const nameError = document.getElementById('name-error');
+
 const usernameError = document.getElementById('username-error');
 const emailError = document.getElementById('email-error');
-const dobError = document.getElementById('dob-error');
-const phoneError = document.getElementById('phone-error');
+
 const passwordError = document.getElementById('password-error');
 const passwordStrength = document.getElementById('password-strength');
 
-nameInput.addEventListener('input', () => {
-    const name = nameInput.value.trim();
-    if (!name) {
-        nameError.textContent = 'Name is required';
-    } else if (name.length < 3) {
-        nameError.textContent = 'Name must be at least 3 characters long';
-    } else {
-        nameError.textContent = '';
-    }
-});
+
 
 usernameInput.addEventListener('input', () => {
     const username = usernameInput.value.trim();
@@ -45,25 +34,7 @@ emailInput.addEventListener('input', () => {
     }
 });
 
-dobInput.addEventListener('input', () => {
-    const dob = dobInput.value.trim();
-    if (!dob) {
-        dobError.textContent = 'Date of birth is required';
-    } else {
-        dobError.textContent = '';
-    }
-});
 
-phoneInput.addEventListener('input', () => {
-    const phone = phoneInput.value.trim();
-    if (!phone) {
-        phoneError.textContent = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(phone)) {
-        phoneError.textContent = 'Invalid phone number';
-    } else {
-        phoneError.textContent = '';
-    }
-});
 
 passwordInput.addEventListener('input', () => {
     const password = passwordInput.value.trim();
@@ -96,19 +67,18 @@ passwordInput.addEventListener('input', () => {
 
 document.getElementById('login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = nameInput.value.trim();
+    
     const username = usernameInput.value.trim();
     const email = emailInput.value.trim();
-    const dob = dobInput.value.trim();
-    const phone = phoneInput.value.trim();
+    
     const password = passwordInput.value.trim();
-    if (!name || !username || !email || !dob || !phone || !password) {
+    if ( !username || !email || !password) {
         alert('Please fill in all fields');
-    } else if (nameError.textContent || usernameError.textContent || emailError.textContent || dobError.textContent || phoneError.textContent || passwordError.textContent) {
+    } else if ( usernameError.textContent || emailError.textContent || passwordError.textContent) {
         alert('Please fix the errors');
     } else {
         // Here you can add your login logic
-        alert('Sign UP successful');
+        alert('Log In successful');
         window.location.href = "home.html";
     }
 });
