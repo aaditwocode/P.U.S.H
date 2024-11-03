@@ -11,4 +11,8 @@ var swiper = new Swiper(".mySwiper", {
       prevEl: ".swiper-button-prev",
     },
   });
-  
+  function subscribePlan(planName, price) {
+    localStorage.setItem('selectedPlanName', planName);
+    localStorage.setItem('selectedPlanPrice', price);
+    window.location.href = 'payment.html';
+}

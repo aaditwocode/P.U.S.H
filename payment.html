@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Improved font */
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 8px; /* Rounded corners */
+            overflow: hidden; /* For child elements to respect border radius */
+            background-color: #222; /* Slightly lighter background for contrast */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+        }
+        .success-message {
+            background-color: #4CAF50; /* Success message background color */
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0; /* Rounded corners for the top */
+            color: #fff; /* White text for contrast */
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .cart-table th, .cart-table td {
+            padding: 15px; /* Increased padding for better touch targets */
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        .cart-table th {
+            background-color: #4CAF50; /* Header background color */
+            color: #fff; /* Header text color */
+        }
+        .price, .subtotal {
+            color: #FFC107; /* Changed price color for better visibility */
+            font-weight: bold; /* Bold text for emphasis */
+        }
+        .coupon-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center; /* Vertically center input and button */
+        }
+        .coupon-section input {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 4px; /* Rounded input corners */
+            border: 1px solid #444; /* Border for input */
+            background-color: #333; /* Input background color */
+            color: #fff; /* Input text color */
+        }
+        .cart-totals {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+        }
+        .cart-totals h3 {
+            margin-top: 0;
+            color: #FFC107; /* Header color for totals */
+        }
+        .cart-totals .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold; /* Bold text for total rows */
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px; /* Increased padding */
+            border: none;
+            border-radius: 4px; /* Rounded button corners */
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .btn:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+        .btn-paypal {
+            background-color: #ffc439;
+            color: #000000;
+        }
+        .btn-card {
+            background-color: transparent;
+            border: 1px solid #ffffff;
+            color: white; /* Card button text color */
+            transition: border-color 0.3s ease; /* Smooth transition */
+        }
+        .btn-card:hover {
+            border-color: #ffc439; /* Change border color on hover */
+        }
+        .separator {
+            text-align: center;
+            margin: 10px 0;
+            color: #ccc; /* Lighter color for the separator */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-message">
+            <span id="success-text"></span>
+            <button class="btn">Continue Shopping</button>
+        </div>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>PRODUCT</th>
+                    <th>PRICE</th>
+                    <th>QUANTITY</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <tr>
+                    <td id="plan-name"></td>
+                    <td id="plan-price" class="price"></td>
+                    <td>1</td>
+                    <td id="plan-subtotal" class="subtotal"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="coupon-section">
+            <div>
+                <input type="text" placeholder="Coupon code">
+                <button class="btn">Apply Coupon</button>
+            </div>
+            <button class="btn">Update Cart</button>
+        </div>
+        <div class="cart-totals">
+            <h3>CART TOTALS</h3>
+            <div class="total-row">
+                <span>Subtotal</span>
+                <span id="subtotal" class="price"></span>
+            </div>
+            <div class="total-row">
+                <span>Total</span>
+                <span id="total" class="price"></span>
+            </div>
+            <button id="checkout-btn" class="btn">Proceed to Checkout</button>
+            <div class="separator">— or —</div>
+            <button class="btn btn-paypal">PayPal</button>
+            <button class="btn btn-card">Debit or Credit Card</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const planName = localStorage.getItem('selectedPlanName');
+            const planPrice = parseFloat(localStorage.getItem('selectedPlanPrice'));
+            const quantity = 1; // Always 1 as specified
+    
+            document.getElementById('success-text').innerText = `"${planName}" has been added to your cart.`;
+            document.getElementById('plan-name').innerText = planName;
+            document.getElementById('plan-price').innerText = `$${planPrice.toFixed(2)}`;
+    
+            const total = planPrice * quantity;
+            document.getElementById('plan-subtotal').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('subtotal').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('total').innerText = `$${total.toFixed(2)}`;
+    
+            // Function to update total price based on coupon code
+            function applyCoupon() {
+                const couponInput = document.querySelector('.coupon-section input').value;
+                let discount = 0;
+    
+                if (couponInput === 'PUSH50') {
+                    discount = 0.50; // 50% discount
+                }
+    
+                const discountedTotal = total * (1 - discount);
+                document.getElementById('total').innerText = `$${discountedTotal.toFixed(2)}`;
+                if (discount > 0) {
+                    alert('Coupon applied! You received a 50% discount.');
+                } else {
+                    alert('Invalid coupon code. Please try again.');
+                }
+            }
+    
+            // Event listener for the Apply Coupon button
+            document.querySelector('.coupon-section button').addEventListener('click', applyCoupon);
+    
+            document.getElementById('checkout-btn').addEventListener('click', function() {
+                if (planName) {
+                    switch (planName.toLowerCase()) {
+                        case 'basic plan':
+                            window.location.href = 'basic.html';
+                            break;
+                        case 'sportsman plan':
+                            window.location.href = 'sportsmen.html';
+                            break;
+                        case 'professional plan':
+                            window.location.href = 'professional.html';
+                            break;
+                        default:
+                            console.error('Unknown plan type');
+                    }
+                }
+            });
+    
+            // Add event listener for "Continue Shopping" button
+            document.querySelector('.success-message .btn').addEventListener('click', function() {
+                window.location.href = 'home.html';
+            });
+        });
+    </script>
+    
+</body>
+</html>
