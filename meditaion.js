@@ -1,109 +1,156 @@
-let timer = null;
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
+const progressRing = document.querySelector('.progress');
+        const timeDisplay = document.getElementById('time-display');
+        const timeInput = document.getElementById('time-input');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const startPauseBtn = document.getElementById('start-pause-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const backgroundSelect = document.getElementById('background-select');
+        const musicSelect = document.getElementById('music-select');
+        const audio = document.getElementById('timer-audio');
 
-let timerProgress = document.querySelector('.timer-progress');
-let timerDisplay = document.querySelector('.timer-display');
-let startButton = document.querySelector('#start-button');
-let pauseButton = document.querySelector('#pause-button');
-let resetButton = document.querySelector('#reset-button');
-let minusButton = document.querySelector('#minus-button');
-let plusButton = document.querySelector('#plus-button');
-let timerInput = document.querySelector('#timer-input');
-let audio = document.querySelector('#meditation-audio');
+        const CIRCUMFERENCE = 2 * Math.PI * 190;
+        progressRing.style.strokeDasharray = CIRCUMFERENCE;
+        progressRing.style.strokeDashoffset = 0;
 
-let initialTime = 0;
+        let timeLeft = 60; // Default 1 minute
+        let totalTime = 60;
+        let timerId = null;
+        let isRunning = false;
 
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
-resetButton.addEventListener('click', resetTimer);
-minusButton.addEventListener('click', decreaseTime);
-plusButton.addEventListener('click', increaseTime);
+        function parseTimeInput(timeString) {
+            const [hours, minutes, seconds] = timeString.split(':').map(Number);
+            return hours * 3600 + minutes * 60 + seconds;
+        }
 
-function startTimer() {
+        function formatTimeInput(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
 
-    if (timerInput.value <= 0) return; 
-    timer = setInterval(updateTimer, 1000);
-    audio.play();
-    disableInputs(); 
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            currentTimeDisplay.textContent = timeString;
+        }
 
-}
+        function updateProgress(timeLeft) {
+            const progress = timeLeft / totalTime;
+            const offset = CIRCUMFERENCE * (1 - progress);
+            progressRing.style.strokeDashoffset = offset;
+        }
 
-function pauseTimer() {
-    clearInterval(timer);
-    audio.pause();
-}
+        function startTimer() {
+            if (!isRunning) {
+                if (!timerId) { // New timer start
+                    timeLeft = parseTimeInput(timeInput.value);
+                    totalTime = timeLeft;
+                }
+                
+                isRunning = true;
+                startPauseBtn.textContent = 'Pause';
+                audio.play();
+                
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    timeInput.value = formatTimeInput(timeLeft);
+                    timeDisplay.textContent = formatTimeInput(timeLeft);
+                    updateProgress(timeLeft);
 
-function resetTimer() {
-    clearInterval(timer);
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        isRunning = false;
+                        startPauseBtn.textContent = 'Start';
+                        audio.pause();
+                        audio.currentTime = 0;
+                        timerId = null;
+                    }
+                }, 1000);
+            } else {
+                clearInterval(timerId);
+                isRunning = false;
+                startPauseBtn.textContent = 'Resume';
+                audio.pause();
+            }
+        }
 
-    
-    updateDisplay();
-    timerProgress.style.width = '0%';
-    audio.pause();
-    audio.currentTime = 0;
-    
+        function resetTimer() {
+            clearInterval(timerId);
+            isRunning = false;
+            timerId = null;
+            timeInput.value = '00:01:00';
+            timeDisplay.textContent = '00:01:00';
+            updateProgress(60);
+            startPauseBtn.textContent = 'Start';
+            audio.pause();
+            audio.currentTime = 0;
+        }
 
-    enableInputs(); 
+        // Time input validation and formatting
+        timeInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^\d:]/g, '');
+            if (value.length > 8) value = value.substr(0, 8);
+            
+            // Format as XX:XX:XX
+            const parts = value.split(':');
+            if (parts.length > 3) parts.length = 3;
+            
+            const formatted = parts.map(part => {
+                let num = parseInt(part) || 0;
+                if (num > 59) num = 59;
+                return String(num).padStart(2, '0');
+            }).join(':');
 
-}
+            e.target.value = formatted;
+            timeDisplay.textContent = formatted;
+        });
 
-function decreaseTime() {
-    let time = parseInt(timerInput.value);
-    if (time > 1) {
-        time -= 1;
-        timerInput.value = time;
-    }
-}
+        startPauseBtn.addEventListener('click', startTimer);
+        cancelBtn.addEventListener('click', resetTimer);
 
-function increaseTime() {
-    let time = parseInt(timerInput.value);
-    time += 1;
-    timerInput.value = time;
-}
+        backgroundSelect.addEventListener('change', (e) => {
+            if (e.target.value) {
+                document.body.style.backgroundImage = `url(${e.target.value})`;
+            } else {
+                document.body.style.backgroundImage = 'none';
+            }
+        });
 
-function updateTimer() {
-    seconds++;
-    if (seconds === 60) {
-        minutes++;
-        seconds = 0;
-    }
-    if (minutes === 60) {
-        hours++;
-        minutes = 0;
-    }
-    
-    updateDisplay();
+        musicSelect.addEventListener('change', (e) => {
+            if (e.target.value) {
+                audio.src = e.target.value;
+                if (isRunning) {
+                    audio.play();
+                }
+            }
+        });
 
-    let progress = (seconds + minutes * 60 + hours * 3600) / (parseInt(timerInput.value) * 60) * 100;
-    timerProgress.style.width = `${progress}%`;
-    
-    if (progress >= 100) {
-        clearInterval(timer);
-        audio.pause();
-        alert('Time is up!');
-    }
-}
+        // Update current time every second
+        setInterval(updateCurrentTime, 1000);
+        updateCurrentTime();
 
-function updateDisplay() {
-    let hoursText = hours.toString().padStart(2, '0');
-    let minutesText = minutes.toString().padStart(2, '0');
-    let secondsText = seconds.toString().padStart(2, '0');
-    timerDisplay.textContent = `${hoursText}:${minutesText}:${secondsText}`;
-}
-
-function disableInputs() {
-    timerInput.disabled = true;
-    minusButton.disabled = true;
-    plusButton.disabled = true;
-}
-
-function enableInputs() {
-    timerInput.disabled = false;
-    minusButton.disabled = false;
-    plusButton.disabled = false;
-}
+        // Initial progress ring setup
+        updateProgress(60);
+        document.addEventListener('DOMContentLoaded', function () {
+            const backgroundSelect = document.getElementById('background-select');
+        
+            backgroundSelect.addEventListener('change', function () {
+                const selectedBackground = backgroundSelect.value;
+        
+                // Set the body's background image based on selection, or clear it if none is selected
+                if (selectedBackground) {
+                    document.body.style.backgroundImage = `url('${selectedBackground}')`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundRepeat = 'no-repeat';
+                    document.body.style.backgroundPosition = 'center';
+                } else {
+                    document.body.style.backgroundImage = ''; // Clear background
+                }
+            });
+        });
+        

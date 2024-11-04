@@ -7,44 +7,50 @@
     <link rel="stylesheet" href="meditation.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
-        </div>
-        <div class="website-name">
-            <h1>Website Name</h1>
-        </div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+   
     
 
-    <div class="background-image">
-        <div class="timer-container">
-            <div class="timer">
-                <div class="timer-circle">
-                    <div class="timer-progress"></div>
-                </div>
-                <div class="timer-display">
-                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-                </div>
-                <div class="timer-controls">
-                    <button id="minus-button">-</button>
-                    <input id="timer-input" type="number" value="0">
-                    <button id="plus-button">+</button>
-                </div>
-                <div class="timer-buttons">
-                    <button id="start-button">Start</button>
-                    <button id="pause-button">Pause</button>
-                    <button id="reset-button">Reset</button>
-                </div>
+    <div class="container">
+        <div class="time-input-container">
+            <div class="time-labels">
+                <span>hr</span>
+                <span>min</span>
+                <span>sec</span>
             </div>
+            <input type="text" class="time-input" id="time-input" value="00:01:00" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}">
+        </div>
+
+        <div class="timer-circle">
+            <svg class="progress-ring" width="400" height="400">
+                <circle class="background" cx="200" cy="200" r="190" />
+                <circle class="progress" cx="200" cy="200" r="190" />
+            </svg>
+            <div class="current-time" id="current-time"></div>
+            <div class="time-display" id="time-display">00:01:00</div>
+        </div>
+
+        <div class="settings">
+            <select id="background-select">
+                <option value="">Select Background</option>
+                <option value="./assets/medi.jpg">Nature</option>
+                <option value="beach.jpg">Beach</option>
+                <option value="mountain.jpg">Mountain</option>
+            </select>
+            <select id="music-select">
+                <option value="">Select Music</option>
+                <option value="./assets/autumn-sky-meditation-7618.mp3">Calm Music</option>
+                <option value="focus.mp3">Focus Music</option>
+                <option value="relax.mp3">Relaxing Music</option>
+            </select>
+        </div>
+
+        <div class="controls">
+            <button class="cancel" id="cancel-btn">Cancel</button>
+            <button class="start-pause" id="start-pause-btn">Start</button>
         </div>
     </div>
-    <audio id="meditation-audio" src="./assets/autumn-sky-meditation-7618.mp3" preload="auto"></audio>
+
+    <audio id="timer-audio" loop></audio>
     <script src="meditaion.js"></script>
 </body>
 </html>

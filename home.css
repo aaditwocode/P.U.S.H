@@ -42,7 +42,7 @@ z-index: 1000;
 }
 
 header .container0 {
-max-width: 1200px;
+max-width: 100%;
 margin: 0 auto;
 display: flex;
 justify-content: space-between;
@@ -65,6 +65,10 @@ font-family: "Protest Guerrilla", sans-serif;
 font-size: 32px;
 }
 
+.rightHeader{
+    display: flex;
+    align-items: center;
+}
 .rightHeader ul {
 display: flex;
 list-style: none;
@@ -166,6 +170,7 @@ footer p {
     color: black;
     position: relative;
     height:300px;
+    transition: transform 0.5s ease;
 }
 
 .reason-box h2 {
@@ -190,6 +195,7 @@ footer p {
 .reason-box:hover {
     box-shadow: 0 14px 18px rgba(0, 0, 0, 0.6);
     transform: scale(1.1);
+    
 }
 
 .reasons-container {
@@ -385,4 +391,109 @@ margin: 5px;
 
 .h{
     padding-left: 200px;
+}
+
+
+
+.avatar-stack {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .pricing-container {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+}
+
+.pricing-card {
+    background-color: #1a1d22;
+    border-radius: 10px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: scale(1.05);
+}
+
+.highlight {
+    background-color: #ff5851;
+    color: #fff;
+}
+
+.plan-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #ff5851;
+}
+
+.highlight .plan-title {
+    color: #fff;
+}
+
+.price {
+    font-size: 2.5em;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.frequency {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    color: #b3b3b3;
+}
+
+.features li {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.features li::before {
+    content: "✔";
+    color: #ff5851;
+    margin-right: 10px;
+}
+
+.subscribe-btn {
+    background-color: #ff5851;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #e04d47;
+}
+
+.highlight .subscribe-btn {
+    background-color: #fff;
+    color: #ff5851;
+}
+
+.highlight .subscribe-btn:hover {
+    background-color: #d9d9d9;
 }

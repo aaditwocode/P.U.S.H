@@ -20,11 +20,11 @@ body {
   font-family: Open Sans, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, black, #1e3c72);
+  background: linear-gradient(to right, black 20%, #071b3e 50%, black 80%);
 }
 
 .container {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -95,6 +95,6 @@ p {
   transition: transform 0.3s ease;
 }
 
-.logo-container img:hover {
+.logo-container:hover {
   transform: scale(1.06);
 }
