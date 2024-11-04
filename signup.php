@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES ('$name', '$username', '$email', '$dob', '$phone', '$password')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "<script>alert('Sign Up Successful!'); window.location.href='home.html';</script>";
+            echo "<script>alert('Sign Up Successful!'); window.location.href='login.html';</script>";
         } else {
             echo "<script>alert('Error: " . $conn->error . "'); window.location.href='signup.html';</script>";
         }
