@@ -409,6 +409,8 @@ margin: 5px;
   }
 
   .pricing-container {
+    align-items: center;
+    justify-content: center;
     display: flex;
     gap: 20px;
 }
