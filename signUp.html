@@ -15,32 +15,34 @@
         </div>
         <div class="right">
             <h3>Create an account</h3>
-            <div class="input-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Your Name">
-                <div id="name-error" class="error"></div>
-            </div>
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Your Username">
-                <div id="username-error" class="error"></div>
-            </div>
-            <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="email@example.com">
-                <div id="email-error" class="error"></div>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="••••••••">
-                <div id="password-error" class="error"></div>
-            </div>
-            <div class="input-group">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" placeholder="DD/MM/YYYY">
-                <div id="dob-error" class="error"></div>
-            </div>
-            <button class="btn" onclick="validateForm()">Sign Up</button>
+            <form method="POST" action="signup.php" onsubmit="return validateForm()">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <div id="name-error" class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Your Username" required>
+                    <div id="username-error" class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                    <div id="email-error" class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <div id="password-error" class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" placeholder="DD/MM/YYYY" required>
+                    <div id="dob-error" class="error"></div>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
             <div class="login-link">
                 Already have an account? <a href="/login.html">Sign in</a>
             </div>
