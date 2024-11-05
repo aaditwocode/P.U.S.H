@@ -398,12 +398,13 @@ margin: 5px;
 .avatar-stack {
     display: flex;
     gap: 10px;
-    padding: 20px;
+    padding: 10px;
+    
   }
   
   .avatar img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -412,7 +413,9 @@ margin: 5px;
     align-items: center;
     justify-content: center;
     display: flex;
-    gap: 20px;
+    gap: 100px;
+    margin: 50px;
+    position: relative;
 }
 
 .pricing-card {
@@ -422,6 +425,7 @@ margin: 5px;
     width: 220px;
     text-align: center;
     transition: transform 0.3s ease;
+    height: 400px;
 }
 
 .pricing-card:hover {
@@ -465,11 +469,12 @@ margin: 5px;
 .features li {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     margin: 8px 0;
 }
 
-.features li::before {
-    content: "✔";
+.spn{
+    
     color: #ff5851;
     margin-right: 10px;
 }
@@ -478,11 +483,14 @@ margin: 5px;
     background-color: #ff5851;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    margin: 0 !important;
+   
+
 }
 
 .subscribe-btn:hover {
@@ -497,3 +505,49 @@ margin: 5px;
 .highlight .subscribe-btn:hover {
     background-color: #d9d9d9;
 }
+.dark-theme-features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .features-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1000px;
+    width: 100%;
+    justify-content: space-around;
+    text-align: center;
+  }
+  .feature-card {
+    width: 30%;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  }
+  .feature-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+  }
+  .feature-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  .feature-description {
+    font-size: 0.9em;
+    color: #cccccc;
+  }
+  .feature-icon.secured { background-color: #DDEAFF; }
+  .feature-icon.fast { background-color: #5d4530; }
+  .feature-icon.light-dark { background-color: #3a6040; }
