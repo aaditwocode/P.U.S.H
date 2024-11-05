@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $dob = mysqli_real_escape_string($conn, $_POST['dob']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
 
     $checkQuery = "SELECT * FROM users WHERE username='$username' OR email='$email'";
@@ -24,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         echo "<script>alert('Username or Email already exists'); window.location.href='signup.html';</script>";
     } else {
-        $sql = "INSERT INTO users (name, username, email, dob, phone, password) 
-                VALUES ('$name', '$username', '$email', '$dob', '$phone', '$password')";
+        $sql = "INSERT INTO users (name, username, email, dob, password) 
+                VALUES ('$name', '$username', '$email', '$dob', '$password')";
 
         if ($conn->query($sql) === TRUE) {
             echo "<script>alert('Sign Up Successful!'); window.location.href='login.html';</script>";
