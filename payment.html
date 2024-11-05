@@ -6,7 +6,7 @@
     <title>Shopping Cart</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Improved font */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1a1a;
             color: #ffffff;
             margin: 0;
@@ -15,20 +15,20 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            border-radius: 8px; /* Rounded corners */
-            overflow: hidden; /* For child elements to respect border radius */
-            background-color: #222; /* Slightly lighter background for contrast */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #222;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
         .success-message {
-            background-color: #4CAF50; /* Success message background color */
+            background-color: #4CAF50;
             padding: 15px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 8px 8px 0 0; /* Rounded corners for the top */
-            color: #fff; /* White text for contrast */
+            border-radius: 8px 8px 0 0;
+            color: #fff;
         }
         .cart-table {
             width: 100%;
@@ -36,78 +36,97 @@
             margin-bottom: 20px;
         }
         .cart-table th, .cart-table td {
-            padding: 15px; /* Increased padding for better touch targets */
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #444;
         }
         .cart-table th {
-            background-color: #4CAF50; /* Header background color */
-            color: #fff; /* Header text color */
+            background-color: #4CAF50;
+            color: #fff;
         }
         .price, .subtotal {
-            color: #FFC107; /* Changed price color for better visibility */
-            font-weight: bold; /* Bold text for emphasis */
+            color: #FFC107;
+            font-weight: bold;
         }
         .coupon-section {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: flex-start;
             margin-bottom: 20px;
-            align-items: center; /* Vertically center input and button */
         }
         .coupon-section input {
             padding: 10px;
-            margin-right: 10px;
-            border-radius: 4px; /* Rounded input corners */
-            border: 1px solid #444; /* Border for input */
-            background-color: #333; /* Input background color */
-            color: #fff; /* Input text color */
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .coupon-section .btn {
+            align-self: flex-start;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .coupon-section .btn:hover {
+            background-color: #45a049;
+        }
+        .coupon-section .tagline {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 10px;
+            text-align: center;
         }
         .cart-totals {
             background-color: #2a2a2a;
             padding: 20px;
-            border-radius: 8px; /* Rounded corners */
+            border-radius: 8px;
         }
         .cart-totals h3 {
             margin-top: 0;
-            color: #FFC107; /* Header color for totals */
+            color: #FFC107;
         }
         .cart-totals .total-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
-            font-weight: bold; /* Bold text for total rows */
+            font-weight: bold;
         }
         .btn {
             background-color: #4CAF50;
             color: white;
-            padding: 12px; /* Increased padding */
+            padding: 12px;
             border: none;
-            border-radius: 4px; /* Rounded button corners */
+            border-radius: 4px;
             cursor: pointer;
             width: 100%;
             margin-bottom: 10px;
-            transition: background-color 0.3s ease; /* Smooth transition */
+            transition: background-color 0.3s ease;
         }
         .btn:hover {
-            background-color: #45a049; /* Darker shade on hover */
+            background-color: #45a049;
         }
         .btn-paypal {
             background-color: #ffc439;
-            color: #000000;
+            color: #000;
         }
         .btn-card {
             background-color: transparent;
             border: 1px solid #ffffff;
-            color: white; /* Card button text color */
-            transition: border-color 0.3s ease; /* Smooth transition */
+            color: white;
+            transition: border-color 0.3s ease;
         }
         .btn-card:hover {
-            border-color: #ffc439; /* Change border color on hover */
+            border-color: #ffc439;
         }
         .separator {
             text-align: center;
             margin: 10px 0;
-            color: #ccc; /* Lighter color for the separator */
+            color: #ccc;
         }
     </style>
 </head>
@@ -136,11 +155,9 @@
             </tbody>
         </table>
         <div class="coupon-section">
-            <div>
-                <input type="text" placeholder="Coupon code">
-                <button class="btn">Apply Coupon</button>
-            </div>
-            <button class="btn">Update Cart</button>
+            <input type="text" placeholder="Enter coupon code">
+            <button class="btn">Apply Coupon</button>
+            <p class="tagline">Boost your journey with exclusive discounts tailored just for you!</p> <!-- New tagline -->
         </div>
         <div class="cart-totals">
             <h3>CART TOTALS</h3>
@@ -153,9 +170,9 @@
                 <span id="total" class="price"></span>
             </div>
             <button id="checkout-btn" class="btn">Proceed to Checkout</button>
-            <div class="separator">— or —</div>
+            <!-- <div class="separator">— or —</div>
             <button class="btn btn-paypal">PayPal</button>
-            <button class="btn btn-card">Debit or Credit Card</button>
+            <button class="btn btn-card">Debit or Credit Card</button> -->
         </div>
     </div>
 
@@ -163,7 +180,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const planName = localStorage.getItem('selectedPlanName');
             const planPrice = parseFloat(localStorage.getItem('selectedPlanPrice'));
-            const quantity = 1; // Always 1 as specified
+            const quantity = 1; 
     
             document.getElementById('success-text').innerText = `"${planName}" has been added to your cart.`;
             document.getElementById('plan-name').innerText = planName;
@@ -174,13 +191,12 @@
             document.getElementById('subtotal').innerText = `$${total.toFixed(2)}`;
             document.getElementById('total').innerText = `$${total.toFixed(2)}`;
     
-            // Function to update total price based on coupon code
             function applyCoupon() {
                 const couponInput = document.querySelector('.coupon-section input').value;
                 let discount = 0;
     
                 if (couponInput === 'PUSH50') {
-                    discount = 0.50; // 50% discount
+                    discount = 0.50;
                 }
     
                 const discountedTotal = total * (1 - discount);
@@ -192,20 +208,19 @@
                 }
             }
     
-            // Event listener for the Apply Coupon button
             document.querySelector('.coupon-section button').addEventListener('click', applyCoupon);
     
             document.getElementById('checkout-btn').addEventListener('click', function() {
                 if (planName) {
                     switch (planName.toLowerCase()) {
-                        case 'basic plan':
-                            window.location.href = 'basic.html';
+                        case 'gold plan':
+                            window.location.href = 'gold.html';
                             break;
-                        case 'sportsman plan':
-                            window.location.href = 'sportsmen.html';
+                        case 'platinum plan':
+                            window.location.href = 'platinum.html';
                             break;
-                        case 'professional plan':
-                            window.location.href = 'professional.html';
+                        case 'diamond plan':
+                            window.location.href = 'diamond.html';
                             break;
                         default:
                             console.error('Unknown plan type');
@@ -213,7 +228,6 @@
                 }
             });
     
-            // Add event listener for "Continue Shopping" button
             document.querySelector('.success-message .btn').addEventListener('click', function() {
                 window.location.href = 'home.html';
             });
