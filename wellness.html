@@ -1,152 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Wellness Website</title>
-    
-
+    <title>Good Mental Health For All</title>
     <link rel="stylesheet" href="wellness.css">
 </head>
-
 <body>
-    <header>
+    <div class="container">
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Service</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About us</a></li>
             </ul>
+            <button class="btn">Get consultation ↗</button>
         </nav>
-        <h1>Mental Fitness for a Healthier Mind</h1>
-        <p class="intro-text">"A healthy mind is as important as a healthy body."</p>
-    </header>
 
-    <main>
-        <section class="background-image-section">
-            <div class="overlay-text">
-                <h2>Take Control of Your Mental Health</h2>
-                <p>Start your journey towards mental wellness today.</p>
-                <button class="cta-button">Join Now</button>
+        <div class="hero">
+            <div class="flex-class">
+                <div class="flex-c">
+                    <div class="inline-f">
+                        <h1>GOOD <span class="purple">MENTAL</span><img class="smiley" src="./smiley.png" alt=""></h1>
+                    </div>
+                    
+                       <h1> <span class="purple">HEALTH</span> FOR ALL </h1>
+                </div>
+                
+                <img class="dep-img" src="./Screenshot 2024-11-07 at 8.15.03 PM.png" alt="">
             </div>
-        </section>
+           
+            <div class="quote-section">
+                <div class="quote">
+                    <div class="comma-wrapper">
+                        <img src="./comma.png" alt="comma image" class="comma-image">
+                      </div>
+                    <p>"EVERYTHING THE PROPERTY HAS TO OFFER HAS A DIFFERENT QUALITY FROM OTHER"</p>
+                </div>
+                <div class="quote highlight">
+                    <p>"YOUR MENTAL WELL-BEING, JUST A CLICK AWAY. EXPLORE OUR SITE AND UNLOCK A HAPPIER, HEALTHIER YOU"</p>
+                </div>
+            </div>
+        </div>
 
-        <section class="features">
-          <h2>Our Key Services</h2>
-          <div class="feature-cards">
-              <div class="card mind">
-                  <h3>Meditation</h3>
-                  <p>Unlock the power of mindfulness with our guided meditation sessions. Reduce stress, boost focus, and enhance emotional well-being. Join us to begin your journey toward a calmer, more centered you.</p>
-                  <img src="./assets/medi.jpg" alt="Meditation Image" class="card-image">
-                  <a href="meditation.html" class="card-button">Learn More</a>
-              </div>
-              <div class="card">
-                  <h3> Counseling</h3>
-                  <p>Personalized counseling tailored to your needs by expert professionals.. Whether you're dealing with stress, anxiety, relationship challenges, our expert counselors provide the support you need to thrive.</p>
-                  <img src="./assets/councel.jpeg" alt="Counseling Image" class="card-image">
-                  <a href="contact.html" class="card-button">Learn More</a>
-              </div>
-              <div class="card">
-                  <h3> Resources</h3>
-                  <p>
-                    Explore a variety of expert-backed articles, videos, and tools designed to improve your mental health. Discover effective strategies to manage stress, build resilience, and enhance emotional well-being.</p>
-                  <img src="./assets/resource.png" alt="Resources Image" class="card-image">
-                  <a href="https://www.health.harvard.edu/topics/mental-health" class="card-button">Learn More</a>
-              </div>
-          </div>
-      </section>
-      
+        <div class="cards">
+            <div class="card">
+                <div class="img">
+                    <img src="./tinywow_change_bg_photo_68823960.png" alt="Person in distress">
+                </div>
+                
+            </div>
+            <div class="card green">
+                <h2>EFFECTIVE MENTAL HEALTH & ADDICTION <span class="highlight">TREATMENT</span></h2>
+                <h2 class="highlight">IN CALIFORNIA</h2>
+                <p class="counsel">COUNSELING & MENTORING SESSIONS RUN IN A YEARS,</p>
+                <p class="author">ANTONY PARIDIS</p>
+            </div>
+        </div>
 
-        <div class="issues-grid">
-            <div class="issue-card">
-              <img src="./assets/Screenshot 2024-10-04 at 2.00.03 PM.png" alt="Couple arguing">
-              <h2>Marriage Issues</h2>
-              <p>Dealing with tensions in your relationship? Feeling disconnected? Don't hesitate to seek help from experts who can help you strengthen your relationship and grow closer.</p>
+        <div class="rating">
+            <span class="star">★★★★★</span> 5 STAR RATING
+        </div>
+        
+        <div class="services-container">
+            <div class="service-card individual">
+                <h2>Individual</h2>
+                <p>A process through which clients work one-on-one with a trained mental health clinician in a safe.</p>
+                <button class="explore-btn" onclick="redirectToConsult()">
+                    Explore More
+                    <span class="arrow">→</span>
+                </button>
             </div>
-            <div class="issue-card">
-              <img src="./assets/lonely.jpg" alt="Person feeling lonely">
-              <h2>Feeling Lonely</h2>
-              <p>Experiencing difficulty understanding your emotions? Finding yourself on the brink of tears? Reach out to experts who cultivate an atmosphere of unconditional support.</p>
+        
+            <div class="service-card couple">
+                <h2>Couple</h2>
+                <p>Couples therapy for married couples is known as marital therapy. Individual sessions may be provided separately.</p>
+                <button class="explore-btn" onclick="redirectToConsult()">
+                    Explore More
+                    <span class="arrow">→</span>
+                </button>
             </div>
-            <div class="issue-card">
-              <img src="./assets/trauma.jpg" alt="Person experiencing trauma">
-              <h2>Trauma</h2>
-              <p>Having trouble pinpointing the root causes of your triggers? Connect with seasoned professionals and begin your journey of self-discovery without delay.</p>
+        
+            <div class="service-card teen">
+                <h2>Teen</h2>
+                <p>With counseling, teens participate in talk therapy in a safe environment with a mental health professional with the aim.</p>
+                <button class="explore-btn" onclick="redirectToConsult()">
+                    Explore More
+                    <span class="arrow">→</span>
+                </button>
             </div>
-            <div class="issue-card">
-              <img src="./assets/overthinking.jpg" alt="Person overthinking">
-              <h2>Overthinking</h2>
-              <p>Struggling to manage your thoughts? Constantly feeling overwhelmed? Connect with professionals who provide a safe space to help you find peace and clarity.</p>
-            </div>
-            <div class="issue-card">
-              <img src="./assets/sadness.jpg" alt="Person feeling sad">
-              <h2>Sadness</h2>
-              <p>Feeling out of touch with your joyful self? Share your thoughts and concerns with experts and experience an instant uplift in your mood.</p>
-            </div>
-            <div class="issue-card">
-              <img src="./assets/anxiety.jpg" alt="Person experiencing anxiety">
-              <h2>Anxiety</h2>
-              <p>Are negative thoughts distancing you from reality? Engage in conversations with esteemed experts and witness tangible improvement.</p>
-            </div>
-            <div class="issue-card">
-              <img src="./assets/stress.jpg" alt="Person experiencing stress">
-              <h2>Stress</h2>
-              <p>Is stress hindering you from fully enjoying life? Reconnect with top industry professionals and reclaim the joys of life today.</p>
-            </div>
-            <div class="issue-card">
-              <img src="./assets/relationship.jpg" alt="Couple having relationship problems">
-              <h2>Relationship Problems</h2>
-              <p>Facing issues in your relationship? Feeling stuck or frustrated? Reach out to experts who help you navigate and resolve conflicts.</p>
-            </div>
-          </div>
+        </div>
 
-          <section class="support-section">
-            <h1 class="support-title">Get the Support You Need</h1>
-            <div class="support-options">
-              <div class="option">
-                <img src="./assets/welcome.jpg" alt="Diverse group of people smiling">
-                <h2>Meet people who understand</h2>
-                <p>Online chat rooms and forums offer readily accessible support, catering to a diverse range 
-                  of concerns including loneliness, stress, relationship issues, LGBTQ+ issues, and more.</p>
-              </div>
-              <div class="option">
-                <img src="./assets/teen.jpg" alt="Group of teenagers taking a selfie">
-                <h2>We're here for teens too</h2>
-                <p>Are you between the ages of 13 and 17? </p>
-                <p>Our dedicated listeners are here to chat with teenagers, guaranteeing confidentiality 
-                  whenever you seek support.</p>
-              </div>
-              <div class="option">
-                <img src="./assets/hug.jpg" alt="Group of friends hugging on the beach">
-                <h2>Nurture your mental health</h2>
-                <p>Embark on a personal growth journey and uncover fresh coping skills to bolster yourself 
-                  every day with online therapy.</p>
-                <p>Each step with Psychologist presents carefully curated self-help activities designed to assist 
-                  in enhancing your well-being.</p>
-              </div>
+        <div class="articles-section">
+            <div class="header">
+                <h1>Our recent Articles</h1>
+                <p>Article is a part or segment of something joined to other parts, or, in combination, forming a structured set.</p>
             </div>
-          </section>
-          
-          
+        
+            <div class="articles-container">
+                <article class="article-card health">
+                    <div class="category">Health</div>
+                    <img src="./Screenshot 2024-11-10 at 2.32.28 AM.png" alt="" class="article-image">
+                    <div class="article-meta">
+                        <div class="meta-item">
+                            <i class="calendar-icon">📅</i>
+                            19 November
+                        </div>
+                        <div class="meta-item">
+                            <i class="views-icon">👁️</i>
+                            54k
+                        </div>
+                        <div class="meta-item">
+                            <i class="likes-icon">❤️</i>
+                            9.9k
+                        </div>
+                    </div>
+                    <h2>Enhance Sleep Quality</h2>
+                    <p>Melatonin, magnesium, and GABA support better sleep cycles. Deep, restful sleep is essential for emotional resilience and mental rejuvenation.</p>
+                    <div class="writer">
+                        <img src="./doc1.png" alt="Dr. Meharab" class="writer-image">
+                        <div class="writer-info">
+                            <h3>Dr. Vasu Tayal</h3>
+                            <p>Health & Food</p>
+                        </div>
+                        <button class="more-options">⋮</button>
+                    </div>
+                </article>
+        
+                <article class="article-card infectious">
+                    <div class="category">Psychiatrist</div>
+                    <img src="./Screenshot 2024-11-10 at 2.32.21 AM.png" alt="" class="article-image">
+                    <div class="article-meta">
+                        <div class="meta-item">
+                            <i class="calendar-icon">📅</i>
+                            29 June
+                        </div>
+                        <div class="meta-item">
+                            <i class="views-icon">👁️</i>
+                            44k
+                        </div>
+                        <div class="meta-item">
+                            <i class="likes-icon">❤️</i>
+                            12.9k
+                        </div>
+                    </div>
+                    <h2>Reduce Stress Naturally</h2>
+                    <p>Adaptogens such as ashwagandha, Rhodiola, and holy basil help manage stress levels. They modulate the body's response to stress, aiding in mental calmness and stability.</p>
+                    <div class="writer">
+                        <img src="./doc2.png" alt="Dr. Muhammad Ibrahim" class="writer-image">
+                        <div class="writer-info">
+                            <h3>Dr. Rajesh Sharma</h3>
+                            <p>Psychiatrist</p>
+                        </div>
+                        <button class="more-options">⋮</button>
+                    </div>
+                </article>
+        
+                <article class="article-card neurology">
+                    <div class="category">Neurology</div>
+                    <img src="./Screenshot 2024-11-10 at 2.32.09 AM.png" alt="" class="article-image">
+                    <div class="article-meta">
+                        <div class="meta-item">
+                            <i class="calendar-icon">📅</i>
+                            29 August
+                        </div>
+                        <div class="meta-item">
+                            <i class="views-icon">👁️</i>
+                            56k
+                        </div>
+                        <div class="meta-item">
+                            <i class="likes-icon">❤️</i>
+                            13k
+                        </div>
+                    </div>
+                    <h2>Boost Cognitive Function</h2>
+                    <p>Nutrients like omega-3 fatty acids, antioxidants, and vitamins B6, B12, and D3 contribute to brain health. Balanced neurotransmitters are essential for cognitive processes.</p>
+                    <div class="writer">
+                        <img src="./doc3.png" alt="Dr. Billal" class="writer-image">
+                        <div class="writer-info">
+                            <h3>Dr. Ashok Gupta</h3>
+                            <p>Neurologist</p>
+                        </div>
+                        <button class="more-options">⋮</button>
+                    </div>
+                </article>
+            </div>
+        
+            <button onclick="redirectToWebsite()" class="read-more">Read More Articles</button>
+        </div>
 
-        <section class="signup">
-            <h2>Stay Updated</h2>
-            <p>Sign up for our newsletter for tips and updates on mental health.</p>
-            <form id="signup-form">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 Mental Fitness. All rights reserved.</p>
-    </footer>
+        <div class="meditation-component">
+            <div class="intro-section">
+                <h2>Discover Inner Peace</h2>
+                <p>Explore our range of meditation classes designed to help you reduce stress, improve focus, and find balance in your daily life.</p>
+            </div>
+        
+            <div class="meditation-class-cards">
+                <div class="meditation-card">
+                    <div class="card-header">
+                        <span class="tag">Beginner</span>
+                        <span class="duration">30 min</span>
+                    </div>
+                    <img src="/placeholder.svg?height=200&width=300" alt="Mindfulness Meditation" class="meditation-image">
+                    <h3>Mindfulness Meditation</h3>
+                    <p>Learn to be present in the moment and cultivate awareness of your thoughts and feelings.</p>
+                    <div class="card-meta">
+                        <span><i class="icon-calendar"></i> Daily</span>
+                        <span><i class="icon-users"></i> Max 20 participants</span>
+                    </div>
+                    <button class="start-meditation" data-class="mindfulness">Begin Session</button>
+                </div>
+                <div class="meditation-card">
+                    <div class="card-header">
+                        <span class="tag">Intermediate</span>
+                        <span class="duration">45 min</span>
+                    </div>
+                    <img src="/placeholder.svg?height=200&width=300" alt="Loving-Kindness Meditation" class="meditation-image">
+                    <h3>Loving-Kindness Meditation</h3>
+                    <p>Develop compassion for yourself and others through guided visualization and affirmations.</p>
+                    <div class="card-meta">
+                        <span><i class="icon-calendar"></i> Tue, Thu, Sat</span>
+                        <span><i class="icon-users"></i> Max 15 participants</span>
+                    </div>
+                    <button class="start-meditation" data-class="loving-kindness">Begin Session</button>
+                </div>
+                <div class="meditation-card">
+                    <div class="card-header">
+                        <span class="tag">Advanced</span>
+                        <span class="duration">60 min</span>
+                    </div>
+                    <img src="/placeholder.svg?height=200&width=300" alt="Transcendental Meditation" class="meditation-image">
+                    <h3>Transcendental Meditation</h3>
+                    <p>Experience deep relaxation and inner peace through the practice of mantra-based meditation.</p>
+                    <div class="card-meta">
+                        <span><i class="icon-calendar"></i> Mon, Wed, Fri</span>
+                        <span><i class="icon-users"></i> Max 10 participants</span>
+                    </div>
+                    <button class="start-meditation" data-class="transcendental">Begin Session</button>
+                </div>
+            </div>
+        
+            <div class="benefits-section">
+                <h3>Benefits of Regular Meditation</h3>
+                <ul>
+                    <li>Reduced stress and anxiety</li>
+                    <li>Improved emotional well-being</li>
+                    <li>Enhanced self-awareness</li>
+                    <li>Increased focus and concentration</li>
+                    <li>Better sleep quality</li>
+                </ul>
+            </div>
+        
+            <div class="testimonial-section">
+                <blockquote>
+                    "These meditation classes have transformed my life. I feel more centered, calm, and equipped to handle daily challenges."
+                    <footer>- Sarah M., Practicing for 6 months</footer>
+                </blockquote>
+            </div>
+        </div>
 
-    <script src="contact.js"></script>
+    <script src="wellness.js"></script>
 </body>
-
 </html>

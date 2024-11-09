@@ -184,12 +184,12 @@
     
             document.getElementById('success-text').innerText = `"${planName}" has been added to your cart.`;
             document.getElementById('plan-name').innerText = planName;
-            document.getElementById('plan-price').innerText = `$${planPrice.toFixed(2)}`;
+            document.getElementById('plan-price').innerText = `₹${planPrice.toFixed(2)}`;
     
             const total = planPrice * quantity;
-            document.getElementById('plan-subtotal').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('subtotal').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('total').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('plan-subtotal').innerText = `₹${total.toFixed(2)}`;
+            document.getElementById('subtotal').innerText = `₹${total.toFixed(2)}`;
+            document.getElementById('total').innerText = `₹${total.toFixed(2)}`;
     
             function applyCoupon() {
                 const couponInput = document.querySelector('.coupon-section input').value;
@@ -200,7 +200,7 @@
                 }
     
                 const discountedTotal = total * (1 - discount);
-                document.getElementById('total').innerText = `$${discountedTotal.toFixed(2)}`;
+                document.getElementById('total').innerText = `₹${discountedTotal.toFixed(2)}`;
                 if (discount > 0) {
                     alert('Coupon applied! You received a 50% discount.');
                 } else {
