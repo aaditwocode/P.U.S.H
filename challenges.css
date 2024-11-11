@@ -3,6 +3,7 @@ h2 {
     margin: 0;
     font-family: "Protest Guerrilla", sans-serif;
     font-size: 35px;
+    font-weight: lighter;
 }
 h1{
     font-family: "Protest Guerrilla", sans-serif;
@@ -10,14 +11,16 @@ h1{
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: rgb(56, 56, 56);
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #ECEFF1;
-    overflow-x: hidden;
+    background-color: rgb(56, 56, 56);
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
 }
-.header {
+
+.header11 {
     background-color: rgb(56, 56, 56);
     color: white;
     text-align: center;
@@ -37,7 +40,7 @@ header {
 }
 
 header .container0 {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -59,6 +62,25 @@ header .container0 {
     font-family: "Protest Guerrilla", sans-serif;
     font-size: 32px;
 }
+
+.rightHeader{
+    display: flex;
+    align-items: center;
+}
+
+.avatar-stack {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    
+  }
+  
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
 .rightHeader ul {
     display: flex;
@@ -89,6 +111,7 @@ header .container0 {
     text-align: center;
     font-size: 18px;
 }
+
 .progress-container {
     background-color: #455A64;
     color: white;

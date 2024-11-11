@@ -20,7 +20,16 @@ function validateForm() {
         isValid = false;
     }
 
-    if (isValid) {
-        alert('Sign-in successful!');
-    }
+    return isValid;
 }
+
+// Adding real-time validation for the password field
+const passwordInput = document.getElementById('password');
+passwordInput.addEventListener('input', function () {
+    const passwordError = document.getElementById('password-error');
+    if (passwordInput.value.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters.';
+    } else {
+        passwordError.textContent = '';
+    }
+});

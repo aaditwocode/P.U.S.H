@@ -1,24 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+h2 {
+    margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 35px;
+    font-weight: lighter;
+}
+h1{
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: unset;
+}
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #E1F5FE;
-    color: #333;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
 }
-
-header {
+.head{
+    color: white;
+}
+.header {
     background-color: #2196F3;
     color: #fff;
     text-align: center;
     padding: 1.5em 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 30px 30px;
 }
+
+header {
+    background: #000;
+    color: white;
+    padding: 1rem;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+header .container0 {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leftHeader {
+    display: flex;
+    align-items: center;
+}
+
+.leftHeader img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.leftHeader h2 {
+    margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 32px;
+}
+
+.rightHeader{
+    display: flex;
+    align-items: center;
+}
+
+.avatar-stack {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    
+  }
+  
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+.rightHeader ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.rightHeader ul li {
+    margin-left: 25px;
+}
+
+.rightHeader ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.rightHeader ul li a:hover {
+    color: #ffeb3b;
+}
+
+
 
 main {
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
-    background-color: white;
+    background-color: #000;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     text-align: center;
@@ -183,4 +275,15 @@ textarea.input-focused {
     .main-image {
         max-width: 100%;
     }
+}
+
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: #000;
+    color: white;
+}
+
+footer p {
+    margin: 0;
 }

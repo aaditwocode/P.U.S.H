@@ -9,23 +9,6 @@ h1{
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: unset;
 }
-        button {
-            display: block;
-            width: 80%;
-            max-width: 200px;
-            padding: 10px;
-            margin: 5px auto;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
 
         body {
             font-family: Arial, sans-serif;
@@ -34,6 +17,7 @@ h1{
             background-color: rgb(56, 56, 56);
             color: #333;
             line-height: 1.6;
+            text-align: center;
         }
 
         header {
@@ -48,7 +32,7 @@ h1{
         }
 
         header .container0 {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -71,6 +55,25 @@ h1{
             font-size: 32px;
         }
 
+        .rightHeader{
+            display: flex;
+            align-items: center;
+        }
+        
+        .avatar-stack {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            
+          }
+          
+          .avatar img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
         .rightHeader ul {
             display: flex;
             list-style: none;
@@ -91,6 +94,24 @@ h1{
 
         .rightHeader ul li a:hover {
             color: #ffeb3b;
+        }
+
+        button {
+            display: block;
+            width: 80%;
+            max-width: 200px;
+            padding: 10px;
+            margin: 5px auto;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
         }
 
         #hero {

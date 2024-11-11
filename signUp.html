@@ -3,52 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./assets/WhatsApp Image 2024-09-21 at 16.04.21.jpeg" />
     <title>P.U.S.H Sign Up</title>
     <link rel="stylesheet" href="signUp.css">
 </head>
 <body>
     <div class="container">
         <div class="left">
-            <img src="./assets/tinywow_change_bg_photo_65176222.png" alt="Logo">
+            <img src="./assets/tinywow_change_bg_photo_65176222.jpg" alt="Logo">
             <h2>P.U.S.H</h2>
             <p>Start your journey to strength, peace, and balance.</p>
         </div>
         <div class="right">
             <h3>Create an account</h3>
-            <form method="POST" action="signup.php" onsubmit="return validateForm()">
+            <form method="POST" action="signup.php" onsubmit="validateForm(event)">
                 <div class="input-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    <div id="name-error" class="error"></div>
+                    <div class="error" id="name-error"></div>
                 </div>
                 <div class="input-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" placeholder="Your Username" required>
-                    <div id="username-error" class="error"></div>
+                    <div class="error" id="username-error"></div>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email Address</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="email@example.com" required>
-                    <div id="email-error" class="error"></div>
+                    <div class="error" id="email-error"></div>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required>
-                    <div id="password-error" class="error"></div>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required onkeyup="updatePasswordStrength()">
+                    <div class="error" id="password-error"></div>
+                    <div class="password-strength" id="password-strength"></div>
                 </div>
                 <div class="input-group">
                     <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" name="dob" placeholder="DD/MM/YYYY" required>
-                    <div id="dob-error" class="error"></div>
+                    <div class="error" id="dob-error"></div>
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
+                <div class="login-link">
+                    Already have an account? <a href="#">Login</a>
+                </div>
+                <div class="error" id="form-success"></div>
             </form>
-            <div class="login-link">
-                Already have an account? <a href="login.html">Sign in</a>
-            </div>
         </div>
     </div>
-
     <script src="signUp.js"></script>
 </body>
 </html>

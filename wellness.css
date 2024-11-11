@@ -5,7 +5,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #000;
+    background-color: #333;
     color: #fff;
 }
 .container {
@@ -13,25 +13,80 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
-nav {
+
+header {
+    background: #000;
+    color: white;
+    padding: 1rem;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+header .container0 {
+    max-width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
 }
-nav ul {
+
+.leftHeader {
     display: flex;
-    list-style-type: none;
-    gap: 20px;
+    align-items: center;
 }
-nav a {
-    color: #fff;
+
+.leftHeader img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.leftHeader h2 {
+    margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 32px;
+}
+
+.rightHeader{
+    display: flex;
+    align-items: center;
+}
+
+.avatar-stack {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    
+  }
+  
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+.rightHeader ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.rightHeader ul li {
+    margin-left: 25px;
+}
+
+.rightHeader ul li a {
+    color: white;
     text-decoration: none;
-    opacity: 0.7;
-    transition: opacity 0.3s;
+    font-size: 18px;
+    transition: color 0.3s;
 }
-nav a:hover, nav a.active {
-    opacity: 1;
+
+.rightHeader ul li a:hover {
+    color: #ffeb3b;
 }
 .btn {
     background-color: transparent;
@@ -359,6 +414,9 @@ line-height: 1.5;
 .article-card.neurology .category {
     background-color: #ff758c;
 }
+.article-card.psychiatrist .category {
+    background-color: #ff758c;
+}
 
 .category {
     display: inline-block;
@@ -479,6 +537,7 @@ color: #ffffff;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 padding: 40px 20px;
 max-width: 1200px;
+height: auto;
 margin: 0 auto;
 }
 
@@ -500,11 +559,21 @@ margin: 0 auto;
 }
 
 .meditation-class-cards {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+display: flex;
+flex-direction: row;
 gap: 30px;
 margin-bottom: 40px;
+height: auto;
+justify-content: center;
 }
+
+.meditation-image {
+    width: 100%; /* Make sure it takes full width */
+    height: 100%; /* Set your desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 5px;
+}
+
 
 .meditation-card {
 background-color: #1a1a1a;
@@ -650,4 +719,15 @@ line-height: 1;
 .intro-section h2 {
     font-size: 2rem;
 }
+}
+
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: #000;
+    color: white;
+}
+
+footer p {
+    margin: 0;
 }

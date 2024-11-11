@@ -91,6 +91,20 @@ transition: color 0.3s;
 color: #ffeb3b;
 }
 
+.avatar-stack {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    
+  }
+  
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
 .video-wrapper {
 position: relative;
 width: 100%;
@@ -393,21 +407,6 @@ margin: 5px;
     padding-left: 200px;
 }
 
-
-
-.avatar-stack {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    
-  }
-  
-  .avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
 
   .pricing-container {
     align-items: center;
