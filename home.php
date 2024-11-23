@@ -8,7 +8,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 $userId = $_SESSION['user_id'];
-// echo "<script>alert('Welcome, User ID: " . $userId . "');</script>";
+$username = $_SESSION['username'];
+echo "<script>alert('Welcome, User : " . $username . "');</script>";
 
 // Check subscription status
 $subscriptionQuery = "SELECT plan_id, status FROM Subscriptions WHERE user_id = '$userId' ORDER BY start_date DESC LIMIT 1";

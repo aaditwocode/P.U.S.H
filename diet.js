@@ -12,6 +12,7 @@ function submitUserDetails() {
     alert("Details submitted successfully! You can now calculate your BMI.");
 }
 
+
 function calculateBMI() {
     if (weight > 0 && height > 0) {
         const bmi = (weight / (height * height)).toFixed(2);

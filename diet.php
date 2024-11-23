@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';  // Ensure your database connection is included
+include 'config.php';
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: welcome.html");
@@ -8,20 +8,44 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 $userId = $_SESSION['user_id'];
-// echo $userId;
 
 // Update height, weight, and gender
 if (isset($_POST['update_info'])) {
-    $height = $_POST['height'];
-    $weight = $_POST['weight'];
-    $gender = $_POST['gender'];
-    $sql = "UPDATE diet SET height='$height', weight='$weight', gender='$gender' WHERE user_id = $userId";
+    $height = floatval($_POST['height']);
+    $weight = floatval($_POST['weight']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    
+    // Validate height and weight
+    if ($height <= 0 || $height > 3 || !is_numeric($height)) {
+        die("Invalid height. Please enter a value between 0.01 and 3.00 meters.");
+    }
+    if ($weight <= 0 || $weight > 500 || !is_numeric($weight)) {
+        die("Invalid weight. Please enter a value between 0.1 and 500.0 kg.");
+    }
+
+    $sql = "UPDATE diet SET height = '$height', weight = '$weight', gender = '$gender' WHERE user_id = $userId";
     $conn->query($sql);
 }
 
-// Close connection
-$conn->close();
+// Fetch user details from the database
+$sql = "SELECT height, weight, gender FROM diet WHERE user_id = $userId";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $height = $row['height'];
+    $weight = $row['weight'];
+    $gender = strtolower($row['gender']);
+} else {
+    $height = '';
+    $weight = '';
+    $gender = '';
+}
+
+
+// $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,28 +140,88 @@ $conn->close();
   
         <div class="container">
         <section class="user-details-section" id="user-details-section">
-            <h2>Enter Your Details</h2>
-            <form action="diet.php" method="post">
-                <label for="user-weight">Weight (kg):</label>
-                <input type="number" name="weight" id="user-weight" placeholder="Enter your weight" required><br>
-                
-                <label for="user-height">Height (m):</label>
-                <input type="number" step="0.1" name="height" id="user-height" placeholder="Enter your height" required><br>
-                
-                <label>Gender:</label>
-                <label><input type="radio" name="gender" value="male" required> Male</label>
-                <label><input type="radio" name="gender" value="female"> Female</label>
-                <!-- <label><input type="radio" name="gender" value="other"> Other</label><br> -->
-                <button type="submit" onclick="submitUserDetails()" name="update_info">Update Info</button>
-                </form>
-        </section>
+    <h2>Enter Your Details</h2>
+    <form action="diet.php" method="post">
+        <label for="user-weight">Weight (kg):</label>
+        <input type="number" name="weight" id="user-weight" 
+               value="<?php echo htmlspecialchars($weight); ?>" 
+               placeholder="Enter your weight" 
+               step="0.1" min="0" required><br>
+        
+        <label for="user-height">Height (m):</label>
+        <input type="number" step="0.01" name="height" id="user-height" 
+               value="<?php echo htmlspecialchars($height); ?>" 
+               placeholder="Enter your height" 
+               min="0" required><br>
+        
+        <label>Gender:</label>
+        <label><input type="radio" name="gender" value="male" 
+               <?php echo ($gender === 'male') ? 'checked' : ''; ?>> Male</label>
+        <label><input type="radio" name="gender" value="female" 
+               <?php echo ($gender === 'female') ? 'checked' : ''; ?>> Female</label>
+        
+        <button type="submit" name="update_info">Update Info</button>
+    </form>
+</section>
+
 
         <section class="user-details-section">
             <h1>BMI Calculator</h1>
             <div class="container2">
-                <button onclick="calculateBMI()">Calculate BMI</button>
-                <div id="result"></div>
-                <div id="analysis"></div>
+            <form action="diet.php" method="post">
+                <!-- <button name="bmi" onclick="calculateBMI()">Calculate BMI</button> -->
+                <button name="bmi">Calculate BMI</button>
+</form>
+                <!-- <div id="result"></div>
+                <div id="analysis"></div> -->
+                <?php 
+                if (isset($_POST['bmi'])) {
+                if ($weight > 0 && $height > 0) {
+    // Calculate BMI
+    $bmi = round($weight / ($height * $height), 2);
+
+    // Determine the category and analysis based on BMI and gender
+    if ($gender === 'male') {
+        if ($bmi < 20) {
+            $category = 'Underweight';
+            $analysis = 'You are considered underweight. It may be beneficial to follow our bulk plan followed by the toned plan.';
+        } elseif ($bmi < 25) {
+            $category = 'Normal weight';
+            $analysis = 'Congratulations! You have a normal weight. Maintain the balanced diet that you are currently taking. We recommend you try all the plans.';
+        } elseif ($bmi < 30) {
+            $category = 'Overweight';
+            $analysis = 'You are classified as overweight. Consider adopting our slim weight plan.';
+        } else {
+            $category = 'Obesity';
+            $analysis = 'You are considered obese. It is highly recommended to seek advice from a healthcare provider and to strictly follow the slim diet plan.';
+        }
+    } elseif ($gender === 'female') {
+        if ($bmi < 18.5) {
+            $category = 'Underweight';
+            $analysis = 'You are considered underweight. It may be beneficial to follow our bulk plan followed by the toned plan.';
+        } elseif ($bmi < 24.9) {
+            $category = 'Normal weight';
+            $analysis = 'Congratulations! You have a normal weight. Maintain a balanced diet that you are currently taking. We recommend you try all the plans.';
+        } elseif ($bmi < 29.9) {
+            $category = 'Overweight';
+            $analysis = 'You are classified as overweight. Consider adopting our slim weight plan.';
+        } else {
+            $category = 'Obesity';
+            $analysis = 'You are considered obese. It is highly recommended to seek guidance from a healthcare provider and to strictly follow the slim diet plan.';
+        }
+    }
+} else {
+    // If the data is not valid, set the result to a default message
+    $bmi = 'Invalid weight or height.';
+    $category = '';
+    $analysis = '';
+}
+// Output the result
+echo "<div id='result'><strong>Your BMI is:</strong> $bmi - $category</div>";
+echo "<div id='analysis'>$analysis</div>";
+$sql = "UPDATE diet SET bmi = '$bmi' WHERE user_id = $userId";
+$conn->query($sql);
+}?>
             </div>
         </section>
 
