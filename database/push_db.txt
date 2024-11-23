@@ -1,38 +1,191 @@
-CREATE DATABASE push_db;
+create database push_db;
 
-USE push_db;
+use push_db;
+
+CREATE TABLE Plans (
+    plan_id INT PRIMARY KEY,
+    plan_name ENUM('Gold', 'Platinum', 'Diamond') NOT NULL,
+    description VARCHAR(255),
+    monthly_fee DECIMAL(10, 2) NOT NULL
+);
+Insert into Plans (plan_id,plan_name,description,monthly_fee) values
+(1,'Gold',"Workout & Challenges",499),
+(2,'Platinum',"Workout, Challenges & Diet",799),
+(3,'Diamond',"Workout, Challenges, Diet & Wellness",999);
+
+CREATE TABLE Features (
+    feature_id INT AUTO_INCREMENT PRIMARY KEY,  -- Automatically increments the feature_id for each new entry
+    feature_name ENUM('Diet', 'Wellness', 'Workout', 'Challenges') NOT NULL,
+    plan_id INT NOT NULL,  -- Minimum plan required for access
+    description VARCHAR(255),
+    FOREIGN KEY (plan_id) REFERENCES Plans(plan_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (plan_id, feature_name)  -- Ensures that each feature is unique per plan
+);
+INSERT INTO Features (feature_name, plan_id, description) VALUES
+('Workout', 1, 'Wide variety of workout routines. One-on-one training sessions. Customizable workout plans for all levels. Workout plans made for your needs.'),
+('Challenges', 1, 'Challenges sorted by difficulty. Exciting, engaging fitness activities. Trackable progress with various duration options. Healthy challenges offered with incentives.'),
+('Workout', 2, 'Wide variety of workout routines. One-on-one training sessions. Customizable workout plans for all levels. Workout plans made for your needs.'),
+('Challenges', 2, 'Challenges sorted by difficulty. Exciting, engaging fitness activities. Trackable progress with various duration options. Healthy challenges offered with incentives.'),
+('Diet', 2, 'Personalized diet plans based on your health goals. Track your progress and nutrition intake with detailed reports. Nutrition experts available for guidance.'),
+('Workout', 3, 'Wide variety of workout routines. One-on-one training sessions. Customizable workout plans for all levels. Workout plans made for your needs.'),
+('Challenges', 3, 'Challenges sorted by difficulty. Exciting, engaging fitness activities. Trackable progress with various duration options. Healthy challenges offered with incentives.'),
+('Diet', 3, 'Personalized diet plans based on your health goals. Track your progress and nutrition intake with detailed reports. Nutrition experts available for guidance.'),
+('Wellness', 3, 'Mindfulness and meditation techniques. Yoga sessions for flexibility and balance. Holistic wellness programs for mental well-being. Custom meditation clock made for you and handles all your well-being.');
 
 CREATE TABLE users (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    plan_id INT DEFAULT NULL,
     name VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     dob DATE NOT NULL,
     phone VARCHAR(15) NOT NULL,
+    age INT(3),
+    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     password VARCHAR(255) NOT NULL,
-    age INT(3)
+-- 	time_spent INT DEFAULT 0,
+    FOREIGN KEY (plan_id) REFERENCES Plans(plan_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DELIMITER $$
-
 CREATE TRIGGER before_users_insert
 BEFORE INSERT ON users
 FOR EACH ROW
 BEGIN
     SET NEW.age = TIMESTAMPDIFF(YEAR, NEW.dob, CURDATE());
 END$$
+DELIMITER ;
 
+CREATE TABLE user_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    FOREIGN KEY (plan_id) REFERENCES plans(plan_id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE Subscriptions (
+    subscription_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    start_date TIMESTAMP NULL,
+    end_date TIMESTAMP NULL,
+    status ENUM('Active', 'Inactive', 'Pending', 'Cancelled') DEFAULT 'Inactive',
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES Plans(plan_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DELIMITER $$
+CREATE TRIGGER after_user_plan_update
+AFTER UPDATE ON Users
+FOR EACH ROW
+BEGIN
+    IF NEW.plan_id IS NOT NULL AND OLD.plan_id IS NULL THEN
+        INSERT INTO Subscriptions (user_id, plan_id, status)
+        VALUES (
+            NEW.user_id,
+            NEW.plan_id,
+            'Inactive'
+        );
+    END IF;
+END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER before_users_update
-BEFORE UPDATE ON users
+
+CREATE TRIGGER log_user_history
+AFTER UPDATE ON Subscriptions
 FOR EACH ROW
 BEGIN
-    SET NEW.age = TIMESTAMPDIFF(YEAR, NEW.dob, CURDATE());
+    -- If the subscription status is changed from 'Active' to 'Inactive'
+    IF OLD.status = 'Active' AND NEW.status = 'Inactive' THEN
+        INSERT INTO user_history (user_id, plan_id, start_date, end_date)
+        VALUES (OLD.user_id, OLD.plan_id, OLD.start_date, OLD.end_date);
+    END IF;
 END$$
 
 DELIMITER ;
 
 
 
+CREATE TABLE Diet (
+    diet_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    diet_type ENUM('veg', 'non-veg') DEFAULT NULL,
+    weight DECIMAL(5, 2) DEFAULT NULL,
+    height DECIMAL(5, 2) DEFAULT NULL,
+    gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
+    bmi DECIMAL(5, 2) DEFAULT NULL,
+    calorietrackerstartdate DATE DEFAULT NULL,
+    calorietrackerend_date DATE GENERATED ALWAYS AS (DATE_ADD(calorietrackerstartdate, INTERVAL 1 MONTH)) VIRTUAL,
+    daily_calorie_goal INT DEFAULT 0,
+    monthlycaloriegoal INT GENERATED ALWAYS AS (daily_calorie_goal * 30) VIRTUAL,
+    progress INT DEFAULT 0,
+    remainingcalories INT DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Wellness (
+    wellness_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    meditation_time INT DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE WellnessContact (
+    contact_id INT PRIMARY KEY AUTO_INCREMENT,
+    wellness_id INT NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    FOREIGN KEY (wellness_id) REFERENCES Wellness(wellness_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Workout (
+    workout_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    description TEXT DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Challenges (
+    challenge_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    description TEXT DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE
+);
+
+DELIMITER $$
+CREATE TRIGGER activate_user_subscription
+AFTER UPDATE ON Subscriptions
+FOR EACH ROW
+BEGIN
+        DECLARE plan_name1 ENUM('Gold', 'Platinum', 'Diamond');        
+        IF NEW.status = 'Active' AND OLD.status != 'Active' THEN
+        SELECT plan_name INTO plan_name1
+        FROM Plans
+        WHERE plan_id = NEW.plan_id;
+        IF plan_name1 IN ('Platinum', 'Diamond') THEN
+            INSERT INTO Diet (user_id)
+            VALUES (NEW.user_id);
+        END IF;
+        IF plan_name1 = 'Diamond' THEN
+            INSERT INTO Wellness (user_id, meditation_time)
+            VALUES (NEW.user_id, 0);
+        END IF;
+        INSERT INTO Workout (user_id, description)
+        VALUES (NEW.user_id, 'Initial workout session');
+		INSERT INTO Challenges (user_id)
+		VALUES (NEW.user_id);
+    END IF;
+END$$
+DELIMITER ;
+
+
+
+-- DROP TRIGGER IF EXISTS activate_user_subscription;
+-- truncate table users;
+-- drop database push_db;

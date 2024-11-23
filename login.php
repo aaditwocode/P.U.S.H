@@ -20,53 +20,50 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Function to handle redirection and messages
+function showMessageAndRedirect($message, $redirect) {
+    echo "<script>
+            window.onload = function() {
+                showModal('$message');
+                setTimeout(function() {
+                    window.location.href = '$redirect';
+                }, 2000);
+            };
+          </script>";
+}
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
-    // Prepare the SQL query to prevent SQL injection
-    $sql = "SELECT * FROM users WHERE email = ?";
-    if ($stmt = $conn->prepare($sql)) {
-        // Bind the email parameter
-        $stmt->bind_param("s", $email);
+    // SQL query to fetch user details based on email
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
 
-        // Execute the prepared statement
-        $stmt->execute();
+    // Check if a user is found
+    if ($result && $result->num_rows > 0) {
+        // User found, fetch the user details
+        $row = $result->fetch_assoc();
 
-        // Get the result of the query
-        $result = $stmt->get_result();
+        // Verify the password
+        if (password_verify($password, $row['password'])) {
+            // Password is correct, set session variables
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $row['email'];
 
-        // Check if a user is found
-        if ($result->num_rows > 0) {
-            // User found, fetch the user details
-            $row = $result->fetch_assoc();
-
-            // Verify the password
-            if (password_verify($password, $row['password'])) {
-                // Password is correct, set session variables
-                $_SESSION['logged_in'] = true;
-                $_SESSION['user_id'] = $row['user_id'];  // Assuming user_id exists in the database
-                $_SESSION['username'] = $row['username'];  // Assuming username exists in the database
-                $_SESSION['email'] = $row['email'];  // Optionally, store the email too if needed
-
-                // Redirect user to home page with their user_id
-                header("Location: home.php?id=" . $row['user_id']);
-                exit();
-            } else {
-                // Incorrect password
-                echo "<script>alert('Incorrect password'); window.location.href='login.html';</script>";
-            }
+            // Redirect user to home page with their user_id
+            header("Location: home.php?id=" . $row['user_id']);
+            exit();
         } else {
-            // User not found, redirect to sign-up page
-            echo "<script>alert('Email not registered. Please sign up.'); window.location.href='signup.html';</script>";
+            // Incorrect password
+            showMessageAndRedirect("Incorrect password.", "login.html");
         }
-
-        // Close the prepared statement
-        $stmt->close();
     } else {
-        // If the prepared statement fails
-        echo "Error: " . $conn->error;
+        // User not found, redirect to sign-up page
+        showMessageAndRedirect("Email not registered. Please sign up.", "signup.html");
     }
 }
 

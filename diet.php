@@ -1,3 +1,27 @@
+<?php
+session_start();
+include 'config.php';  // Ensure your database connection is included
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: welcome.html");
+    exit();
+}
+
+$userId = $_SESSION['user_id'];
+// echo $userId;
+
+// Update height, weight, and gender
+if (isset($_POST['update_info'])) {
+    $height = $_POST['height'];
+    $weight = $_POST['weight'];
+    $gender = $_POST['gender'];
+    $sql = "UPDATE diet SET height='$height', weight='$weight', gender='$gender' WHERE user_id = $userId";
+    $conn->query($sql);
+}
+
+// Close connection
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,20 +113,23 @@
         </div>
     </section>
 
-    <div class="container">
+  
+        <div class="container">
         <section class="user-details-section" id="user-details-section">
             <h2>Enter Your Details</h2>
-            <label for="user-weight">Weight (kg):</label>
-            <input type="number" id="user-weight" placeholder="Enter your weight" required><br>
-
-            <label for="user-height">Height (m):</label>
-            <input type="number" id="user-height" placeholder="Enter your height" required><br>
-
-            <label>Gender:</label>
-            <label><input type="radio" name="gender" value="male" required> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label><br>
-
-            <button onclick="submitUserDetails()">Submit Details</button>
+            <form action="diet.php" method="post">
+                <label for="user-weight">Weight (kg):</label>
+                <input type="number" name="weight" id="user-weight" placeholder="Enter your weight" required><br>
+                
+                <label for="user-height">Height (m):</label>
+                <input type="number" step="0.1" name="height" id="user-height" placeholder="Enter your height" required><br>
+                
+                <label>Gender:</label>
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+                <!-- <label><input type="radio" name="gender" value="other"> Other</label><br> -->
+                <button type="submit" onclick="submitUserDetails()" name="update_info">Update Info</button>
+                </form>
         </section>
 
         <section class="user-details-section">
@@ -179,6 +206,7 @@
                     <p id="new-tracking-period"></p>
                 </div>
             </section>
+            <section class="meal">
             <label>Select Diet Type:</label><br>
             <input type="radio" id="vegetarian" name="diet" value="vegetarian" checked>
             <label for="vegetarian">Vegetarian</label><br>
@@ -186,6 +214,7 @@
             <label for="non-vegetarian">Non-Vegetarian</label><br>
             <button onclick="generateMealPlan()">Generate Meal Plan</button>
             <div id="meal-plan"></div>
+            </section>
         </section>
     </div>
 

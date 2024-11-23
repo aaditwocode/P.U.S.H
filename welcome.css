@@ -28,7 +28,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 40px;
+  padding: 50px;
+  padding-top: 100px;
 }
 
 .left-section {
@@ -83,6 +84,7 @@ p {
 
 .logo-container {
   width: 400px;
+  margin-top: 45px;
   height: 300px;
   overflow: hidden;
   border-radius: 20%;

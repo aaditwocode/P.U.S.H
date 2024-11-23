@@ -1,11 +1,61 @@
 <?php
-session_start();  // Start the session
+session_start();
+include 'config.php';  // Ensure your database connection is included
 
-// Check if the user is logged in, if not, redirect to the welcome page
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header("Location: welcome.html");  // Redirect to welcome page
+    header("Location: welcome.html");
     exit();
 }
+
+$userId = $_SESSION['user_id'];
+// echo "<script>alert('Welcome, User ID: " . $userId . "');</script>";
+
+// Check subscription status
+$subscriptionQuery = "SELECT plan_id, status FROM Subscriptions WHERE user_id = '$userId' ORDER BY start_date DESC LIMIT 1";
+$result = mysqli_query($conn, $subscriptionQuery);
+
+$isSubscribed = false;
+$isActive = false;
+$currentPlanId = null;
+
+if (mysqli_num_rows($result) > 0) {
+    $subscription = mysqli_fetch_assoc($result);
+    $currentPlanId = $subscription['plan_id'];
+    $isActive = $subscription['status'] === 'Active';
+    $isSubscribed = true;
+}
+
+
+// Fetch user details and subscription data
+$user_id = $_SESSION['user_id']; // Assuming user ID is stored in the session after login
+$user_query = "SELECT u.plan_id, p.plan_name, s.status
+               FROM users u
+               LEFT JOIN Subscriptions s ON u.user_id = s.user_id
+               LEFT JOIN Plans p ON s.plan_id = p.plan_id
+               WHERE u.user_id = $user_id AND s.status = 'Active'";
+
+$user_result = $conn->query($user_query);
+$user_data = $user_result->fetch_assoc();
+
+$user_plan = $user_data['plan_name'] ?? 'No Plan';
+$subscription_status = $user_data['status'] ?? 'Inactive';
+
+// Fetch the features allowed for the user's plan
+$features_query = "SELECT feature_name FROM Features WHERE plan_id = (SELECT plan_id FROM users WHERE user_id = $user_id)";
+$features_result = $conn->query($features_query);
+
+$features = [];
+while ($row = $features_result->fetch_assoc()) {
+    $features[] = $row['feature_name'];
+}
+
+// Pass PHP data to JavaScript
+echo "<script>
+        const userPlan = " . json_encode($user_plan) . ";
+        const subscriptionStatus = " . json_encode($subscription_status) . ";
+        const userFeatures = " . json_encode($features) . ";
+      </script>";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +74,161 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 </head>
 
 <body>
+  <script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userId = <?php echo json_encode($userId); ?>;
+    const isSubscribed = <?php echo json_encode($isSubscribed); ?>;
+    const isActive = <?php echo json_encode($isActive); ?>;
+    const goldButton = document.getElementById('gold-subscribe');
+    const platinumButton = document.getElementById('platinum-subscribe');
+    const diamondButton = document.getElementById('diamond-subscribe');
+    
+    // Create a message element
+    const messageBox = document.createElement('div');
+    messageBox.id = 'subscription-message';
+    messageBox.style.position = 'fixed';
+    messageBox.style.bottom = '20px';
+    messageBox.style.left = '50%';
+    messageBox.style.transform = 'translateX(-50%)';
+    messageBox.style.padding = '10px 20px';
+    messageBox.style.backgroundColor = '#333';
+    messageBox.style.color = '#fff';
+    messageBox.style.borderRadius = '5px';
+    messageBox.style.display = 'none';  // Initially hidden
+    document.body.appendChild(messageBox);
+
+    // Function to show message
+    function showMessage(message) {
+        messageBox.textContent = message;
+        messageBox.style.display = 'block';
+    }
+
+
+    function hideMessage() {
+        messageBox.style.display = 'none';
+    }
+
+    // Disable buttons if subscribed and active
+    if (isSubscribed && isActive) {
+        goldButton.disabled = true;
+        platinumButton.disabled = true;
+        diamondButton.disabled = true;
+    } else {
+        goldButton.disabled = false;
+        platinumButton.disabled = false;
+        diamondButton.disabled = false;
+    }
+
+    // Hover effect for the subscription buttons
+    function handleHover(button, plan) {
+        button.addEventListener('mouseover', () => {
+            const selectedPlan = localStorage.getItem(`${userId}_selectedPlan`);
+            if (isSubscribed && isActive) {
+                showMessage(`You are already subscribed to the ${selectedPlan} plan.`);
+            } else if (isSubscribed || isActive) {
+                showMessage(`Complete payment to the ${selectedPlan} plan!`);
+            } else {
+                showMessage(`No plan is selected`);
+            }
+        });
+
+        button.addEventListener('mouseout', hideMessage);
+    }
+
+    handleHover(goldButton, 'Gold');
+    handleHover(platinumButton, 'Platinum');
+    handleHover(diamondButton, 'Diamond');
+
+    // Click event for subscribing
+    function subscribe(planId, planType, price) {
+        if (isSubscribed && !isActive) {
+            fetch(`update_plan.php?user_id=${userId}&plan_id=${planId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem(`${userId}_selectedPlan`, planType);
+                        localStorage.setItem(`${userId}_selectedPlanPrice`, price);
+                        window.location.href = 'payment.php';
+                    } else {
+                        showMessage("Failed to update plan.");
+                        hideMessage();
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        } else {
+            localStorage.setItem(`${userId}_selectedPlan`, planType);
+            localStorage.setItem(`${userId}_selectedPlanPrice`, price);
+            window.location.href = 'payment.php';
+        }
+    }
+
+    goldButton.addEventListener('click', () => subscribe(1, 'Gold', '499'));
+    platinumButton.addEventListener('click', () => subscribe(2, 'Platinum', '799'));
+    diamondButton.addEventListener('click', () => subscribe(3, 'Diamond', '999'));
+});
+
+// Update subscription details on the page
+function updateSubscriptionDetails() {
+    document.getElementById('user-plan').innerText = userPlan || 'No Plan';
+    
+    // Clear and update available features list
+    const featureList = document.getElementById('available-features');
+    featureList.innerHTML = ''; // Clear existing features
+    userFeatures.forEach(feature => {
+        const listItem = document.createElement('li');
+        listItem.textContent = feature;
+        featureList.appendChild(listItem);
+    });
+}
+
+
+// JavaScript functions to manage feature access based on user subscription
+function setMessage(message) {
+    document.getElementById('message').innerText = message;
+}
+
+function accessFeature(link, feature) {
+    if (subscriptionStatus !== 'Active') {
+        setMessage("Please subscribe to access this feature.");
+    } else if (!userFeatures.includes(feature)) {
+        setMessage("Upgrade to a higher plan to access this feature.");
+    } else {
+        window.location.href = link;
+    }
+}
+
+function hoverFeature(feature) {
+    if (subscriptionStatus !== 'Active') {
+        setMessage("Please subscribe to access this feature.");
+    } else if (!userFeatures.includes(feature)) {
+        setMessage("Upgrade to a higher plan to access this feature.");
+    } else {
+        setMessage(""); // Clear message if the feature is accessible
+    }
+}
+
+function checkSubscriptionStatus() {
+    fetch("subscription_validity.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'Inactive') {
+                alert("Your subscription has expired.");
+                // Redirect to a limited-access page
+                window.location.href = 'home.php';
+            }
+        });
+}
+
+window.onload = function() {
+    checkSubscriptionStatus();
+    updateSubscriptionDetails();
+};
+
+
+
+  </script>
         <header>
             <div class="container0">
                 <div class="leftHeader">
@@ -57,59 +262,73 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </div>
     
         <section id="features">
-                <h1>WHY YOU SHOULD CHOOSE P.U.S.H</h1>
-            <div class="reasons-container">
-                <div class="reason-box" onclick="window.location.href='diet.html';" style="cursor: pointer;">
-                    <h2>DIET</h2>
-                    <ul>
-                        <li>Custom diet plans for you</li>
-                        <li>Calorie tracking for precise nutrition management</li>
-                        <li>Custom meal plans for different dietary needs</li>
-                        <li>use calorie tracker  for your daily goals ans follows diet plans catered based off your B.M.I </li>
-                    </ul>
-                    <div class="reason-image">
-                        <img src="./assets/diet.jpg" alt="Diet image">
-                    </div>
-                </div>
-                <div class="reason-box" onclick="window.location.href='new.html';" style="cursor: pointer;">
-                    <h2>WORKOUT</h2>
-                    <ul>
-                        <li>Wide variety of workout routines</li>
-                        <li>One-on-one training sessions</li>
-                        <li>Customizable workout plans for all levels</li>
-                        <li>Workout plans made for your needs</li>
-                    </ul>
-                    <div class="reason-image">
-                        <img src="./assets/workout.jpg" alt="Workout image">
-                    </div>
-                </div>
-                <div class="reason-box" onclick="window.location.href='wellness.html';" style="cursor: pointer;">
-                    <h2>WELLNESS</h2>
-                    <ul>
-                        <li>Mindfulness and meditation techniques</li>
-                        <li>Yoga sessions for flexibility and balance</li>
-                        <li>Holistic wellness programs for mental well-being</li>
-                        <li>Custom meditation clock made for you and handles all your well-being</li>
-                    </ul>
-                    <div class="reason-image">
-                        <img src="./assets/wellness.jpg" alt="Wellness image">
-                    </div>
-                </div>
-                <div class="reason-box" onclick="window.location.href='challenges.html';" style="cursor: pointer;">
-                    <h2>CHALLENGES</h2>
-                    <ul>
-                        <li>Challenges sorted by difficulty</li>
-                        <li>Exciting, engaging fitness activities</li>
-                        <li>Trackable progress with various duration options</li>
-                        <li>Healthy Challenges offered with incentives.</li>
-                    </ul>
-                    <div class="reason-image">
-                        <img src="./assets/challenge.jpg" alt="Challenges image">
-                    </div>
-                </div>
+    <h1>WHY YOU SHOULD CHOOSE P.U.S.H</h1>
+    <!-- Message Display Area -->
+    <div id="subscription-details" style="margin-bottom: 20px;">
+        <h2>Your Plan: <span id="user-plan"></span></h2>
+        <h3>Available Features:</h3>
+        <ul id="available-features"></ul>
+        <div id="message" style="color: red; font-weight: bold; margin-bottom: 20px;"></div>
+    </div>
+    <div class="reasons-container">
+        <!-- Diet Feature -->
+        <div class="reason-box" id="diet-feature" onclick="accessFeature('diet.php', 'Diet')" onmouseover="hoverFeature('Diet')" style="cursor: pointer;">
+            <h2>DIET</h2>
+            <ul>
+                <li>Custom diet plans for you</li>
+                <li>Calorie tracking for precise nutrition management</li>
+                <li>Custom meal plans for different dietary needs</li>
+                <li>Use calorie tracker for your daily goals and follow diet plans catered to your B.M.I</li>
+            </ul>
+            <div class="reason-image">
+                <img src="./assets/diet.jpg" alt="Diet image">
             </div>
-        </section>
-        
+        </div>
+
+        <!-- Workout Feature -->
+        <div class="reason-box" id="workout-feature" onclick="accessFeature('new.html', 'Workout')" onmouseover="hoverFeature('Workout')" style="cursor: pointer;">
+            <h2>WORKOUT</h2>
+            <ul>
+                <li>Wide variety of workout routines</li>
+                <li>One-on-one training sessions</li>
+                <li>Customizable workout plans for all levels</li>
+                <li>Workout plans made for your needs</li>
+            </ul>
+            <div class="reason-image">
+                <img src="./assets/workout.jpg" alt="Workout image">
+            </div>
+        </div>
+
+        <!-- Wellness Feature -->
+        <div class="reason-box" id="wellness-feature" onclick="accessFeature('wellness.html', 'Wellness')" onmouseover="hoverFeature('Wellness')" style="cursor: pointer;">
+            <h2>WELLNESS</h2>
+            <ul>
+                <li>Mindfulness and meditation techniques</li>
+                <li>Yoga sessions for flexibility and balance</li>
+                <li>Holistic wellness programs for mental well-being</li>
+                <li>Custom meditation clock made for your well-being</li>
+            </ul>
+            <div class="reason-image">
+                <img src="./assets/wellness.jpg" alt="Wellness image">
+            </div>
+        </div>
+
+        <!-- Challenges Feature -->
+        <div class="reason-box" id="challenges-feature" onclick="accessFeature('challenges.html', 'Challenges')" onmouseover="hoverFeature('Challenges')" style="cursor: pointer;">
+            <h2>CHALLENGES</h2>
+            <ul>
+                <li>Challenges sorted by difficulty</li>
+                <li>Exciting, engaging fitness activities</li>
+                <li>Trackable progress with various duration options</li>
+                <li>Healthy challenges offered with incentives</li>
+            </ul>
+            <div class="reason-image">
+                <img src="./assets/challenge.jpg" alt="Challenges image">
+            </div>
+        </div>
+    </div>
+</section>
+
     <section>
         <div class="container">
                 <h1 class="h">WHAT TO CHOOSE</h1>
@@ -270,7 +489,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <li>         </li>
                 <li>         </li>
             </ul>
-            <button class="subscribe-btn" onclick="subscribePlan('Gold Plan', '499')">SUBSCRIBE NOW</button>
+            <button id="gold-subscribe" class="subscribe-btn" >SUBSCRIBE NOW</button>
         </div>
 
         <div class="pricing-card ">
@@ -285,7 +504,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <li>         </li>
                 <li>         </li>
             </ul>
-            <button class="subscribe-btn" onclick="subscribePlan('Platinum Plan', '799')">SUBSCRIBE NOW</button>
+            <button id="platinum-subscribe" class="subscribe-btn">SUBSCRIBE NOW</button>
         </div>
 
         <div class="pricing-card">
@@ -298,7 +517,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <li><span class="spn">✔</span>Diet</li>
                 <li><span class="spn">✔</span>Wellness</li>
             </ul>
-            <button class="subscribe-btn" onclick="subscribePlan('Diamond Plan', '999')">SUBSCRIBE NOW</button>
+            <button id="diamond-subscribe" class="subscribe-btn">SUBSCRIBE NOW</button>
         </div>
     </div>
    
@@ -308,7 +527,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             <p>Email: contact@pushfitness.com</p>
             <p>Phone: (123) 456-7890 </p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10.0.0/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+
 </body>
 </html>
+
