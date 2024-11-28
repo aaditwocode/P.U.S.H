@@ -246,7 +246,7 @@ window.onload = function() {
                     </ul>
                     <div class="avatar-stack">
                         <div class="avatar">
-                          <a href="platinum.html"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a>
+                          <a href="platinum.php"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a>
                         </div>
                       </div>
                 </div>

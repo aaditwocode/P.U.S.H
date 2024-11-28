@@ -118,19 +118,12 @@ CREATE TABLE Diet (
     height DECIMAL(5, 2) DEFAULT NULL,
     gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
     bmi DECIMAL(5, 2) DEFAULT NULL,
-    calorietrackerstartdate DATE DEFAULT NULL,
-    calorietrackerend_date DATE GENERATED ALWAYS AS (DATE_ADD(calorietrackerstartdate, INTERVAL 1 MONTH)) VIRTUAL,
-    daily_calorie_goal INT DEFAULT 0,
-    monthlycaloriegoal INT GENERATED ALWAYS AS (daily_calorie_goal * 30) VIRTUAL,
-    progress INT DEFAULT 0,
-    remainingcalories INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Wellness (
     wellness_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    meditation_time INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
@@ -154,7 +147,7 @@ CREATE TABLE Workout (
 CREATE TABLE Challenges (
     challenge_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    description TEXT DEFAULT NULL,
+    coins INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE
 );
 
