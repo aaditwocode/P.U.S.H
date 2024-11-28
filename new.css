@@ -221,6 +221,26 @@ color: #ffeb3b;
     padding: 20px;
 }
 
+.scroll-menu {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.scroll-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .scroll-btn img {
     width: 30px;
     height: 30px;
@@ -231,28 +251,146 @@ color: #ffeb3b;
     transform: scale(1.2);
 }
 
+.left-arrow, .right-arrow {
+  display: inline-block;
+  margin-top: 0; /* Adjust based on positioning */
+  margin-top: 0; 
+  position: relative;
+}
+
 .bodyPart-card {
-    min-width: 270px;
-    height: 300px;
-    border: 2px solid #555;
-    background: #222;
-    border-radius: 15px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.3s, background 0.3s;
+  min-width: 270px;
+  height: 300px;
+  border: 2px solid #007BFF; /* A vibrant blue color */
+  background: #f9f9f9; /* Light background for a clean look */
+  border-radius: 20px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .bodyPart-card:hover {
-    transform: scale(1.05);
-    background: #444;
+  transform: scale(1.05);
+  background: #e0f7fa; /* Light cyan background on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Card Image Style */
+.bodyPart-card img {
+  width: 60px; /* Increased size for better visibility */
+  height: 60px; /* Increased size for better visibility */
+  margin-top: 20px;
+  transition: transform 0.3s; /* Smooth scaling effect */
+}
+
+.bodyPart-card img:hover {
+  transform: scale(1.1); /* Scale image on hover */
+}
+
+/* Active Card Style */
+.bodyPart-card.active {
+  border-top: 4px solid #FF2625; /* Bright red for active state */
+  background: #ffe6e6; /* Light red background for active card */
+}
+
+/* Card Title Style */
+.bodyPart-card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Alegreya', serif;
+  color: #3A1212; /* Dark color for text */
+  text-transform: capitalize;
+  margin: 20px 0;
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.bodyPart-card:hover h3 {
+  color: #007BFF; /* Change title color on hover */
+}
+
+/* Optional: Add fitness-themed background */
+.bodyPart-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('path/to/fitness-background.png') no-repeat center center; /* Add a fitness-related background image */
+  background-size: cover;
+  opacity: 0.1; /* Light opacity for a subtle background */
+  border-radius: 20px; /* Match the card's border radius */
+  z-index: 0; /* Place behind the content */
+}
+
+.bodyPart-card h3 {
+  position: relative; /* Ensure text appears above the background */
+  z-index: 1; /* Bring text above the background */
+}
+  .exercises {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f0f8ff; /* Light background for better visibility */
+    border-radius: 15px; /* Rounded corners for a softer look */
 }
 
 .results-title {
     font-size: 28px;
     font-weight: 700;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #007BFF; /* Vibrant blue for the title */
+    text-align: center; /* Center align the title */
+}
+
+.exercise-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px; /* Adjust for responsiveness as needed */
+}
+
+.exercise-card {
+    width: 250px; /* Adjust the width as needed */
+    border: 2px solid #007BFF; /* Vibrant blue border */
+    border-radius: 20px;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.exercise-card:hover {
+    transform: scale(1.05); /* Scale card on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.exercise-card img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s; /* Smooth scaling effect */
+}
+
+.exercise-card img:hover {
+    transform: scale(1.1); /* Scale image on hover for emphasis */
+}
+
+/* Optional: Add a title for the exercise card */
+.exercise-card h4 {
+    font-size: 20px; /* Font size for exercise title */
+    font-weight: bold;
+    color: #3A1212; /* Dark color for text */
+    margin: 15px 0; /* Margin around the title */
+    text-transform: capitalize; /* Capitalize the title */
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .pagination-btn {
@@ -262,12 +400,19 @@ color: #ffeb3b;
     padding: 10px 20px;
     border-radius: 8px;
     margin: 0 10px;
+    cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    background-color: #ff2625;
+
 }
 
 .pagination-btn:hover {
     background-color: #ff2625;
     transform: scale(1.1);
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
 }
 
 footer {

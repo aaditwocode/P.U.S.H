@@ -159,6 +159,7 @@ function resetProgress() {
     consumedCalories = 0;
     document.getElementById('progress-bar').style.width = '0%';
     document.getElementById('progress-text').innerText = 'Progress: 0%';
+    document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${totalCalories} kcal`;
     alert('Calorie progress has been reset.');
 }
 window.onload = function() {

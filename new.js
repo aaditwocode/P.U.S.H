@@ -4,12 +4,16 @@ const Icon = './assets/diet.jpg';
 
 const bodyPartImages = {
   all: './assets/equipment.png',
-  back: './assets/back.jpg',
-  chest: './assets/chest.jpg',
-  legs: './assets/legs.jpg',
-  shoulders: './assets/shoulders.jpg',
-  arms: './assets/arms.jpg',
-  abs: './assets/abs.jpg',
+  back: './assets/back.png',
+  cardio: './assets/cardio.png',
+  chest: './assets/chest-.png',
+  "lower arms": './assets/002-muscle.png',
+  "lower legs": './assets/003-leg.png',
+  neck: './assets/007-neck.png',
+  shoulders: './assets/005-shoulder-press.png',
+  "upper arms": './assets/001-arm-muscle.png',
+  "upper legs": './assets/004-leg-1.png',
+  waist: './assets/006-muscles.png',
 };
 
 document.addEventListener('DOMContentLoaded', () => {

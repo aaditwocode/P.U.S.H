@@ -1,3 +1,45 @@
+<?php
+session_start();
+include 'config.php';
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: welcome.html");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $subject = $conn->real_escape_string($_POST['subject']);
+    $message = $conn->real_escape_string($_POST['message']);
+
+    // Fetch wellness_id for the current user
+    $wellness_query = "SELECT wellness_id FROM Wellness WHERE user_id = '$user_id'";
+    $result = $conn->query($wellness_query);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $wellness_id = $row['wellness_id'];
+
+        // Insert data into WellnessContact table
+        $sql = "INSERT INTO WellnessContact (wellness_id, full_name, email, subject, message) 
+                VALUES ('$wellness_id', '$name', '$email', '$subject', '$message')";
+
+        if ($conn->query($sql) === TRUE) {
+            // echo "Message sent successfully!";
+        } else {
+            // echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } else {
+        // echo "No wellness ID found for the current user.";
+    }
+}
+
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,12 +123,12 @@
                     <input type="email" id="email" name="email" placeholder="Your Email" required>
                     <input type="text" id="subject" name="subject" placeholder="Subject" required>
                     <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-                    <button type="submit" class="cta-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <button type="submit" class="cta-btn"><i class="fas fa-paper-plane">Send Message</i></button>
                     <button class="cta-btn"><a href="wellness.html" style="color: white; text-decoration: none;">Return Back</a></button>
                 </form>
             </section>
         </section>
-
+        
         <section class="accordion-section">
             <h2>Frequently Asked Questions</h2>
             <div class="accordion">
