@@ -1,8 +1,6 @@
 <?php
 session_start();
-require 'config.php';  // Database connection file
-
-// Check if the user is logged in
+require 'config.php';  
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -10,9 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Handle subscription activation request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
-    // Fetch the user's plan and subscription status
     $query = "SELECT u.plan_id, s.status FROM users u 
               LEFT JOIN subscriptions s ON u.user_id = s.user_id
               WHERE u.user_id = $user_id";
@@ -20,16 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
     $user = $result->fetch_assoc();
 
     if ($user['plan_id'] && $user['status'] === 'Inactive') {
-        // Set the subscription status to 'Active'
         $update_status_query = "UPDATE subscriptions SET status = 'Active', 
                                 start_date = CURRENT_TIMESTAMP, 
                                 end_date = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 1 MONTH)
                                 WHERE user_id = $user_id AND status = 'Inactive'";
         $conn->query($update_status_query);
 
-        // Optionally, set a success message
         $_SESSION['message'] = 'Your subscription has been activated!';
-        header('Location: home.php');  // Redirect to home after activation
+        header('Location: home.php');  
         exit();
     } else {
         $_SESSION['message'] = 'Your subscription is already active or no plan is associated with your account.';
@@ -80,14 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
             box-shadow: 0px 4px 20px rgba(0, 123, 255, 0.3);
         }
 
-        /* Hover Effect */
         .qr-container:hover {
             background-color: #007BFF;
             transform: scale(1.05);
             box-shadow: 0px 4px 20px rgba(0, 123, 255, 0.6);
         }
 
-        /* QR Code */
         .qr-code {
             width: 80%;
             height: 80%;
@@ -115,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            /* width: 100%; */
             margin-bottom: 10px;
             transition: background-color 0.3s ease;
         }
@@ -124,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
 <body>
     <h1>P.U.S.H QR Code</h1>
 
-    <!-- Form to activate subscription -->
     <form method="POST" id="activate-form" style="display: none;">
         <input type="hidden" name="activate" value="1">
     </form>
@@ -144,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate'])) {
             const qrCode = document.getElementById('qr-code');
 
             qrCode.addEventListener('dblclick', function() {
-                // Trigger the form submission when QR code is double-clicked
                 document.getElementById('activate-form').submit();
             });
         });

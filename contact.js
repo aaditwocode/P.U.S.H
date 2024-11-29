@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const subjectInput = document.getElementById('subject');
     const messageInput = document.getElementById('message');
 
-    // Form validation
     form.addEventListener('submit', function (e) {
         let isValid = true;
         let errorMessage = '';
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!isValid) {
             alert(errorMessage);
-            e.preventDefault(); 
+            e.preventDefault();
         }
     });
 

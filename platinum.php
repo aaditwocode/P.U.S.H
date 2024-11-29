@@ -1,22 +1,45 @@
+<?php
+session_start();
+require 'config.php'; 
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+$query = "SELECT u.name, u.username, u.email, u.dob, u.phone, u.age, u.signup_date, u.password, 
+                 p.plan_name, s.start_date, s.end_date, s.status, c.coins, d.weight, d.height, d.bmi, d.gender 
+          FROM users u 
+          LEFT JOIN Subscriptions s ON u.user_id = s.user_id 
+          LEFT JOIN Plans p ON s.plan_id = p.plan_id 
+          LEFT JOIN Challenges c ON u.user_id = c.user_id
+          LEFT JOIN Diet d ON u.user_id = d.user_id 
+          WHERE u.user_id = $user_id";
+$result = mysqli_query($conn, $query);
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$user_data = mysqli_fetch_assoc($result);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="./assets/WhatsApp Image 2024-09-21 at 16.04.21.jpeg" />
-    <title>P.U.S.H User_Dashboard</title>
+    <title>Fitness Dashboard</title>
     <style>
         :root {
-            --bg-color: #0a0c0f;
-            --card-bg: #1a1d21;
-            --card-hover: #22262b;
-            --text-color: #ffffff;
-            --text-muted: #8b8d91;
-            --accent-pink: #ffd0e7;
-            --accent-blue: #d0e6ff;
+            --bg-dark: #0a0c0f;
+            --bg-light: #1a1d21;
+            --card-hover: #2c2f34;
+            --text-primary: #ffffff;
+            --text-secondary: #8b8d91;
             --accent-green: #4CAF50;
-            --gradient-1: linear-gradient(135deg, #2a2d35 0%, #1a1d21 100%);
-            --gradient-2: linear-gradient(135deg, #1e2227 0%, #16181c 100%);
         }
 
         * {
@@ -27,25 +50,66 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
         }
 
         .container {
             display: grid;
-            grid-template-columns: 240px 1fr;
+            grid-template-columns: 300px 1fr;
             min-height: 100vh;
         }
 
-        /* Hero Section */
+        .sidebar {
+            background-color: var(--bg-light);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #333;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #444;
+        }
+
+        .sidebar p {
+            margin-bottom: 10px;
+        }
+
+        .menu-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background-color: var(--card-hover);
+            color: var(--text-primary);
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
         .hero {
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, #2a2d35 0%, #1a1d21 100%);
             padding: 2rem;
             border-radius: 20px;
-            margin-bottom: 2rem;
             position: relative;
-            overflow: hidden;
+            margin-bottom: 20px;
         }
 
         .hero::after {
@@ -55,147 +119,80 @@
             right: 0;
             width: 40%;
             height: 100%;
-            background: url('https://source.unsplash.com/random/800x600/?fitness') center/cover;
+            background: url('https://source.unsplash.com/random/800x600/?fitness') center/cover no-repeat;
             border-radius: 20px;
-        }
-
-        .hero-content {
-            width: 60%;
-            position: relative;
-            z-index: 1;
+            opacity: 0.3;
         }
 
         .hero h1 {
             font-size: 2.5rem;
+            font-weight: bold;
             margin-bottom: 1rem;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: var(--gradient-2);
-            padding: 2rem;
-            border-right: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .menu-item:hover {
-            background: var(--card-hover);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 2rem;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        .stat-card {
-            background: var(--gradient-2);
-            padding: 1.5rem;
+        .card {
+            background-color: var(--bg-light);
             border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
             transition: transform 0.3s ease;
         }
 
-        .stat-card:hover {
+        .card:hover {
             transform: translateY(-5px);
         }
 
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
-            margin: 0.5rem 0;
+            margin-top: 10px;
         }
 
-        /* Goals Section */
-        .goals-section {
+        .user-details-section {
+            background-color: var(--bg-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .user-details-section h2 {
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--text-secondary);
+            padding-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        .user-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
-        .goal-percentage {
-            background: var(--gradient-2);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
+        .user-grid div {
+            margin-bottom: 10px;
         }
 
-        .goal-details {
-            background: var(--gradient-2);
-            padding: 2rem;
-            border-radius: 15px;
+        .user-grid p {
+            margin-bottom: 5px;
+            color: var(--text-secondary);
         }
 
-        /* Feature Cards */
-        .feature-cards {
-            display: grid;
-            grid-template-columns: repeat(400px, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .feature-card {
-            background: var(--gradient-2);
-            padding: 2rem;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card:hover .card-details {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card-details {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
-            padding: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
+        .user-grid .value {
+            font-size: 1.2rem;
+            font-weight: bold;
         }
 
         .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
+            margin-top: 20px;
             background: var(--accent-green);
             color: white;
             border-radius: 10px;
@@ -208,213 +205,130 @@
             transform: translateY(-2px);
         }
 
-        /* Charts */
-        .chart-container {
-            background: var(--gradient-2);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-        }
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
 
-        /* Progress Circle */
-        .progress-circle {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            margin: 0 auto;
-        }
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: bold;
+    text-transform: uppercase;
+    overflow: hidden;
+}
 
-        .progress-circle svg {
-            transform: rotate(-90deg);
-        }
+.profile div {
+    display: flex;
+    flex-direction: column;
+}
 
-        .progress-circle circle {
-            fill: none;
-            stroke-width: 8;
-            stroke-linecap: round;
-        }
+.profile .text-lg {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
 
-        .progress-bg {
-            stroke: var(--card-hover);
-        }
+.profile .text-sm {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
 
-        .progress-bar {
-            stroke: var(--accent-green);
-            transition: stroke-dashoffset 0.3s ease;
-        }
+.profile-img:hover {
+    background-color: var(--card-hover);
+    transition: all 0.3s ease;
+}
 
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
 
-        .progress-value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
             }
 
-            .sidebar {
+            .hero::after {
                 display: none;
             }
 
-            .goals-section {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        .container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-        }
 
-        /* Sidebar */
-        .sidebar {
-            background-color: var(--bg-dark);
-            padding: 20px;
-            border-right: 1px solid #333;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            margin-bottom: 30px;
-        }
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #444;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            padding: 12px;
-            margin: 4px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-        }
-
-        .stats-grid {
-            display: flex;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-direction: column;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .stat-unit {
-            color: var(--text-secondary);
-            font-size: 14px;
+            .user-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
-         
         <div class="sidebar">
             <div class="profile">
-                <div class="profile-img"></div>
-                <div>
-                    <div>Michael Brown</div>
-                    <div style="color: var(--text-secondary)">@Michaelbrown07</div>
+                <div class="profile-img">
+    <?php 
+    $name = $user_data['name'];
+    $name_parts = explode(" ", $name);
+    $initials = strtoupper(substr($name_parts[0], 0, 1) . substr($name_parts[1], 0, 1));
+    echo $initials;
+    ?>
+</div><br>
+                <div><br>
+                    <p class="text-lg font-bold"><?php echo htmlspecialchars($user_data['name']); ?></p>
+                    <p class="text-sm"><?php echo htmlspecialchars($user_data['username']); ?></p>
                 </div>
             </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Weight balance</div>
-                    <div class="stat-value">73 <span class="stat-unit">kg</span></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Height</div>
-                    <div class="stat-value" <span class="stat-unit">cm</span></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">BMI</div>
-                    <div class="stat-value">86 <span class="stat-unit">kg/m2</span></div>
-                </div>
-            </div>
-            
         </div>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>Welcome Back!</h1>
-                    <p>Track your fitness journey and achieve your goals with personalized insights.</p>
-                    <a href="home.php" class="btn">HOME PAGE</a>
+        <div class="main-content">
+            <div class="hero">
+                <h1>Welcome Back!</h1>
+                <p>Track your fitness journey and achieve your goals with personalized insights.</p>
+                <a href="home.php" class="btn">HOME PAGE</a>
+            </div>
+            <div class="stats-grid">
+                <div class="card">
+                    <p>Weight Balance</p>
+                    <p class="stat-value"><?php echo $user_data['weight'] ?: 'N/A'; ?> kg</p>
                 </div>
-            </section>
-
-            <!-- Feature Cards -->
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <h3></h3>
-                    <p></p>
-                    <div class="card-details">
-                        <h4></h4>
-                        <p></p>
-                        <a href="" class="btn"></a>
-                    </div>
+                <div class="card">
+                    <p>Height</p>
+                    <p class="stat-value"><?php echo $user_data['height'] ?: 'N/A'; ?> m</p>
                 </div>
-                <div class="feature-card">
-                            <h3>Subscription Info</h3>
-                            <p>View your info</p>
-                    <div class="card-details">
-                                <h4>Subscription Type:</h4>
-                                <p></p>
-                                <h4>Start Date:</h4>
-                                <p></p>
-                                <h4>End Date:</h4>
-                                <p></p>
-                                <a href="home.php#subscription" class="btn">Explore</a>
-                    </div>
+                <div class="card">
+                    <p>BMI</p>
+                    <p class="stat-value"><?php echo $user_data['bmi'] ?: 'N/A'; ?> kg/m2</p>
                 </div>
-        </main>
-        
+            </div>
+            <div class="user-details-section">
+                <h2>Personal Information</h2>
+                <div class="user-grid">
+                    <div><p>Username</p><p class="value"><?php echo htmlspecialchars($user_data['username']); ?></p></div>
+                    <div><p>Age</p><p class="value"><?php echo $user_data['age']; ?></p></div>
+                    <div><p>Date of Birth</p><p class="value"><?php echo $user_data['dob']; ?></p></div>
+                    <div><p>Gender</p><p class="value"><?php echo $user_data['gender'] ?: 'N/A'; ?></p></div>
+                    <div><p>Email</p><p class="value"><?php echo htmlspecialchars($user_data['email']); ?></p></div>
+                    <div><p>Phone No.</p><p class="value"><?php echo $user_data['phone']; ?></p></div>
+                </div>
+            </div>
+            <div class="user-details-section">
+                <h2>Subscription Details</h2>
+                <div class="user-grid">
+                    <div><p>Plan Type</p><p class="value"><?php echo $user_data['plan_name'] ?: 'N/A'; ?></p></div>
+                    <div><p>Coin Tracker</p><p class="value"><?php echo $user_data['coins'] ?: 0; ?></p></div>
+                    <div><p>SignUp Date</p><p class="value"><?php echo $user_data['signup_date']; ?></p></div>
+                    <div><p>Password</p><p class="value"><?php echo str_repeat('*', strlen($user_data['password'])); ?></p></div>
+                    <div><p>Start Date</p><p class="value"><?php echo $user_data['start_date'] ?: 'N/A'; ?></p></div>
+                    <div><p>End Date</p><p class="value"><?php echo $user_data['end_date'] ?: 'N/A'; ?></p></div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

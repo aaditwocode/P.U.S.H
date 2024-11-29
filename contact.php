@@ -9,14 +9,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $user_id = $_SESSION['user_id'];
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
     $subject = $conn->real_escape_string($_POST['subject']);
     $message = $conn->real_escape_string($_POST['message']);
 
-    // Fetch wellness_id for the current user
     $wellness_query = "SELECT wellness_id FROM Wellness WHERE user_id = '$user_id'";
     $result = $conn->query($wellness_query);
 
@@ -24,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $wellness_id = $row['wellness_id'];
 
-        // Insert data into WellnessContact table
         $sql = "INSERT INTO WellnessContact (wellness_id, full_name, email, subject, message) 
                 VALUES ('$wellness_id', '$name', '$email', '$subject', '$message')";
 
@@ -69,7 +66,7 @@ $conn->close();
                 </ul>
                 <div class="avatar-stack">
                     <div class="avatar">
-                      <img src="./assets/profile2.jpg" alt="Remy Sharp">
+                    <a href="platinum.php"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a>
                     </div>
                   </div>
             </div>

@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 h2 {
     margin: 0;
     font-family: "Protest Guerrilla", sans-serif;
     font-size: 35px;
     font-weight: lighter;
 }
-h1{
+
+h1 {
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: unset;
 }
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -17,9 +20,11 @@ body {
     color: #fff;
     text-align: center;
 }
-.head{
+
+.head {
     color: white;
 }
+
 .header {
     background-color: #2196F3;
     color: #fff;
@@ -29,7 +34,9 @@ body {
     border-radius: 0 0 30px 30px;
 }
 
-.a,.b,.c{
+.a,
+.b,
+.c {
     color: #000;
 }
 
@@ -43,6 +50,7 @@ header {
     top: 0;
     z-index: 1000;
 }
+
 header .container0 {
     max-width: 100%;
     margin: 0 auto;
@@ -67,7 +75,7 @@ header .container0 {
     font-size: 32px;
 }
 
-.rightHeader{
+.rightHeader {
     display: flex;
     align-items: center;
 }
@@ -76,15 +84,15 @@ header .container0 {
     display: flex;
     gap: 10px;
     padding: 10px;
-    
-  }
-  
-  .avatar img {
+
+}
+
+.avatar img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-  }
+}
 
 .rightHeader ul {
     display: flex;
@@ -120,7 +128,8 @@ main {
     text-align: center;
 }
 
-h2, h3 {
+h2,
+h3 {
     color: #2196F3;
 }
 
@@ -232,7 +241,7 @@ textarea.error {
 input.input-focused,
 textarea.input-focused {
     border-color: #2196F3;
-    background-color: #f0fff0; 
+    background-color: #f0fff0;
 }
 
 .accordion-btn {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>P.U.S.H Sign Up</title>
     <link rel="stylesheet" href="signUp.css">
 </head>
+
 <body>
     <div class="container">
         <div class="left">
@@ -34,9 +36,15 @@
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required onkeyup="updatePasswordStrength()">
+                    <input type="password" id="password" name="password" placeholder="••••••••" required
+                        onkeyup="updatePasswordStrength()">
                     <div class="error" id="password-error"></div>
                     <div class="password-strength" id="password-strength"></div>
+                </div>
+                <div class="input-group">
+                    <label for="phoneno">Phone Number</label>
+                    <input type="tel" id="phoneno" name="phoneno" placeholder="+91" required>
+                    <div class="error" id="phoneno-error"></div>
                 </div>
                 <div class="input-group">
                     <label for="dob">Date of Birth</label>
@@ -45,7 +53,7 @@
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
                 <div class="login-link">
-                    Already have an account? <a href="login.html">Login</a>
+                    Already have an account? <a href="login.php">Login</a>
                 </div>
                 <div class="error" id="form-success"></div>
             </form>
@@ -53,4 +61,5 @@
     </div>
     <script src="signUp.js"></script>
 </body>
+
 </html>

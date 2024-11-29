@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';  // Ensure your database connection is included
+include 'config.php'; 
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: welcome.html");
@@ -9,9 +9,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $userId = $_SESSION['user_id'];
 $username = $_SESSION['username'];
-echo "<script>alert('Welcome, User : " . $username . "');</script>";
-
-// Check subscription status
+// echo "<script>alert('Welcome, User : " . $username . "');</script>";
+$showWelcomeMessage = false;
+if (!isset($_SESSION['welcome_shown'])) {
+    $showWelcomeMessage = true;
+    $_SESSION['welcome_shown'] = true; 
+}
 $subscriptionQuery = "SELECT plan_id, status FROM Subscriptions WHERE user_id = '$userId' ORDER BY start_date DESC LIMIT 1";
 $result = mysqli_query($conn, $subscriptionQuery);
 
@@ -27,8 +30,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 
-// Fetch user details and subscription data
-$user_id = $_SESSION['user_id']; // Assuming user ID is stored in the session after login
+$user_id = $_SESSION['user_id']; 
 $user_query = "SELECT u.plan_id, p.plan_name, s.status
                FROM users u
                LEFT JOIN Subscriptions s ON u.user_id = s.user_id
@@ -41,7 +43,6 @@ $user_data = $user_result->fetch_assoc();
 $user_plan = $user_data['plan_name'] ?? 'No Plan';
 $subscription_status = $user_data['status'] ?? 'Inactive';
 
-// Fetch the features allowed for the user's plan
 $features_query = "SELECT feature_name FROM Features WHERE plan_id = (SELECT plan_id FROM users WHERE user_id = $user_id)";
 $features_result = $conn->query($features_query);
 
@@ -50,12 +51,28 @@ while ($row = $features_result->fetch_assoc()) {
     $features[] = $row['feature_name'];
 }
 
-// Pass PHP data to JavaScript
 echo "<script>
         const userPlan = " . json_encode($user_plan) . ";
         const subscriptionStatus = " . json_encode($subscription_status) . ";
         const userFeatures = " . json_encode($features) . ";
       </script>";
+
+      $query = "SELECT u.name, u.username, u.email, u.dob, u.phone, u.age, u.signup_date, u.password, 
+                 p.plan_name, s.start_date, s.end_date, s.status, c.coins, d.weight, d.height, d.bmi, d.gender 
+          FROM users u 
+          LEFT JOIN Subscriptions s ON u.user_id = s.user_id 
+          LEFT JOIN Plans p ON s.plan_id = p.plan_id 
+          LEFT JOIN Challenges c ON u.user_id = c.user_id
+          LEFT JOIN Diet d ON u.user_id = d.user_id 
+          WHERE u.user_id = $user_id";
+$result = mysqli_query($conn, $query);
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$user_data = mysqli_fetch_assoc($result);
+
 
 ?>
 <!DOCTYPE html>
@@ -71,13 +88,81 @@ echo "<script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10.0.0/swiper-bundle.min.css" />
     <link rel="stylesheet" href="testimonial.css" >
     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <style>
+        .welcome-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            display: none; 
+            color: #000;
+        }
 
+        .welcome-popup h2 {
+            margin: 0 0 10px;
+        }
+
+        .welcome-popup button {
+            padding: 5px;
+            background-color: #007bff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .welcome-popup button:hover {
+            background-color: #0056b3;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none; 
+        }
+    </style>
 </head>
 
 <body>
+<?php if ($showWelcomeMessage): ?>
+        <div class="popup-overlay"></div>
+        <div class="welcome-popup">
+            <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
+            <p>We're glad to have you back at P.U.S.H.</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    <?php endif; ?>
   <script>
 
+document.addEventListener('DOMContentLoaded', function () {
+            const popup = document.querySelector('.welcome-popup');
+            const overlay = document.querySelector('.popup-overlay');
 
+            if (popup) {
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            }
+        });
+
+        function closePopup() {
+            const popup = document.querySelector('.welcome-popup');
+            const overlay = document.querySelector('.popup-overlay');
+            if (popup && overlay) {
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
 document.addEventListener('DOMContentLoaded', function() {
     const userId = <?php echo json_encode($userId); ?>;
     const isSubscribed = <?php echo json_encode($isSubscribed); ?>;
@@ -86,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const platinumButton = document.getElementById('platinum-subscribe');
     const diamondButton = document.getElementById('diamond-subscribe');
     
-    // Create a message element
     const messageBox = document.createElement('div');
     messageBox.id = 'subscription-message';
     messageBox.style.position = 'fixed';
@@ -97,10 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
     messageBox.style.backgroundColor = '#333';
     messageBox.style.color = '#fff';
     messageBox.style.borderRadius = '5px';
-    messageBox.style.display = 'none';  // Initially hidden
+    messageBox.style.display = 'none';  
     document.body.appendChild(messageBox);
 
-    // Function to show message
     function showMessage(message) {
         messageBox.textContent = message;
         messageBox.style.display = 'block';
@@ -111,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         messageBox.style.display = 'none';
     }
 
-    // Disable buttons if subscribed and active
     if (isSubscribed && isActive) {
         goldButton.disabled = true;
         platinumButton.disabled = true;
@@ -122,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
         diamondButton.disabled = false;
     }
 
-    // Hover effect for the subscription buttons
     function handleHover(button, plan) {
         button.addEventListener('mouseover', () => {
             const selectedPlan = localStorage.getItem(`${userId}_selectedPlan`);
@@ -142,7 +223,6 @@ document.addEventListener('DOMContentLoaded', function() {
     handleHover(platinumButton, 'Platinum');
     handleHover(diamondButton, 'Diamond');
 
-    // Click event for subscribing
     function subscribe(planId, planType, price) {
         if (isSubscribed && !isActive) {
             fetch(`update_plan.php?user_id=${userId}&plan_id=${planId}`)
@@ -170,13 +250,11 @@ document.addEventListener('DOMContentLoaded', function() {
     diamondButton.addEventListener('click', () => subscribe(3, 'Diamond', '999'));
 });
 
-// Update subscription details on the page
 function updateSubscriptionDetails() {
     document.getElementById('user-plan').innerText = userPlan || 'No Plan';
     
-    // Clear and update available features list
     const featureList = document.getElementById('available-features');
-    featureList.innerHTML = ''; // Clear existing features
+    featureList.innerHTML = '';
     userFeatures.forEach(feature => {
         const listItem = document.createElement('li');
         listItem.textContent = feature;
@@ -185,7 +263,6 @@ function updateSubscriptionDetails() {
 }
 
 
-// JavaScript functions to manage feature access based on user subscription
 function setMessage(message) {
     document.getElementById('message').innerText = message;
 }
@@ -206,7 +283,7 @@ function hoverFeature(feature) {
     } else if (!userFeatures.includes(feature)) {
         setMessage("Upgrade to a higher plan to access this feature.");
     } else {
-        setMessage(""); // Clear message if the feature is accessible
+        setMessage(""); 
     }
 }
 
@@ -216,7 +293,6 @@ function checkSubscriptionStatus() {
         .then(data => {
             if (data.status === 'Inactive') {
                 alert("Your subscription has expired.");
-                // Redirect to a limited-access page
                 window.location.href = 'home.php';
             }
         });
@@ -246,7 +322,20 @@ window.onload = function() {
                     </ul>
                     <div class="avatar-stack">
                         <div class="avatar">
-                          <a href="platinum.php"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a>
+                          <!-- <a href="platinum.php"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a> -->
+                          <div class="profile-img" 
+     style="width: 38px; height: 38px; border: 3px solid gold; border-radius: 50%; background-color: bisque; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--text-primary); font-weight: bold; text-transform: uppercase; overflow: hidden; margin-top: 16px; transition: transform 0.3s ease;" 
+     onmouseover="this.style.transform='scale(1.2)'" 
+     onmouseout="this.style.transform='scale(1.1)'">                        
+     <a href="platinum.php"  style="color: #000; text-decoration: none;">
+                        <?php 
+                        $name = $user_data['name'];
+                        $name_parts = explode(" ", $name);  
+                        $initials = strtoupper(substr($name_parts[0], 0, 1) . substr($name_parts[1], 0, 1));  // Get the first letter of first and last name, make them uppercase
+                        echo $initials;
+                        ?>
+                        </a>
+                        </div><br>
                         </div>
                       </div>
                 </div>
@@ -264,7 +353,6 @@ window.onload = function() {
     
         <section id="features">
     <h1>WHY YOU SHOULD CHOOSE P.U.S.H</h1>
-    <!-- Message Display Area -->
     <div id="subscription-details" style="margin-bottom: 20px;">
         <h2>Your Plan: <span id="user-plan"></span></h2>
         <h3>Available Features:</h3>
@@ -272,7 +360,6 @@ window.onload = function() {
         <div id="message" style="color: red; font-weight: bold; margin-bottom: 20px;"></div>
     </div>
     <div class="reasons-container">
-        <!-- Diet Feature -->
         <div class="reason-box" id="diet-feature" onclick="accessFeature('diet.php', 'Diet')" onmouseover="hoverFeature('Diet')" style="cursor: pointer;">
             <h2>DIET</h2>
             <ul>
@@ -286,7 +373,6 @@ window.onload = function() {
             </div>
         </div>
 
-        <!-- Workout Feature -->
         <div class="reason-box" id="workout-feature" onclick="accessFeature('new.html', 'Workout')" onmouseover="hoverFeature('Workout')" style="cursor: pointer;">
             <h2>WORKOUT</h2>
             <ul>
@@ -300,7 +386,6 @@ window.onload = function() {
             </div>
         </div>
 
-        <!-- Wellness Feature -->
         <div class="reason-box" id="wellness-feature" onclick="accessFeature('wellness.html', 'Wellness')" onmouseover="hoverFeature('Wellness')" style="cursor: pointer;">
             <h2>WELLNESS</h2>
             <ul>
@@ -314,7 +399,6 @@ window.onload = function() {
             </div>
         </div>
 
-        <!-- Challenges Feature -->
         <div class="reason-box" id="challenges-feature" onclick="accessFeature('challenges.html', 'Challenges')" onmouseover="hoverFeature('Challenges')" style="cursor: pointer;">
             <h2>CHALLENGES</h2>
             <ul>
@@ -528,7 +612,8 @@ window.onload = function() {
             <p>Email: contact@pushfitness.com</p>
             <p>Phone: (123) 456-7890 </p>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 

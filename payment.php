@@ -1,8 +1,7 @@
 <?php
 session_start();
-require 'config.php';  // Include your database connection file
+require 'config.php';  
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -10,28 +9,22 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch available plans from the Plans table
 $plans_query = "SELECT * FROM Plans";
 $plans_result = $conn->query($plans_query);
 
-// Handle the form submission (when user clicks "Proceed to Checkout")
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected_plan = mysqli_real_escape_string($conn, $_POST['selectedPlan']); // Escape user input
 
-    // Fetch the plan_id from the Plans table
     $plan_query = "SELECT plan_id FROM Plans WHERE plan_name = '$selected_plan'";
     $result = $conn->query($plan_query);
 
     if ($result && $result->num_rows > 0) {
-        // Fetch the plan_id
         $plan_data = $result->fetch_assoc();
         $plan_id = $plan_data['plan_id'];
 
-        // Update the user's plan in the users table
         $update_plan_query = "UPDATE users SET plan_id = $plan_id WHERE user_id = $user_id";
         $conn->query($update_plan_query);
         
-        // Redirect to QR page after updating the plan
         header("Location: QR.php");
         exit();
     } else {
@@ -211,22 +204,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span>Total</span>
                 <span id="total" class="price"></span>
             </div>
-            <!-- Form to submit the selected plan -->
             <form action="payment.php" method="POST">
                 <input type="hidden" name="selectedPlan" id="selectedPlan">
                 <button type="submit" class="btn" id="checkout-btn">Proceed To Checkout</button>
             </form>
-            <!-- New "Back to Home" Button -->
             <button onclick="window.location.href='home.php'" class="btn">Back to Home</button>
         </div>
     </div>
 
     <script>
             document.addEventListener('DOMContentLoaded', function() {
-    // Get the userId dynamically (you can pass this via a PHP variable or session)
-    const userId = <?php echo $_SESSION['user_id']; ?>;  // Assuming the user_id is available in PHP session
+    const userId = <?php echo $_SESSION['user_id']; ?>;  
 
-    // Retrieve the selected plan and price from localStorage using the dynamic keys
     const planName = localStorage.getItem(`${userId}_selectedPlan`);
     const planPrice = parseFloat(localStorage.getItem(`${userId}_selectedPlanPrice`));
     const quantity = 1;
@@ -240,7 +229,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.getElementById('subtotal').innerText = `₹${total.toFixed(2)}`;
             document.getElementById('total').innerText = `₹${total.toFixed(2)}`;
 
-            // Set the selected plan in the hidden input field for form submission
             document.getElementById('selectedPlan').value = planName;
 
             function applyCoupon() {
@@ -263,7 +251,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.querySelector('.coupon-section button').addEventListener('click', applyCoupon);
 
             document.getElementById('checkout-btn').addEventListener('click', function() {
-                // This is where the form submission will happen
             });
         });
     </script>

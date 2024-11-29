@@ -9,13 +9,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $userId = $_SESSION['user_id'];
 
-// Update height, weight, and gender
 if (isset($_POST['update_info'])) {
     $height = floatval($_POST['height']);
     $weight = floatval($_POST['weight']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     
-    // Validate height and weight
     if ($height <= 0 || $height > 3 || !is_numeric($height)) {
         die("Invalid height. Please enter a value between 0.01 and 3.00 meters.");
     }
@@ -27,7 +25,6 @@ if (isset($_POST['update_info'])) {
     $conn->query($sql);
 }
 
-// Fetch user details from the database
 $sql = "SELECT height, weight, gender FROM diet WHERE user_id = $userId";
 $result = $conn->query($sql);
 
@@ -43,7 +40,6 @@ if ($result->num_rows > 0) {
 }
 
 
-// $conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +71,7 @@ if ($result->num_rows > 0) {
                 </ul>
                 <div class="avatar-stack">
                     <div class="avatar">
-                      <img src="./assets/profile2.jpg" alt="Remy Sharp">
+                    <a href="platinum.php"><img src="./assets/profile2.jpg" alt="Remy Sharp"></a>
                     </div>
                   </div>
             </div>
@@ -169,18 +165,13 @@ if ($result->num_rows > 0) {
             <h1>BMI Calculator</h1>
             <div class="container2">
             <form action="diet.php" method="post">
-                <!-- <button name="bmi" onclick="calculateBMI()">Calculate BMI</button> -->
                 <button name="bmi">Calculate BMI</button>
 </form>
-                <!-- <div id="result"></div>
-                <div id="analysis"></div> -->
                 <?php 
                 if (isset($_POST['bmi'])) {
                 if ($weight > 0 && $height > 0) {
-    // Calculate BMI
     $bmi = round($weight / ($height * $height), 2);
 
-    // Determine the category and analysis based on BMI and gender
     if ($gender === 'male') {
         if ($bmi < 20) {
             $category = 'Underweight';
@@ -211,12 +202,10 @@ if ($result->num_rows > 0) {
         }
     }
 } else {
-    // If the data is not valid, set the result to a default message
     $bmi = 'Invalid weight or height.';
     $category = '';
     $analysis = '';
 }
-// Output the result
 echo "<div id='result'><strong>Your BMI is:</strong> $bmi - $category</div>";
 echo "<div id='analysis'>$analysis</div>";
 $sql = "UPDATE diet SET bmi = '$bmi' WHERE user_id = $userId";

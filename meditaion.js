@@ -12,7 +12,7 @@ const progressRing = document.querySelector('.progress');
         progressRing.style.strokeDasharray = CIRCUMFERENCE;
         progressRing.style.strokeDashoffset = 0;
 
-        let timeLeft = 60; // Default 1 minute
+        let timeLeft = 60;
         let totalTime = 60;
         let timerId = null;
         let isRunning = false;
@@ -47,7 +47,7 @@ const progressRing = document.querySelector('.progress');
 
         function startTimer() {
             if (!isRunning) {
-                if (!timerId) { // New timer start
+                if (!timerId) {
                     timeLeft = parseTimeInput(timeInput.value);
                     totalTime = timeLeft;
                 }
@@ -91,12 +91,10 @@ const progressRing = document.querySelector('.progress');
             audio.currentTime = 0;
         }
 
-        // Time input validation and formatting
         timeInput.addEventListener('input', function(e) {
             let value = e.target.value.replace(/[^\d:]/g, '');
             if (value.length > 8) value = value.substr(0, 8);
             
-            // Format as XX:XX:XX
             const parts = value.split(':');
             if (parts.length > 3) parts.length = 3;
             
@@ -130,11 +128,9 @@ const progressRing = document.querySelector('.progress');
             }
         });
 
-        // Update current time every second
         setInterval(updateCurrentTime, 1000);
         updateCurrentTime();
 
-        // Initial progress ring setup
         updateProgress(60);
         document.addEventListener('DOMContentLoaded', function () {
             const backgroundSelect = document.getElementById('background-select');
@@ -142,14 +138,13 @@ const progressRing = document.querySelector('.progress');
             backgroundSelect.addEventListener('change', function () {
                 const selectedBackground = backgroundSelect.value;
         
-                // Set the body's background image based on selection, or clear it if none is selected
                 if (selectedBackground) {
                     document.body.style.backgroundImage = `url('${selectedBackground}')`;
                     document.body.style.backgroundSize = 'cover';
                     document.body.style.backgroundRepeat = 'no-repeat';
                     document.body.style.backgroundPosition = 'center';
                 } else {
-                    document.body.style.backgroundImage = ''; // Clear background
+                    document.body.style.backgroundImage = ''; 
                 }
             });
         });

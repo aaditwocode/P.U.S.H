@@ -113,17 +113,24 @@ DELIMITER ;
 CREATE TABLE Diet (
     diet_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    diet_type ENUM('veg', 'non-veg') DEFAULT NULL,
+--     diet_type ENUM('veg', 'non-veg') DEFAULT NULL,
     weight DECIMAL(5, 2) DEFAULT NULL,
     height DECIMAL(5, 2) DEFAULT NULL,
     gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
     bmi DECIMAL(5, 2) DEFAULT NULL,
+--     calorietrackerstartdate DATE DEFAULT NULL,
+--     calorietrackerend_date DATE GENERATED ALWAYS AS (DATE_ADD(calorietrackerstartdate, INTERVAL 1 MONTH)) VIRTUAL,
+--     daily_calorie_goal INT DEFAULT 0,
+--     monthlycaloriegoal INT GENERATED ALWAYS AS (daily_calorie_goal * 30) VIRTUAL,
+--     progress INT DEFAULT 0,
+--     remainingcalories INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Wellness (
     wellness_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
+--     meditation_time INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
@@ -166,8 +173,8 @@ BEGIN
             VALUES (NEW.user_id);
         END IF;
         IF plan_name1 = 'Diamond' THEN
-            INSERT INTO Wellness (user_id, meditation_time)
-            VALUES (NEW.user_id, 0);
+            INSERT INTO Wellness (user_id)
+            VALUES (NEW.user_id);
         END IF;
         INSERT INTO Workout (user_id, description)
         VALUES (NEW.user_id, 'Initial workout session');

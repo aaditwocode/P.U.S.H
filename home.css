@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 h2 {
     margin: 0;
     font-family: "Protest Guerrilla", sans-serif;
     font-size: 35px;
     font-weight: lighter;
 }
-h1{
+
+h1 {
     font-family: "Protest Guerrilla", sans-serif;
     font-size: 42px;
     font-weight: 700;
@@ -32,129 +34,130 @@ body {
 
 header {
     background: #000;
-color: white;
-padding: 1rem;
-position: relative;
-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-position: sticky;
-top: 0;
-z-index: 1000;
+    color: white;
+    padding: 1rem;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header .container0 {
-max-width: 100%;
-margin: 0 auto;
-display: flex;
-justify-content: space-between;
-align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .leftHeader {
-display: flex;
-align-items: center;
-}
-
-.leftHeader img {
-height: 50px;
-margin-right: 10px;
-}
-
-.leftHeader h2 {
-margin: 0;
-font-family: "Protest Guerrilla", sans-serif;
-font-size: 32px;
-}
-
-.rightHeader{
     display: flex;
     align-items: center;
 }
+
+.leftHeader img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.leftHeader h2 {
+    margin: 0;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 32px;
+}
+
+.rightHeader {
+    display: flex;
+    align-items: center;
+}
+
 .rightHeader ul {
-display: flex;
-list-style: none;
-margin: 0;
-padding: 0;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .rightHeader ul li {
-margin-left: 25px;
+    margin-left: 25px;
 }
 
 .rightHeader ul li a {
-color: white;
-text-decoration: none;
-font-size: 18px;
-transition: color 0.3s;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
 }
 
 .rightHeader ul li a:hover {
-color: #ffeb3b;
+    color: #ffeb3b;
 }
 
 .avatar-stack {
     display: flex;
     gap: 10px;
     padding: 10px;
-    
-  }
-  
-  .avatar img {
+
+}
+
+.avatar img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-  }
+}
 
 .video-wrapper {
-position: relative;
-width: 100%;
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: #000;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
 }
 
 .vdo {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #quote {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 3;
-	text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    text-align: center;
     font-family: "Protest Guerrilla", sans-serif;
 }
 
 #push {
-	font-size: 75px;
-	color: rgba(39, 71, 177, 0.833);
-	text-shadow: 2px 2px 4px #000000;
-	margin-bottom: 10px;
+    font-size: 75px;
+    color: rgba(39, 71, 177, 0.833);
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 10px;
     font-family: "Protest Guerrilla", sans-serif;
 }
 
 #pursue {
-	font-size: 40px;
+    font-size: 40px;
     color: rgba(39, 71, 177, 0.833);
-	text-shadow: 2px 2px 4px #000000;
-	margin-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
     font-family: "Protest Guerrilla", sans-serif;
 }
 
 
 #quote-text {
-	font-size: 30px;
+    font-size: 30px;
     color: rgb(175, 198, 28);
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     font-family: "Protest Guerrilla", sans-serif;
 }
 
@@ -175,7 +178,7 @@ footer p {
 }
 
 .reason-box {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),linear-gradient(to right, #333333, #555555, #222222);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), linear-gradient(to right, #333333, #555555, #222222);
     padding: 20px;
     border-radius: 18px;
     box-shadow: 0 12px 14px rgba(0, 0, 0, 0.4);
@@ -183,7 +186,7 @@ footer p {
     margin-bottom: 20px;
     color: black;
     position: relative;
-    height:300px;
+    height: 300px;
     transition: transform 0.5s ease;
 }
 
@@ -209,7 +212,7 @@ footer p {
 .reason-box:hover {
     box-shadow: 0 14px 18px rgba(0, 0, 0, 0.6);
     transform: scale(1.1);
-    
+
 }
 
 .reasons-container {
@@ -226,16 +229,16 @@ footer p {
     top: 5px;
     right: 5px;
     z-index: 1;
-  }
-  
-  .reason-image img {
+}
+
+.reason-image img {
     width: auto;
     height: auto;
     max-width: 100px;
     max-height: 120px;
     border-radius: 13px;
-    object-fit:contain;
-  }
+    object-fit: contain;
+}
 
 .container {
     margin: auto;
@@ -398,17 +401,17 @@ button:hover {
         gap: 30px;
     }
 }
-  
-hr{
-margin: 5px;
+
+hr {
+    margin: 5px;
 }
 
-.h{
+.h {
     padding-left: 200px;
 }
 
 
-  .pricing-container {
+.pricing-container {
     align-items: center;
     justify-content: center;
     display: flex;
@@ -472,8 +475,8 @@ margin: 5px;
     margin: 8px 0;
 }
 
-.spn{
-    
+.spn {
+
     color: #ff5851;
     margin-right: 10px;
 }
@@ -488,7 +491,7 @@ margin: 5px;
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin: 0 !important;
-   
+
 
 }
 
@@ -504,6 +507,7 @@ margin: 5px;
 .highlight .subscribe-btn:hover {
     background-color: #d9d9d9;
 }
+
 .dark-theme-features {
     display: flex;
     justify-content: center;
@@ -512,23 +516,26 @@ margin: 5px;
     color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-  }
-  .features-container {
+}
+
+.features-container {
     display: flex;
     gap: 40px;
     max-width: 1000px;
     width: 100%;
     justify-content: space-around;
     text-align: center;
-  }
-  .feature-card {
+}
+
+.feature-card {
     width: 30%;
     padding: 20px;
     background-color: #1a1a1a;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-  }
-  .feature-icon {
+}
+
+.feature-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -536,17 +543,28 @@ margin: 5px;
     height: 60px;
     margin: 0 auto 10px;
     border-radius: 50%;
-  }
-  .feature-title {
+}
+
+.feature-title {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #ffffff;
-  }
-  .feature-description {
+}
+
+.feature-description {
     font-size: 0.9em;
     color: #cccccc;
-  }
-  .feature-icon.secured { background-color: #DDEAFF; }
-  .feature-icon.fast { background-color: #5d4530; }
-  .feature-icon.light-dark { background-color: #3a6040; }
+}
+
+.feature-icon.secured {
+    background-color: #DDEAFF;
+}
+
+.feature-icon.fast {
+    background-color: #5d4530;
+}
+
+.feature-icon.light-dark {
+    background-color: #3a6040;
+}

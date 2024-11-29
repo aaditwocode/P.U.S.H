@@ -1,9 +1,9 @@
-document.querySelector('.btn').addEventListener('click', function() {
+document.querySelector('.btn').addEventListener('click', function () {
     alert('Consultation request submitted!');
 });
 
 document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector('nav a.active').classList.remove('active');
         this.classList.add('active');
@@ -27,7 +27,7 @@ function exploreService(service) {
     };
 
     const selectedService = serviceInfo[service];
-    
+
     const modal = document.createElement('div');
     modal.className = 'modal';
 
@@ -56,17 +56,17 @@ function bookMeeting(service) {
 }
 
 function redirectToWebsite() {
-    window.location.href = "https://pmc.ncbi.nlm.nih.gov/articles/PMC1525119/"; 
-  }
+    window.location.href = "https://pmc.ncbi.nlm.nih.gov/articles/PMC1525119/";
+}
 
-  function redirectToConsult() {
-    window.location.href = `/contact.html`; 
-  }
-  document.querySelectorAll('.start-meditation').forEach(button => {
-    button.addEventListener('click', function() {
+function redirectToConsult() {
+    window.location.href = `/contact.html`;
+}
+document.querySelectorAll('.start-meditation').forEach(button => {
+    button.addEventListener('click', function () {
         const meditationClass = this.getAttribute('data-class');
         alert(`Starting ${meditationClass} meditation session.`);
-        
+
         window.location.href = `/meditation.html`;
     });
 });

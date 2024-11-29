@@ -4,7 +4,6 @@ include 'config.php';
 $userId = $_GET['user_id'];
 $planId = $_GET['plan_id'];
 
-// Update Subscriptions and Users table
 $updateSubscription = "UPDATE Subscriptions SET plan_id = '$planId' WHERE user_id = '$userId'";
 $updateUser = "UPDATE Users SET plan_id = '$planId' WHERE user_id = '$userId'";
 

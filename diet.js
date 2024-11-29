@@ -69,18 +69,18 @@ let dailyCalorieGoal = 0;
 let startDate = null;
 
 function setStartDate() {
-const startDateInput = document.getElementById('start-date').value;
-if (!startDateInput) {
-alert('Please select a start date.');
-return;
-}
-startDate = new Date(startDateInput);
-totalCalories = dailyCalorieGoal * 30;
-document.getElementById('total-calories-display').innerText = totalCalories + ' kcal';
-document.getElementById('final-results').innerText = `Tracking started from ${startDateInput}. Total monthly calorie goal set to ${totalCalories} kcal.`;
-document.getElementById('results-section').style.display = 'block';
-document.getElementById('progress-section').style.display = 'block';
-updateDisplayedDates(); // Call to update the dates
+    const startDateInput = document.getElementById('start-date').value;
+    if (!startDateInput) {
+        alert('Please select a start date.');
+        return;
+    }
+    startDate = new Date(startDateInput);
+    totalCalories = dailyCalorieGoal * 30;
+    document.getElementById('total-calories-display').innerText = totalCalories + ' kcal';
+    document.getElementById('final-results').innerText = `Tracking started from ${startDateInput}. Total monthly calorie goal set to ${totalCalories} kcal.`;
+    document.getElementById('results-section').style.display = 'block';
+    document.getElementById('progress-section').style.display = 'block';
+    updateDisplayedDates();
 }
 
 function setDailyCalorieGoal() {
@@ -96,12 +96,12 @@ function setDailyCalorieGoal() {
     document.getElementById('progress-bar').style.width = progressPercent + '%';
     document.getElementById('progress-text').innerText = 'Progress: ' + Math.floor(progressPercent) + '%';
     document.getElementById('final-results').innerText = `Daily calorie goal updated to ${dailyCalorieGoal} kcal. Monthly calorie goal is now ${totalCalories} kcal. Progress has been recalculated.`;
-    
-    const remainingCalories = totalCalories - consumedCalories; // Update remaining calories
-    document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${remainingCalories} kcal`; // Display updated remaining calories
+
+    const remainingCalories = totalCalories - consumedCalories;
+    document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${remainingCalories} kcal`;
 
     alert(`Daily calorie goal set to ${dailyCalorieGoal} kcal. Monthly calorie goal updated to ${totalCalories} kcal. Progress has been recalculated.`);
-    updateDisplayedDates(); // Call to update the dates
+    updateDisplayedDates();
 }
 
 function calculateNextMonthDate(currentDate) {
@@ -111,49 +111,49 @@ function calculateNextMonthDate(currentDate) {
 }
 
 function checkAndResetProgress() {
-const currentDate = new Date();
-const monthDiff = currentDate.getMonth() - startDate.getMonth() +
-(12 * (currentDate.getFullYear() - startDate.getFullYear()));
-if (monthDiff >= 1) { 
-const progressPercent = (consumedCalories / totalCalories) * 100;
-document.getElementById('tracking-results').innerText = `A month has passed. Final tracking results before reset:\n
+    const currentDate = new Date();
+    const monthDiff = currentDate.getMonth() - startDate.getMonth() +
+        (12 * (currentDate.getFullYear() - startDate.getFullYear()));
+    if (monthDiff >= 1) {
+        const progressPercent = (consumedCalories / totalCalories) * 100;
+        document.getElementById('tracking-results').innerText = `A month has passed. Final tracking results before reset:\n
 - Start Date: ${startDate.toDateString()}\n
 - Current Date: ${currentDate.toDateString()}\n
 - Total Consumed: ${consumedCalories} kcal\n
 - Total Calorie Goal: ${totalCalories} kcal\n
 - Progress Achieved: ${Math.floor(progressPercent)}%`;
-document.getElementById('reset-section').style.display = 'block'; 
-resetProgress();
-startDate = calculateNextMonthDate(startDate);
-totalCalories = dailyCalorieGoal * 30; // Update total calories for the new month
-document.getElementById('total-calories-display').innerText = totalCalories + ' kcal'; // Display new total calories
-document.getElementById('new-tracking-period').innerText = `New tracking period started from ${startDate.toDateString()}.`;
-document.getElementById('final-results').innerText = `Tracking restarted from ${startDate.toDateString()}. Total monthly calorie goal is now ${totalCalories} kcal.`;
-}
+        document.getElementById('reset-section').style.display = 'block';
+        resetProgress();
+        startDate = calculateNextMonthDate(startDate);
+        totalCalories = dailyCalorieGoal * 30;
+        document.getElementById('total-calories-display').innerText = totalCalories + ' kcal';
+        document.getElementById('new-tracking-period').innerText = `New tracking period started from ${startDate.toDateString()}.`;
+        document.getElementById('final-results').innerText = `Tracking restarted from ${startDate.toDateString()}. Total monthly calorie goal is now ${totalCalories} kcal.`;
+    }
 }
 function updateDisplayedDates() {
-document.getElementById('current-date-display').innerText = new Date().toDateString();
-if (startDate) {
-document.getElementById('start-date-display').innerText = startDate.toDateString();
-} else {
-document.getElementById('start-date-display').innerText = 'Not set';
-}
+    document.getElementById('current-date-display').innerText = new Date().toDateString();
+    if (startDate) {
+        document.getElementById('start-date-display').innerText = startDate.toDateString();
+    } else {
+        document.getElementById('start-date-display').innerText = 'Not set';
+    }
 }
 function addCalories() {
-checkAndResetProgress();
-const caloriesInput = document.getElementById('calories-consumed').value;
-if (caloriesInput === '' || isNaN(caloriesInput)) {
-alert('Please enter a valid number of calories.');
-return;
-}
-const calories = parseInt(caloriesInput);
-consumedCalories += calories;
-const progressPercent = (consumedCalories / totalCalories) * 100;
-document.getElementById('progress-bar').style.width = progressPercent + '%';
-document.getElementById('progress-text').innerText = 'Progress: ' + Math.floor(progressPercent) + '%';
-const remainingCalories = totalCalories - consumedCalories;
-document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${remainingCalories} kcal`;
-updateDisplayedDates(); // Call to update the dates
+    checkAndResetProgress();
+    const caloriesInput = document.getElementById('calories-consumed').value;
+    if (caloriesInput === '' || isNaN(caloriesInput)) {
+        alert('Please enter a valid number of calories.');
+        return;
+    }
+    const calories = parseInt(caloriesInput);
+    consumedCalories += calories;
+    const progressPercent = (consumedCalories / totalCalories) * 100;
+    document.getElementById('progress-bar').style.width = progressPercent + '%';
+    document.getElementById('progress-text').innerText = 'Progress: ' + Math.floor(progressPercent) + '%';
+    const remainingCalories = totalCalories - consumedCalories;
+    document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${remainingCalories} kcal`;
+    updateDisplayedDates(); // Call to update the dates
 }
 function resetProgress() {
     consumedCalories = 0;
@@ -162,8 +162,8 @@ function resetProgress() {
     document.getElementById('remaining-calories-display').innerText = `Remaining Calories for the Month: ${totalCalories} kcal`;
     alert('Calorie progress has been reset.');
 }
-window.onload = function() {
-updateDisplayedDates();
+window.onload = function () {
+    updateDisplayedDates();
 };
 
 class MealPlan {

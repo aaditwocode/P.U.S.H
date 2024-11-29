@@ -1,6 +1,6 @@
 import { exerciseOptions } from './utils/exerciseOptions.js';
 import { fetchData } from './utils/fetchData.js';
-const Icon = './assets/diet.jpg'; 
+const Icon = './assets/diet.jpg';
 
 const bodyPartImages = {
   all: './assets/equipment.png',
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const leftArrowButton = document.querySelector('.left-arrow');
   const rightArrowButton = document.querySelector('.right-arrow');
   const exerciseCardsContainer = document.querySelector('.exercise-cards');
-  
+
   let bodyParts = [];
   let selectedBodyPart = 'all';
   let exercises = [];
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const populateScrollMenu = (data) => {
-    scrollMenu.innerHTML = ''; 
+    scrollMenu.innerHTML = '';
     data.forEach((item) => {
       const cardDiv = document.createElement('div');
       cardDiv.classList.add('bodyPart-card');
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelector('.left-arrow').addEventListener('click', () => {
-    scrollMenu.scrollLeft -= 300; 
+    scrollMenu.scrollLeft -= 300;
   });
 
   document.querySelector('.right-arrow').addEventListener('click', () => {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.bodyPart-card').forEach(card => card.classList.remove('active'));
     cardDiv.classList.add('active');
 
-    loadExercisesData(selectedBodyPart); 
+    loadExercisesData(selectedBodyPart);
   };
 
   const loadExercisesData = async (bodyPart, searchTerm = '') => {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions);
     }
 
-    exercises = exercisesData; 
+    exercises = exercisesData;
     filteredExercises = exercises.filter(exercise => {
       return (
         exercise.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderExercises = () => {
-    exerciseCardsContainer.innerHTML = ''; 
+    exerciseCardsContainer.innerHTML = '';
 
     const indexOfLastExercise = currentPage * exercisesPerPage;
     const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
@@ -148,12 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   fetchExercisesData();
-  
+
   searchButton.addEventListener('click', () => {
     const search = searchInput.value.trim();
     if (search) {
       loadExercisesData(selectedBodyPart, search);
-      searchInput.value = ''; 
+      searchInput.value = '';
     }
   });
 });

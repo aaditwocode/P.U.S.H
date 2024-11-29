@@ -118,16 +118,17 @@ h3 {
     color: #4CAF4F;
     text-decoration: none;
 }
+
 .input-group input[type="date"] {
-    color: #ffffff; /* Text color */
-    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid #444444;
     padding: 10px;
     border-radius: 8px;
 }
 
 .input-group input[type="date"]::-webkit-calendar-picker-indicator {
-    background-color: #4CAF4F; /* Change calendar icon background color */
+    background-color: #4CAF4F;
     border-radius: 50%;
     padding: 5px;
 }
